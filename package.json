@@ -1,0 +1,11 @@
+{
+  "name": "aula-pronta-ia-monorepo",
+  "private": true,
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0"
+  }
+}

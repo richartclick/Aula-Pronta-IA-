@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx *)",
+      "Bash(pnpm *)",
+      "Bash(git *)",
+      "Bash(docker *)",
+      "Read(//c/Users/elain/OneDrive/Desktop/API de extensão _ API de extensão do Visual Studio Code_files/**)",
+      "Read(//c/Users/elain/OneDrive/Desktop/**)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledPlugins": {
+    "frontend-design@claude-code-marketplace": true
+  },
+  "extraKnownMarketplaces": {
+    "n8n-skills": {
+      "source": {
+        "source": "github",
+        "repo": "czlonkowski/n8n-skills"
+      }
+    }
+  }
+}
