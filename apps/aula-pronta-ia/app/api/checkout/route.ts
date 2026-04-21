@@ -1,14 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2026-03-25.dahlia" });
-
-const PRICE_IDS: Record<string, string> = {
-  basico: process.env.STRIPE_PRICE_BASICO!,
-  premium: process.env.STRIPE_PRICE_PREMIUM!,
-};
+export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2026-03-25.dahlia" });
+
+  const PRICE_IDS: Record<string, string> = {
+    basico: process.env.STRIPE_PRICE_BASICO!,
+    premium: process.env.STRIPE_PRICE_PREMIUM!,
+  };
+
   const { plano, email } = await req.json();
 
   const priceId = PRICE_IDS[plano];
