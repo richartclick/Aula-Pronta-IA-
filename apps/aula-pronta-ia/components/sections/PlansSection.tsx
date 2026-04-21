@@ -17,7 +17,7 @@ const plans = [
   },
   {
     name: "Básico",
-    price: "R$ 19,90",
+    price: "R$ 29,90",
     period: "por mês",
     color: "border-blue-500 ring-2 ring-blue-500",
     badge: "Mais popular",
@@ -35,7 +35,7 @@ const plans = [
   },
   {
     name: "Premium",
-    price: "R$ 29,90",
+    price: "R$ 39,90",
     period: "por mês",
     color: "border-yellow-400",
     badge: "Completo",

@@ -1,0 +1,396 @@
+{
+  "name": "Aula Pronta IA — Leads & Follow-up Automático",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "aula-pronta-ia-leads",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-lead",
+      "name": "Webhook — Recebe Lead",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: true }) }}"
+      },
+      "id": "respond-lead",
+      "name": "Responde OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [460, 160]
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list"
+        },
+        "table": {
+          "__rl": true,
+          "value": "leads",
+          "mode": "list"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nome": "={{ $json.body.nome }}",
+            "email": "={{ $json.body.email }}",
+            "whatsapp": "={{ $json.body.whatsapp }}",
+            "plano_interesse": "={{ $json.body.plano || 'gratuito' }}",
+            "origem": "={{ $json.body.origem || 'landing-page' }}",
+            "status": "novo"
+          },
+          "matchingColumns": ["email"],
+          "schema": []
+        }
+      },
+      "id": "supabase-save-lead",
+      "name": "Supabase — Salva Lead",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [460, 300],
+      "credentials": {
+        "supabaseApi": { "id": "SUPABASE_CRED_ID", "name": "Supabase — Aula Pronta IA" }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@aulaprontaia.com.br",
+        "toEmail": "={{ $('Webhook — Recebe Lead').item.json.body.email }}",
+        "subject": "={{ $('Webhook — Recebe Lead').item.json.body.nome }}, seu acesso está quase pronto! 🎓",
+        "emailType": "html",
+        "message": "=<html><body style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8fafc;\">\n<div style=\"background: linear-gradient(135deg, #2563eb, #4f46e5); padding: 40px 32px; border-radius: 16px 16px 0 0; text-align: center;\">\n  <h1 style=\"color: white; font-size: 28px; margin: 0;\">⚡ Aula Pronta IA</h1>\n  <p style=\"color: #bfdbfe; margin-top: 8px;\">Olá, {{ $('Webhook — Recebe Lead').item.json.body.nome }}!</p>\n</div>\n<div style=\"background: white; padding: 32px; border-radius: 0 0 16px 16px; border: 1px solid #e2e8f0;\">\n  <h2 style=\"color: #0f172a;\">Seu acesso está quase pronto! 🎉</h2>\n  <p style=\"color: #475569; line-height: 1.6;\">Você se cadastrou para receber <strong>{{ $('Webhook — Recebe Lead').item.json.body.plano === 'gratuito' ? '5 aulas gratuitas por mês' : 'acesso ilimitado' }}</strong> na plataforma que cria planos de aula completos em segundos.</p>\n  \n  <div style=\"background: #eff6ff; border-radius: 12px; padding: 20px; margin: 24px 0;\">\n    <p style=\"color: #1e40af; font-weight: bold; margin: 0 0 8px;\">✨ O que você vai poder fazer:</p>\n    <ul style=\"color: #3b82f6; margin: 0; padding-left: 20px; line-height: 1.8;\">\n      <li>Gerar aulas completas com objetivos, BNCC e atividades</li>\n      <li>Baixar em PDF pronto para imprimir</li>\n      <li>Criar aulas para qualquer série e disciplina</li>\n    </ul>\n  </div>\n  \n  <div style=\"text-align: center; margin: 32px 0;\">\n    <a href=\"https://aulaprontaia.com.br/registro\" style=\"background: linear-gradient(135deg, #2563eb, #4f46e5); color: white; padding: 16px 40px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 16px;\">👉 Criar minha conta agora</a>\n  </div>\n  \n  <p style=\"color: #94a3b8; font-size: 12px; text-align: center;\">Se você não se cadastrou, ignore este email.</p>\n</div>\n</body></html>"
+      },
+      "id": "email-boas-vindas",
+      "name": "Email — Boas-vindas",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [460, 440],
+      "credentials": {
+        "smtp": { "id": "SMTP_CRED_ID", "name": "Gmail — Elaine" }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "days"
+      },
+      "id": "wait-1day",
+      "name": "Aguarda 1 dia",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": false },
+          "conditions": [
+            {
+              "id": "check-convertido",
+              "leftValue": "={{ $('Supabase — Verifica Conversão D1').item.json.convertido }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "equals" }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "if-convertido-d1",
+      "name": "Já criou conta? (D+1)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1020, 300]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "schema": { "__rl": true, "value": "public", "mode": "list" },
+        "table": { "__rl": true, "value": "leads", "mode": "list" },
+        "filters": {
+          "conditions": [
+            { "keyName": "email", "condition": "eq", "keyValue": "={{ $('Webhook — Recebe Lead').item.json.body.email }}" }
+          ]
+        },
+        "limit": 1
+      },
+      "id": "supabase-check-d1",
+      "name": "Supabase — Verifica Conversão D1",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [840, 300],
+      "credentials": {
+        "supabaseApi": { "id": "SUPABASE_CRED_ID", "name": "Supabase — Aula Pronta IA" }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@aulaprontaia.com.br",
+        "toEmail": "={{ $('Webhook — Recebe Lead').item.json.body.email }}",
+        "subject": "Oi {{ $('Webhook — Recebe Lead').item.json.body.nome }}, liberamos seu acesso! 👀",
+        "emailType": "html",
+        "message": "=<html><body style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;\">\n<div style=\"background: linear-gradient(135deg, #2563eb, #4f46e5); padding: 32px; border-radius: 16px 16px 0 0; text-align: center;\">\n  <h1 style=\"color: white; font-size: 24px; margin: 0;\">⚡ Ainda não criou sua conta?</h1>\n</div>\n<div style=\"background: white; padding: 32px; border-radius: 0 0 16px 16px; border: 1px solid #e2e8f0;\">\n  <p style=\"color: #0f172a; font-size: 18px;\">Oi, <strong>{{ $('Webhook — Recebe Lead').item.json.body.nome }}</strong>! 👋</p>\n  <p style=\"color: #475569; line-height: 1.6;\">Você se cadastrou ontem mas ainda não criou sua conta. Seus <strong>5 créditos gratuitos</strong> estão esperando por você!</p>\n  \n  <div style=\"background: #fef3c7; border-radius: 12px; padding: 16px; margin: 20px 0; border-left: 4px solid #f59e0b;\">\n    <p style=\"color: #92400e; margin: 0; font-weight: bold;\">⏰ Não perca seus créditos gratuitos!</p>\n    <p style=\"color: #78350f; margin: 8px 0 0;\">Crie sua conta agora e gere sua primeira aula em menos de 30 segundos.</p>\n  </div>\n  \n  <div style=\"text-align: center; margin: 28px 0;\">\n    <a href=\"https://aulaprontaia.com.br/registro\" style=\"background: #16a34a; color: white; padding: 16px 40px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 16px;\">✅ Criar conta grátis agora</a>\n  </div>\n</div>\n</body></html>"
+      },
+      "id": "email-followup-d1",
+      "name": "Email — Follow-up D+1",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1220, 420],
+      "credentials": {
+        "smtp": { "id": "SMTP_CRED_ID", "name": "Gmail — Elaine" }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 2,
+        "unit": "days"
+      },
+      "id": "wait-2days",
+      "name": "Aguarda mais 2 dias",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [1420, 420]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "schema": { "__rl": true, "value": "public", "mode": "list" },
+        "table": { "__rl": true, "value": "leads", "mode": "list" },
+        "filters": {
+          "conditions": [
+            { "keyName": "email", "condition": "eq", "keyValue": "={{ $('Webhook — Recebe Lead').item.json.body.email }}" }
+          ]
+        },
+        "limit": 1
+      },
+      "id": "supabase-check-d3",
+      "name": "Supabase — Verifica Conversão D3",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [1580, 420],
+      "credentials": {
+        "supabaseApi": { "id": "SUPABASE_CRED_ID", "name": "Supabase — Aula Pronta IA" }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "conditions": [
+            {
+              "id": "check-d3",
+              "leftValue": "={{ $('Supabase — Verifica Conversão D3').item.json.convertido }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "equals" }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "if-convertido-d3",
+      "name": "Já criou conta? (D+3)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1760, 420]
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@aulaprontaia.com.br",
+        "toEmail": "={{ $('Webhook — Recebe Lead').item.json.body.email }}",
+        "subject": "Um presente para você, {{ $('Webhook — Recebe Lead').item.json.body.nome }} 🎁",
+        "emailType": "html",
+        "message": "=<html><body style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;\">\n<div style=\"background: linear-gradient(135deg, #7c3aed, #ec4899); padding: 32px; border-radius: 16px 16px 0 0; text-align: center;\">\n  <h1 style=\"color: white; font-size: 24px; margin: 0;\">🎁 Um presente especial para você</h1>\n</div>\n<div style=\"background: white; padding: 32px; border-radius: 0 0 16px 16px; border: 1px solid #e2e8f0;\">\n  <p style=\"color: #0f172a; font-size: 18px;\">Oi, <strong>{{ $('Webhook — Recebe Lead').item.json.body.nome }}</strong>!</p>\n  <p style=\"color: #475569; line-height: 1.6;\">Preparamos um exemplo de aula gerada pela nossa IA para você ver o que está esperando por você:</p>\n  \n  <div style=\"background: #f0fdf4; border-radius: 12px; padding: 20px; margin: 20px 0; border: 1px solid #bbf7d0;\">\n    <p style=\"color: #166534; font-weight: bold; margin: 0 0 12px;\">📚 Exemplo: Aula de Frações — 5º Ano (45min)</p>\n    <ul style=\"color: #15803d; line-height: 2; margin: 0; padding-left: 20px;\">\n      <li>✓ Objetivos alinhados à BNCC</li>\n      <li>✓ 3 etapas de desenvolvimento detalhadas</li>\n      <li>✓ 2 atividades (individual + grupo)</li>\n      <li>✓ Avaliação formativa e somativa</li>\n      <li>✓ Dicas práticas para a professora</li>\n      <li>✓ Download em PDF</li>\n    </ul>\n  </div>\n  \n  <p style=\"color: #475569;\">A IA cria tudo isso em <strong>menos de 10 segundos</strong>. Imagine economizar 2h de planejamento toda semana! 🤩</p>\n  \n  <div style=\"text-align: center; margin: 28px 0;\">\n    <a href=\"https://aulaprontaia.com.br/registro\" style=\"background: linear-gradient(135deg, #7c3aed, #ec4899); color: white; padding: 16px 40px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 16px;\">✨ Quero criar minhas aulas assim!</a>\n  </div>\n</div>\n</body></html>"
+      },
+      "id": "email-followup-d3",
+      "name": "Email — Follow-up D+3 (exemplo)",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1960, 540],
+      "credentials": {
+        "smtp": { "id": "SMTP_CRED_ID", "name": "Gmail — Elaine" }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 4,
+        "unit": "days"
+      },
+      "id": "wait-4days",
+      "name": "Aguarda mais 4 dias",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [2160, 540]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "schema": { "__rl": true, "value": "public", "mode": "list" },
+        "table": { "__rl": true, "value": "leads", "mode": "list" },
+        "filters": {
+          "conditions": [
+            { "keyName": "email", "condition": "eq", "keyValue": "={{ $('Webhook — Recebe Lead').item.json.body.email }}" }
+          ]
+        },
+        "limit": 1
+      },
+      "id": "supabase-check-d7",
+      "name": "Supabase — Verifica Conversão D7",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [2320, 540],
+      "credentials": {
+        "supabaseApi": { "id": "SUPABASE_CRED_ID", "name": "Supabase — Aula Pronta IA" }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "conditions": [
+            {
+              "id": "check-d7",
+              "leftValue": "={{ $('Supabase — Verifica Conversão D7').item.json.convertido }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "equals" }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "if-convertido-d7",
+      "name": "Já criou conta? (D+7)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [2480, 540]
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@aulaprontaia.com.br",
+        "toEmail": "={{ $('Webhook — Recebe Lead').item.json.body.email }}",
+        "subject": "{{ $('Webhook — Recebe Lead').item.json.body.nome }}, última chance — oferta especial 🎯",
+        "emailType": "html",
+        "message": "=<html><body style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;\">\n<div style=\"background: #dc2626; padding: 32px; border-radius: 16px 16px 0 0; text-align: center;\">\n  <h1 style=\"color: white; font-size: 24px; margin: 0;\">⏰ Última chance — oferta especial</h1>\n</div>\n<div style=\"background: white; padding: 32px; border-radius: 0 0 16px 16px; border: 1px solid #e2e8f0;\">\n  <p style=\"color: #0f172a; font-size: 18px;\"><strong>{{ $('Webhook — Recebe Lead').item.json.body.nome }}</strong>, você está perdendo muito tempo planejando aulas...</p>\n  \n  <div style=\"background: #fef2f2; border-radius: 12px; padding: 20px; margin: 20px 0; border-left: 4px solid #dc2626;\">\n    <p style=\"color: #991b1b; font-weight: bold; margin: 0;\">⏰ Quantas horas você gasta por semana planejando aulas?</p>\n    <p style=\"color: #7f1d1d; margin: 8px 0 0;\">Com a Aula Pronta IA, isso se torna 10 segundos. Não 10 minutos. 10 <em>segundos</em>.</p>\n  </div>\n  \n  <p style=\"color: #475569; line-height: 1.6;\">Começou com <strong>acesso grátis</strong>. Ainda está esperando o quê?</p>\n  \n  <div style=\"text-align: center; margin: 28px 0;\">\n    <a href=\"https://aulaprontaia.com.br/registro\" style=\"background: #dc2626; color: white; padding: 16px 40px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 16px;\">🚀 Começar agora — é grátis</a>\n  </div>\n  \n  <p style=\"color: #94a3b8; font-size: 12px; text-align: center; margin-top: 24px;\">Para cancelar emails: <a href=\"#\" style=\"color: #94a3b8;\">clique aqui</a></p>\n</div>\n</body></html>"
+      },
+      "id": "email-followup-d7",
+      "name": "Email — Follow-up D+7 (urgência)",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [2680, 660],
+      "credentials": {
+        "smtp": { "id": "SMTP_CRED_ID", "name": "Gmail — Elaine" }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": { "__rl": true, "value": "public", "mode": "list" },
+        "table": { "__rl": true, "value": "leads", "mode": "list" },
+        "filters": {
+          "conditions": [
+            { "keyName": "email", "condition": "eq", "keyValue": "={{ $('Webhook — Recebe Lead').item.json.body.email }}" }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ultimo_contato": "={{ new Date().toISOString() }}"
+          }
+        }
+      },
+      "id": "supabase-update-contato",
+      "name": "Supabase — Atualiza último contato",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [2680, 780],
+      "credentials": {
+        "supabaseApi": { "id": "SUPABASE_CRED_ID", "name": "Supabase — Aula Pronta IA" }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "richartclick@gmail.com",
+        "toEmail": "richartclick@gmail.com",
+        "subject": "🔔 Novo lead: {{ $('Webhook — Recebe Lead').item.json.body.nome }} ({{ $('Webhook — Recebe Lead').item.json.body.plano }})",
+        "emailType": "html",
+        "message": "=<html><body style=\"font-family: Arial, sans-serif;\">\n<h2>Novo lead cadastrado! 🎉</h2>\n<table style=\"border-collapse: collapse; width: 100%;\">\n  <tr><td style=\"padding: 8px; border: 1px solid #e2e8f0;\"><strong>Nome</strong></td><td style=\"padding: 8px; border: 1px solid #e2e8f0;\">{{ $('Webhook — Recebe Lead').item.json.body.nome }}</td></tr>\n  <tr><td style=\"padding: 8px; border: 1px solid #e2e8f0;\"><strong>Email</strong></td><td style=\"padding: 8px; border: 1px solid #e2e8f0;\">{{ $('Webhook — Recebe Lead').item.json.body.email }}</td></tr>\n  <tr><td style=\"padding: 8px; border: 1px solid #e2e8f0;\"><strong>WhatsApp</strong></td><td style=\"padding: 8px; border: 1px solid #e2e8f0;\">{{ $('Webhook — Recebe Lead').item.json.body.whatsapp }}</td></tr>\n  <tr><td style=\"padding: 8px; border: 1px solid #e2e8f0;\"><strong>Plano interesse</strong></td><td style=\"padding: 8px; border: 1px solid #e2e8f0;\">{{ $('Webhook — Recebe Lead').item.json.body.plano }}</td></tr>\n  <tr><td style=\"padding: 8px; border: 1px solid #e2e8f0;\"><strong>Data</strong></td><td style=\"padding: 8px; border: 1px solid #e2e8f0;\">{{ new Date().toLocaleString('pt-BR') }}</td></tr>\n</table>\n</body></html>"
+      },
+      "id": "email-notif-admin",
+      "name": "Email — Notifica Elaine (admin)",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [460, 580],
+      "credentials": {
+        "smtp": { "id": "SMTP_CRED_ID", "name": "Gmail — Elaine" }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook — Recebe Lead": {
+      "main": [[
+        { "node": "Responde OK", "type": "main", "index": 0 },
+        { "node": "Supabase — Salva Lead", "type": "main", "index": 0 }
+      ]]
+    },
+    "Supabase — Salva Lead": {
+      "main": [[
+        { "node": "Email — Boas-vindas", "type": "main", "index": 0 },
+        { "node": "Email — Notifica Elaine (admin)", "type": "main", "index": 0 },
+        { "node": "Aguarda 1 dia", "type": "main", "index": 0 }
+      ]]
+    },
+    "Aguarda 1 dia": {
+      "main": [[{ "node": "Supabase — Verifica Conversão D1", "type": "main", "index": 0 }]]
+    },
+    "Supabase — Verifica Conversão D1": {
+      "main": [[{ "node": "Já criou conta? (D+1)", "type": "main", "index": 0 }]]
+    },
+    "Já criou conta? (D+1)": {
+      "main": [
+        [],
+        [{ "node": "Email — Follow-up D+1", "type": "main", "index": 0 }]
+      ]
+    },
+    "Email — Follow-up D+1": {
+      "main": [[{ "node": "Aguarda mais 2 dias", "type": "main", "index": 0 }]]
+    },
+    "Aguarda mais 2 dias": {
+      "main": [[{ "node": "Supabase — Verifica Conversão D3", "type": "main", "index": 0 }]]
+    },
+    "Supabase — Verifica Conversão D3": {
+      "main": [[{ "node": "Já criou conta? (D+3)", "type": "main", "index": 0 }]]
+    },
+    "Já criou conta? (D+3)": {
+      "main": [
+        [],
+        [{ "node": "Email — Follow-up D+3 (exemplo)", "type": "main", "index": 0 }]
+      ]
+    },
+    "Email — Follow-up D+3 (exemplo)": {
+      "main": [[{ "node": "Aguarda mais 4 dias", "type": "main", "index": 0 }]]
+    },
+    "Aguarda mais 4 dias": {
+      "main": [[{ "node": "Supabase — Verifica Conversão D7", "type": "main", "index": 0 }]]
+    },
+    "Supabase — Verifica Conversão D7": {
+      "main": [[{ "node": "Já criou conta? (D+7)", "type": "main", "index": 0 }]]
+    },
+    "Já criou conta? (D+7)": {
+      "main": [
+        [],
+        [
+          { "node": "Email — Follow-up D+7 (urgência)", "type": "main", "index": 0 },
+          { "node": "Supabase — Atualiza último contato", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "staticData": null,
+  "tags": [{ "name": "aula-pronta-ia" }]
+}

@@ -1,0 +1,151 @@
+{
+  "name": "Aula Pronta IA — Gerar Aula",
+  "meta": {
+    "instanceId": "aula-pronta-ia-workflow"
+  },
+  "versionId": "1a2b3c4d-0000-0000-0000-aula00000001",
+  "id": "1a2b3c4d-0000-0000-0000-aula00000002",
+  "active": false,
+  "tags": [],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "nodes": [
+    {
+      "id": "1a2b3c4d-0000-0000-0000-node00000001",
+      "name": "Receber Dados",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "1a2b3c4d-0000-0000-0000-hook00000001",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "gerar-aula",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "1a2b3c4d-0000-0000-0000-node00000002",
+      "name": "Montar Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [500, 300],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const body = $input.first().json.body;\n\nconst tema = (body.tema || '').trim();\nconst serie = (body.serie || '').trim();\nconst duracao = (body.duracao || '').trim();\nconst disciplina = (body.disciplina || '').trim();\nconst estilo = (body.estilo || 'dinâmico e interativo').trim();\nconst observacoes = (body.observacoes || '').trim();\n\nif (!tema || !serie || !duracao || !disciplina) {\n  throw new Error('Campos obrigatórios ausentes: tema, serie, duracao, disciplina');\n}\n\nconst prompt = `Você é um especialista em educação brasileira com domínio da BNCC. Crie um plano de aula COMPLETO e DETALHADO para:\\n- Tema: ${tema}\\n- Série/Turma: ${serie}\\n- Disciplina: ${disciplina}\\n- Duração: ${duracao}\\n- Estilo: ${estilo}${observacoes ? '\\n- Observações da professora: ' + observacoes : ''}\\n\\nRetorne APENAS um JSON válido (sem markdown, sem explicações) com esta estrutura exata:\\n{\\n  \"titulo\": \"título criativo e específico para esta aula\",\\n  \"bncc\": [\"código BNCC real\", \"outro código\"],\\n  \"objetivos\": [\"objetivo 1 com verbo de ação\", \"objetivo 2\", \"objetivo 3\"],\\n  \"pergunta_norteadora\": \"pergunta provocadora que conecta o tema com a realidade do aluno\",\\n  \"contextualizacao\": \"parágrafo conectando o tema com o cotidiano dos alunos\",\\n  \"introducao\": {\\n    \"duracao\": \"X minutos\",\\n    \"descricao\": \"como iniciar a aula de forma envolvente\",\\n    \"dica_professor\": \"dica prática para a professora\"\\n  },\\n  \"desenvolvimento\": [\\n    {\\n      \"etapa\": \"nome da etapa\",\\n      \"duracao\": \"X minutos\",\\n      \"descricao\": \"o que fazer nesta etapa\",\\n      \"perguntas_mediacao\": [\"pergunta 1\", \"pergunta 2\"],\\n      \"dica_professor\": \"dica para esta etapa\"\\n    }\\n  ],\\n  \"atividades\": [\\n    {\\n      \"titulo\": \"nome da atividade\",\\n      \"tipo\": \"individual\",\\n      \"duracao\": \"X minutos\",\\n      \"descricao\": \"descrição detalhada\",\\n      \"objetivo_bloom\": \"nível da taxonomia de Bloom\",\\n      \"diferenciacao\": \"como adaptar para diferentes níveis\"\\n    }\\n  ],\\n  \"fechamento\": {\\n    \"duracao\": \"X minutos\",\\n    \"descricao\": \"como encerrar e fixar o aprendizado\",\\n    \"perguntas_reflexao\": [\"pergunta 1\", \"pergunta 2\"]\\n  },\\n  \"avaliacao\": {\\n    \"formativa\": \"como avaliar durante a aula\",\\n    \"somativa\": \"proposta de avaliação formal\",\\n    \"autoavaliacao\": \"frase para o aluno completar\"\\n  },\\n  \"materiais\": [\"material 1\", \"material 2\"],\\n  \"adaptacoes\": {\\n    \"inclusao\": \"adaptações para alunos com necessidades especiais\",\\n    \"aceleracao\": \"desafios para alunos avançados\",\\n    \"recursos_digitais\": \"ferramentas digitais gratuitas\"\\n  },\\n  \"interdisciplinaridade\": \"como conectar com outras disciplinas\",\\n  \"para_casa\": \"tarefa significativa e contextualizada\"\\n}`;\n\nreturn [{ json: { prompt, meta: { tema, serie, disciplina, duracao } } }];"
+      }
+    },
+    {
+      "id": "1a2b3c4d-0000-0000-0000-node00000003",
+      "name": "Chamar Claude",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [760, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={\n  \"model\": \"claude-sonnet-4-6\",\n  \"max_tokens\": 4096,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": {{ JSON.stringify($json.prompt) }}\n    }\n  ]\n}",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Anthropic API Key"
+        }
+      }
+    },
+    {
+      "id": "1a2b3c4d-0000-0000-0000-node00000004",
+      "name": "Extrair JSON da Aula",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1020, 300],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const response = $input.first().json;\n\nconst text = response.content[0].text;\n\nconst jsonStart = text.indexOf('{');\nconst jsonEnd = text.lastIndexOf('}') + 1;\n\nif (jsonStart === -1 || jsonEnd === 0) {\n  throw new Error('Claude não retornou JSON válido: ' + text.slice(0, 200));\n}\n\nconst aula = JSON.parse(text.slice(jsonStart, jsonEnd));\n\nreturn [{ json: aula }];"
+      }
+    },
+    {
+      "id": "1a2b3c4d-0000-0000-0000-node00000005",
+      "name": "Responder",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1280, 300],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseCode": 200
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Receber Dados": {
+      "main": [
+        [
+          {
+            "node": "Montar Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Montar Prompt": {
+      "main": [
+        [
+          {
+            "node": "Chamar Claude",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chamar Claude": {
+      "main": [
+        [
+          {
+            "node": "Extrair JSON da Aula",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extrair JSON da Aula": {
+      "main": [
+        [
+          {
+            "node": "Responder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -26,7 +26,7 @@ const testimonials = [
 ];
 
 const stats = [
-  { value: "+5.000", label: "Professores interessados" },
+  { value: "+5.000", label: "Professores na plataforma" },
   { value: "< 60s", label: "Para gerar uma aula" },
   { value: "98%", label: "Satisfação dos usuários" },
   { value: "3h+", label: "Economizadas por semana" },

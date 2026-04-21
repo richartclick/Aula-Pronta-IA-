@@ -1,0 +1,83 @@
+{
+  "name": "Aula Pronta IA — Gerar Aula com Claude",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "gerar-aula",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "model": "claude-sonnet-4-6",
+        "messages": {
+          "values": [
+            {
+              "content": "=Você é um especialista em pedagogia brasileira com 20 anos de experiência em sala de aula e formação em Didática, Psicologia da Educação e Currículo. Sua missão é criar planos de aula excepcionais que realmente transformam o processo de ensino-aprendizagem.\n\nVocê conhece profundamente:\n- A Base Nacional Comum Curricular (BNCC)\n- Taxonomia de Bloom revisada\n- Metodologias ativas: Sala de Aula Invertida, PBL (Aprendizagem Baseada em Problemas), Rotação por Estações, Gamificação\n- Avaliação formativa e somativa\n- Diferenciação pedagógica para diferentes perfis de aprendizagem\n- Realidade do professor e aluno brasileiro\n\nCrie um plano de aula COMPLETO e PROFUNDO para:\n\n**TEMA:** {{ $json.body.tema }}\n**DISCIPLINA:** {{ $json.body.disciplina }}\n**SÉRIE/TURMA:** {{ $json.body.serie }}\n**DURAÇÃO:** {{ $json.body.duracao }}\n**ESTILO DE AULA:** {{ $json.body.estilo }}\n**OBSERVAÇÕES DO PROFESSOR:** {{ $json.body.observacoes }}\n\nO plano deve ser PRÁTICO, RICO em detalhes e IMEDIATAMENTE APLICÁVEL. Nada de conteúdo genérico ou superficial.\n\nResponda APENAS com um JSON válido neste formato exato (sem markdown, sem texto fora do JSON):\n\n{\n  \"titulo\": \"Título criativo e atrativo para a aula\",\n  \"bncc\": [\"Código e descrição da habilidade BNCC 1\", \"Código e descrição da habilidade BNCC 2\"],\n  \"objetivos\": [\n    \"Objetivo específico e mensurável (use verbos da Taxonomia de Bloom: analisar, criar, avaliar, comparar...)\",\n    \"Objetivo específico e mensurável 2\",\n    \"Objetivo específico e mensurável 3\"\n  ],\n  \"pergunta_norteadora\": \"Uma pergunta instigante e provocativa que guia toda a aula e desperta curiosidade genuína\",\n  \"contextualizacao\": \"Parágrafo rico explicando como conectar o tema à realidade do aluno brasileiro, com exemplos do cotidiano, notícias recentes ou situações práticas. Mínimo 3 linhas.\",\n  \"introducao\": {\n    \"duracao\": \"X minutos\",\n    \"descricao\": \"Como iniciar a aula de forma impactante. Inclua a pergunta norteadora, uma provocação inicial ou situação-problema concreta. Detalhe o que o professor faz passo a passo.\",\n    \"dica_professor\": \"Dica específica de condução para o professor, incluindo possíveis respostas dos alunos e como lidar com elas\"\n  },\n  \"desenvolvimento\": [\n    {\n      \"etapa\": \"Nome da etapa\",\n      \"duracao\": \"X minutos\",\n      \"descricao\": \"Descrição detalhada do que acontece nesta etapa. O que o professor faz, o que os alunos fazem, como a turma está organizada.\",\n      \"perguntas_mediacao\": [\"Pergunta para aprofundar o raciocínio\", \"Pergunta para verificar compreensão\"],\n      \"dica_professor\": \"Como conduzir, possíveis dificuldades e como superá-las\"\n    },\n    {\n      \"etapa\": \"Nome da etapa 2\",\n      \"duracao\": \"X minutos\",\n      \"descricao\": \"Descrição detalhada...\",\n      \"perguntas_mediacao\": [\"Pergunta 1\", \"Pergunta 2\"],\n      \"dica_professor\": \"Dica específica...\"\n    },\n    {\n      \"etapa\": \"Nome da etapa 3\",\n      \"duracao\": \"X minutos\",\n      \"descricao\": \"Descrição detalhada...\",\n      \"perguntas_mediacao\": [\"Pergunta 1\", \"Pergunta 2\"],\n      \"dica_professor\": \"Dica específica...\"\n    }\n  ],\n  \"atividades\": [\n    {\n      \"titulo\": \"Nome criativo da atividade\",\n      \"tipo\": \"individual\",\n      \"duracao\": \"X minutos\",\n      \"descricao\": \"Instrução completa da atividade, exatamente como o professor passa para os alunos. Inclua enunciado, exemplos, e critérios de entrega.\",\n      \"objetivo_bloom\": \"Nível da Taxonomia de Bloom que esta atividade desenvolve\",\n      \"diferenciacao\": \"Como adaptar para alunos com mais dificuldade e para os mais avançados\"\n    },\n    {\n      \"titulo\": \"Nome criativo da atividade 2\",\n      \"tipo\": \"grupo\",\n      \"duracao\": \"X minutos\",\n      \"descricao\": \"Instrução completa...\",\n      \"objetivo_bloom\": \"Nível Bloom...\",\n      \"diferenciacao\": \"Como adaptar...\"\n    }\n  ],\n  \"fechamento\": {\n    \"duracao\": \"X minutos\",\n    \"descricao\": \"Como encerrar a aula consolidando o aprendizado. Inclua uma síntese colaborativa, reflexão final ou desafio para o próximo encontro.\",\n    \"perguntas_reflexao\": [\"O que você aprendeu hoje que não sabia antes?\", \"Pergunta de reflexão específica sobre o tema\"]\n  },\n  \"avaliacao\": {\n    \"formativa\": \"Como o professor acompanha o aprendizado DURANTE a aula (observação, perguntas, circulação)\",\n    \"somativa\": \"Proposta de avaliação formal para depois da aula, com critérios claros de correção\",\n    \"autoavaliacao\": \"Pergunta ou instrumento simples para o aluno refletir sobre seu próprio aprendizado\"\n  },\n  \"materiais\": [\"Material 1 com detalhe de uso\", \"Material 2\", \"Material 3\"],\n  \"adaptacoes\": {\n    \"inclusao\": \"Adaptações para alunos com necessidades especiais ou dificuldades de aprendizagem\",\n    \"aceleracao\": \"Extensões e desafios para alunos que terminam mais rápido\",\n    \"recursos_digitais\": \"Sugestões de ferramentas digitais, sites ou apps gratuitos que enriquecem a aula\"\n  },\n  \"interdisciplinaridade\": \"Como este tema se conecta com outras disciplinas e exemplos práticos de integração\",\n  \"para_casa\": \"Tarefa significativa (não mecânica) que aprofunda o aprendizado e conecta com a realidade do aluno\"\n}"
+            }
+          ]
+        },
+        "options": {
+          "maxTokensToSample": 4000,
+          "temperature": 0.7
+        }
+      },
+      "id": "claude-ai",
+      "name": "Claude — Gerar Aula",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.content;\n\nlet aulaJson;\ntry {\n  // Tenta parsear direto\n  aulaJson = JSON.parse(raw);\n} catch (e) {\n  // Extrai JSON de dentro de blocos markdown se necessário\n  const match = raw.match(/```(?:json)?\\s*([\\s\\S]*?)```/);\n  if (match) {\n    aulaJson = JSON.parse(match[1].trim());\n  } else {\n    // Tenta extrair o objeto JSON manualmente\n    const start = raw.indexOf('{');\n    const end = raw.lastIndexOf('}');\n    aulaJson = JSON.parse(raw.substring(start, end + 1));\n  }\n}\n\nreturn [{ json: aulaJson }];"
+      },
+      "id": "parse-json",
+      "name": "Parsear JSON da aula",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "respond-webhook",
+      "name": "Responder ao Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [960, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [{ "node": "Claude — Gerar Aula", "type": "main", "index": 0 }]
+      ]
+    },
+    "Claude — Gerar Aula": {
+      "main": [
+        [{ "node": "Parsear JSON da aula", "type": "main", "index": 0 }]
+      ]
+    },
+    "Parsear JSON da aula": {
+      "main": [
+        [{ "node": "Responder ao Webhook", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

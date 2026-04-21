@@ -7,7 +7,7 @@ export default function HeroSection() {
           <div className="animate-fade-in-up">
             <div className="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-400/30 rounded-full px-4 py-2 mb-6">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              <span className="text-blue-200 text-sm font-medium">+5.000 professores na lista de espera</span>
+              <span className="text-blue-200 text-sm font-medium">+5.000 professores já estão na plataforma</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-6">
@@ -38,9 +38,6 @@ export default function HeroSection() {
             <div className="flex items-center gap-6 text-sm text-blue-200">
               <div className="flex items-center gap-2">
                 <span className="text-green-400">✓</span> 5 aulas grátis
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-green-400">✓</span> Sem cartão
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-green-400">✓</span> Pronto em segundos
