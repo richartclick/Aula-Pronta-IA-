@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { renderToBuffer, Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
-import type { Style } from "@react-pdf/types";
 import type { AtividadesGeradas } from "@/app/actions/gerar-atividades";
 
 const s = StyleSheet.create({
@@ -50,7 +49,7 @@ const tipoLabel: Record<string, string> = {
   verdadeiro_falso: "Verdadeiro ou Falso",
 };
 
-const tipoCor: Record<string, Style> = {
+const tipoCor: Record<string, Record<string, string | number>> = {
   dissertativa: { backgroundColor: "#ede9fe", color: "#7c3aed" },
   multipla_escolha: { backgroundColor: "#dbeafe", color: "#1d4ed8" },
   desenho: { backgroundColor: "#fce7f3", color: "#be185d" },
@@ -101,7 +100,7 @@ function AtividadesPDF({ atividades, modo }: { atividades: AtividadesGeradas; mo
             <View key={q.numero} style={s.questaoCard}>
               <View style={s.questaoHeader}>
                 <Text style={isProf ? s.questaoNum : s.questaoNumAluno}>{q.numero}</Text>
-                <Text style={[s.tipoTag, tipoCor[q.tipo] ?? {}]}>{tipoLabel[q.tipo] ?? q.tipo}</Text>
+                <Text style={[s.tipoTag, (tipoCor[q.tipo] ?? {}) as object]}>{tipoLabel[q.tipo] ?? q.tipo}</Text>
               </View>
               <View style={s.questaoBody}>
                 <Text style={s.enunciado}>{e(q.enunciado)}</Text>
