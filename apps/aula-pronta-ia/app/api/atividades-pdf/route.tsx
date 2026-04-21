@@ -100,7 +100,8 @@ function AtividadesPDF({ atividades, modo }: { atividades: AtividadesGeradas; mo
             <View key={q.numero} style={s.questaoCard}>
               <View style={s.questaoHeader}>
                 <Text style={isProf ? s.questaoNum : s.questaoNumAluno}>{q.numero}</Text>
-                <Text style={[s.tipoTag, (tipoCor[q.tipo] ?? {}) as object]}>{tipoLabel[q.tipo] ?? q.tipo}</Text>
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                <Text style={[s.tipoTag, (tipoCor[q.tipo] ?? {}) as any]}>{tipoLabel[q.tipo] ?? q.tipo}</Text>
               </View>
               <View style={s.questaoBody}>
                 <Text style={s.enunciado}>{e(q.enunciado)}</Text>
