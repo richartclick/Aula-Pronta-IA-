@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { renderToBuffer, Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import type { Style } from "@react-pdf/types";
 import type { AtividadesGeradas } from "@/app/actions/gerar-atividades";
 
 const s = StyleSheet.create({
@@ -49,7 +50,7 @@ const tipoLabel: Record<string, string> = {
   verdadeiro_falso: "Verdadeiro ou Falso",
 };
 
-const tipoCor: Record<string, object> = {
+const tipoCor: Record<string, Style> = {
   dissertativa: { backgroundColor: "#ede9fe", color: "#7c3aed" },
   multipla_escolha: { backgroundColor: "#dbeafe", color: "#1d4ed8" },
   desenho: { backgroundColor: "#fce7f3", color: "#be185d" },
