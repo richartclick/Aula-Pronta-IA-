@@ -48,9 +48,9 @@ export default function LeadSection() {
                 </label>
                 <div className="grid grid-cols-3 gap-2">
                   {[
-                    { value: "gratuito", label: "Grátis", sub: "5 aulas" },
-                    { value: "basico", label: "Básico", sub: "R$19,90/mês" },
-                    { value: "premium", label: "Premium", sub: "R$29,90/mês" },
+                    { value: "gratuito", label: "Grátis", sub: "5 aulas/mês" },
+                    { value: "basico", label: "Básico", sub: "Ilimitado" },
+                    { value: "premium", label: "Premium", sub: "Ilimitado + VIP" },
                   ].map((p) => (
                     <button
                       key={p.value}
