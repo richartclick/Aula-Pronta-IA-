@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 
 const planos = [
   {
@@ -25,7 +25,7 @@ const planos = [
   },
   {
     nome: "Básico",
-    preco: "R$ 29,90",
+    preco: "R$ 19,90",
     periodo: "por mês",
     atual: false,
     destaque: true,
@@ -45,7 +45,7 @@ const planos = [
   },
   {
     nome: "Premium",
-    preco: "R$ 39,90",
+    preco: "R$ 29,90",
     periodo: "por mês",
     atual: false,
     destaque: false,
@@ -84,7 +84,7 @@ const faq = [
   },
 ];
 
-export default function PlanoPage() {
+function PlanoConteudo() {
   const params = useSearchParams();
   const sucesso = params.get("sucesso");
   const cancelado = params.get("cancelado");
@@ -127,13 +127,11 @@ export default function PlanoPage() {
           </div>
         </div>
       )}
-      {/* Header */}
       <div className="text-center">
         <h1 className="text-3xl font-black text-slate-900 mb-2">💎 Escolha seu plano</h1>
         <p className="text-slate-500">Comece grátis. Faça upgrade quando quiser. Cancele quando precisar.</p>
       </div>
 
-      {/* Planos */}
       <div className="grid sm:grid-cols-3 gap-5">
         {planos.map((plano) => (
           <div
@@ -189,7 +187,6 @@ export default function PlanoPage() {
         ))}
       </div>
 
-      {/* Garantia */}
       <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 text-center">
         <p className="text-2xl mb-2">🛡️</p>
         <h3 className="font-black text-emerald-800 text-lg mb-1">Garantia de 7 dias</h3>
@@ -198,7 +195,6 @@ export default function PlanoPage() {
         </p>
       </div>
 
-      {/* Segurança Stripe */}
       <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-4">
         <div className="text-4xl">🔒</div>
         <div>
@@ -209,7 +205,6 @@ export default function PlanoPage() {
         </div>
       </div>
 
-      {/* FAQ */}
       <div>
         <h2 className="text-xl font-black text-slate-900 mb-4">Dúvidas frequentes</h2>
         <div className="space-y-3">
@@ -222,5 +217,13 @@ export default function PlanoPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function PlanoPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center h-64"><div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" /></div>}>
+      <PlanoConteudo />
+    </Suspense>
   );
 }
