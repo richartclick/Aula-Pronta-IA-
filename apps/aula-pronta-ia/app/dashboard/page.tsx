@@ -55,7 +55,7 @@ export default async function DashboardPage() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl sm:text-3xl font-black mb-1">
-              Bem-vinda à sua sala de criação! 🎓
+              Bem-vindo(a) à sua sala de criação! 🎓
             </h1>
             <p className="text-blue-100 text-sm sm:text-base">
               {planoGratuito && uso

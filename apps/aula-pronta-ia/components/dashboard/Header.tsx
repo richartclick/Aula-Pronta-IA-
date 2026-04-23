@@ -21,8 +21,8 @@ export default function DashboardHeader() {
   return (
     <header className="bg-white border-b border-slate-100 px-6 py-4 flex items-center justify-between sticky top-0 z-40">
       <div>
-        <p className="text-slate-900 font-bold text-base">{greeting}, professora! 👋</p>
-        <p className="text-slate-400 text-xs mt-0.5">Pronta para criar aulas incríveis hoje?</p>
+        <p className="text-slate-900 font-bold text-base">{greeting}! 👋</p>
+        <p className="text-slate-400 text-xs mt-0.5">O que criamos hoje?</p>
       </div>
 
       <div className="flex items-center gap-3">

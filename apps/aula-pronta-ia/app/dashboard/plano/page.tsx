@@ -27,7 +27,7 @@ const planos = [
   },
   {
     nome: "Básico",
-    preco: "R$ 19,90",
+    preco: "R$ 29,90",
     periodo: "por mês",
     atual: false,
     destaque: true,
@@ -47,7 +47,7 @@ const planos = [
   },
   {
     nome: "Premium",
-    preco: "R$ 29,90",
+    preco: "R$ 39,90",
     periodo: "por mês",
     atual: false,
     destaque: false,

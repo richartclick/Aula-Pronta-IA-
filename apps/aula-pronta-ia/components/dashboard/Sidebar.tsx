@@ -87,21 +87,14 @@ export default function DashboardSidebar() {
           })}
         </div>
 
-        {/* Plan badge */}
+        {/* Upgrade link */}
         <div className="p-4">
-          <div className="bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl p-4 text-white">
-            <p className="font-bold text-sm mb-1">Plano Gratuito</p>
-            <p className="text-blue-200 text-xs mb-3">3 de 5 aulas usadas</p>
-            <div className="w-full bg-white/20 rounded-full h-1.5 mb-3">
-              <div className="bg-white rounded-full h-1.5 w-3/5" />
-            </div>
-            <Link
-              href="/dashboard/plano"
-              className="block text-center bg-white text-blue-700 font-bold text-xs py-2 rounded-xl hover:bg-blue-50 transition-colors"
-            >
-              Fazer upgrade ✨
-            </Link>
-          </div>
+          <Link
+            href="/dashboard/plano"
+            className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs py-3 rounded-xl hover:opacity-90 transition-opacity shadow-md shadow-blue-200"
+          >
+            <span aria-hidden="true">💎</span> Fazer upgrade
+          </Link>
         </div>
       </aside>
 

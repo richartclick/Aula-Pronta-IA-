@@ -2,7 +2,9 @@
 
 import { useActionState, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { gerarAula, type AulaGeradaState } from "@/app/actions/gerar-aula";
+import { toggleFavorita } from "@/app/actions/aulas";
 
 const initialState: AulaGeradaState = { status: "idle" };
 
@@ -29,9 +31,10 @@ const estilos = [
 export default function GerarAulaPage() {
   const [state, action, isPending] = useActionState(gerarAula, initialState);
   const [estiloSel, setEstiloSel] = useState("dinamico");
+  const router = useRouter();
 
   if (state.status === "success" && state.aula) {
-    return <AulaResultado aula={state.aula} meta={state.meta!} onNova={() => window.location.reload()} />;
+    return <AulaResultado aula={state.aula} aulaId={state.aulaId} meta={state.meta!} onNova={() => router.push("/dashboard/gerar")} />;
   }
 
   if (state.status === "limit_reached") {
@@ -175,17 +178,23 @@ export default function GerarAulaPage() {
 
 function AulaResultado({
   aula,
+  aulaId,
   meta,
   onNova,
 }: {
   aula: NonNullable<AulaGeradaState["aula"]>;
+  aulaId?: string;
   meta: NonNullable<AulaGeradaState["meta"]>;
   onNova: () => void;
 }) {
   const [baixando, setBaixando] = useState(false);
+  const [erroPDF, setErroPDF] = useState(false);
+  const [favorita, setFavorita] = useState(false);
+  const [salvandoFavorito, setSalvandoFavorito] = useState(false);
 
   async function handleBaixarPDF() {
     setBaixando(true);
+    setErroPDF(false);
     try {
       const res = await fetch("/api/aula-pdf", {
         method: "POST",
@@ -201,7 +210,7 @@ function AulaResultado({
       a.click();
       URL.revokeObjectURL(url);
     } catch {
-      alert("Erro ao gerar o PDF. Tente novamente.");
+      setErroPDF(true);
     } finally {
       setBaixando(false);
     }
@@ -338,6 +347,11 @@ function AulaResultado({
       )}
 
       {/* Actions */}
+      {erroPDF && (
+        <p className="text-red-600 text-sm bg-red-50 rounded-xl px-4 py-3">
+          Erro ao gerar o PDF. Tente novamente.
+        </p>
+      )}
       <div className="flex flex-col sm:flex-row gap-3">
         <button
           onClick={handleBaixarPDF}
@@ -353,8 +367,18 @@ function AulaResultado({
             "📥 Baixar em PDF"
           )}
         </button>
-        <button className="flex-1 bg-white border-2 border-slate-200 text-slate-700 font-bold py-4 rounded-2xl hover:bg-slate-50 transition-colors">
-          ⭐ Salvar nos favoritos
+        <button
+          onClick={async () => {
+            if (!aulaId || salvandoFavorito) return;
+            setSalvandoFavorito(true);
+            await toggleFavorita(aulaId, favorita);
+            setFavorita(!favorita);
+            setSalvandoFavorito(false);
+          }}
+          disabled={!aulaId || salvandoFavorito}
+          className="flex-1 bg-white border-2 border-slate-200 text-slate-700 font-bold py-4 rounded-2xl hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {favorita ? "⭐ Salvo nos favoritos" : "☆ Salvar nos favoritos"}
         </button>
         <button
           onClick={onNova}
