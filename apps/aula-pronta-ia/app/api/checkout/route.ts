@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
 
@@ -11,12 +12,16 @@ export async function POST(req: NextRequest) {
     premium: process.env.STRIPE_PRICE_PREMIUM!,
   };
 
-  const { plano, email } = await req.json();
+  const { plano } = await req.json();
 
   const priceId = PRICE_IDS[plano];
   if (!priceId) {
     return NextResponse.json({ error: "Plano inválido" }, { status: 400 });
   }
+
+  // Pega o usuário logado para incluir nos metadados
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
 
   const origin = req.headers.get("origin") ?? "http://localhost:3000";
 
@@ -24,12 +29,12 @@ export async function POST(req: NextRequest) {
     mode: "subscription",
     payment_method_types: ["card"],
     line_items: [{ price: priceId, quantity: 1 }],
-    customer_email: email ?? undefined,
+    customer_email: user?.email ?? undefined,
     success_url: `${origin}/dashboard/plano?sucesso=1`,
     cancel_url: `${origin}/dashboard/plano?cancelado=1`,
     locale: "pt-BR",
     subscription_data: {
-      metadata: { plano },
+      metadata: { plano, user_id: user?.id ?? "" },
     },
   });
 
