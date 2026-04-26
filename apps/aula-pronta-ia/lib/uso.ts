@@ -17,7 +17,7 @@ export async function getUsoMensal(): Promise<UsoMensal | null> {
 
   const { data: perfil } = await supabase
     .from("profiles")
-    .select("plano")
+    .select("plano, geracoes_este_mes, geracoes_reset_em")
     .eq("id", user.id)
     .single();
 
@@ -27,17 +27,11 @@ export async function getUsoMensal(): Promise<UsoMensal | null> {
     return { plano, aulasNoMes: 0, limite: Infinity, restantes: Infinity, bloqueado: false };
   }
 
-  const inicioMes = new Date();
-  inicioMes.setDate(1);
-  inicioMes.setHours(0, 0, 0, 0);
-
-  const { count } = await supabase
-    .from("aulas")
-    .select("id", { count: "exact", head: true })
-    .eq("user_id", user.id)
-    .gte("created_at", inicioMes.toISOString());
-
-  const aulasNoMes = count ?? 0;
+  const agora = new Date();
+  const resetEm = perfil?.geracoes_reset_em ? new Date(perfil.geracoes_reset_em) : null;
+  const mesAtual = agora.getFullYear() * 12 + agora.getMonth();
+  const mesReset = resetEm ? resetEm.getFullYear() * 12 + resetEm.getMonth() : -1;
+  const aulasNoMes = mesReset === mesAtual ? (perfil?.geracoes_este_mes ?? 0) : 0;
 
   return {
     plano,

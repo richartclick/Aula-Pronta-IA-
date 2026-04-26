@@ -46,6 +46,33 @@ export type AulaGeradaState = {
   uso?: { aulasNoMes: number; limite: number };
 };
 
+async function incrementarGeracoes(): Promise<void> {
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    const { data: perfil } = await supabase
+      .from("profiles")
+      .select("geracoes_este_mes, geracoes_reset_em")
+      .eq("id", user.id)
+      .single();
+
+    const agora = new Date();
+    const resetEm = perfil?.geracoes_reset_em ? new Date(perfil.geracoes_reset_em) : null;
+    const mesAtual = agora.getFullYear() * 12 + agora.getMonth();
+    const mesReset = resetEm ? resetEm.getFullYear() * 12 + resetEm.getMonth() : -1;
+    const novoValor = mesReset === mesAtual ? (perfil?.geracoes_este_mes ?? 0) + 1 : 1;
+
+    await supabase
+      .from("profiles")
+      .update({ geracoes_este_mes: novoValor, geracoes_reset_em: agora.toISOString() })
+      .eq("id", user.id);
+  } catch {
+    // não bloqueia a geração se o contador falhar
+  }
+}
+
 async function salvarAulaNoBanco(
   aula: AulaCompleta,
   meta: { tema: string; serie: string; disciplina: string; duracao: string }
@@ -109,6 +136,7 @@ export async function gerarAula(
         const aula: AulaCompleta = await res.json();
         const meta = { tema, serie, disciplina, duracao };
         const aulaId = await salvarAulaNoBanco(aula, meta);
+        await incrementarGeracoes();
         return { status: "success", aula, aulaId: aulaId ?? undefined, meta };
       }
     } catch {
@@ -201,6 +229,7 @@ Retorne APENAS um JSON válido (sem markdown, sem explicações) com esta estrut
         const aula: AulaCompleta = JSON.parse(text.slice(jsonStart, jsonEnd));
         const meta = { tema, serie, disciplina, duracao };
         const aulaId = await salvarAulaNoBanco(aula, meta);
+        await incrementarGeracoes();
         return { status: "success", aula, aulaId: aulaId ?? undefined, meta };
       }
     } catch (err) {
@@ -310,5 +339,6 @@ Retorne APENAS um JSON válido (sem markdown, sem explicações) com esta estrut
   };
 
   const mockAulaId = await salvarAulaNoBanco(mockAula, mockMeta);
+  await incrementarGeracoes();
   return { status: "success", meta: mockMeta, aula: mockAula, aulaId: mockAulaId ?? undefined };
 }
