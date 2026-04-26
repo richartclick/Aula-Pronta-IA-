@@ -12,14 +12,14 @@ export default async function PerfilPage() {
   const planoBadgeColor = uso?.plano === "gratuito" ? "bg-slate-100 text-slate-700" : uso?.plano === "basico" ? "bg-blue-100 text-blue-700" : "bg-purple-100 text-purple-700";
 
   return (
-    <div className="max-w-xl mx-auto space-y-6 pb-20 lg:pb-0">
+    <div className="max-w-xl mx-auto space-y-8 pb-20 lg:pb-0">
       <div>
-        <h1 className="text-2xl font-black text-slate-900">👤 Perfil</h1>
+        <h1 className="text-3xl font-black text-slate-900">👤 Perfil</h1>
         <p className="text-slate-500 text-sm mt-1">Suas informações de conta</p>
       </div>
 
       {/* Card principal */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-5">
+      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-5">
         <div className="flex items-center gap-4">
           <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center text-white text-2xl font-black">
             {user?.email?.[0]?.toUpperCase() ?? "?"}

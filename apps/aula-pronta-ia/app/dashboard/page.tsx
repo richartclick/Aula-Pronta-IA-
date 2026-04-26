@@ -95,7 +95,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
         {[
           { icon: "📝", value: String(totalAulas), label: "Aulas geradas", color: "text-blue-600", bg: "bg-blue-50" },
           { icon: "⏱️", value: `${horasEconomizadas}h`, label: "Horas economizadas", color: "text-emerald-600", bg: "bg-emerald-50" },
@@ -115,7 +115,7 @@ export default async function DashboardPage() {
       {/* Quick actions */}
       <div>
         <h2 className="text-slate-900 font-black text-lg mb-4">Ações rápidas</h2>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-5">
           {quickActions.map((action) => (
             <Link
               key={action.href}
@@ -130,7 +130,7 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-3 gap-7">
         {/* Aulas recentes */}
         <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
           <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
@@ -181,8 +181,8 @@ export default async function DashboardPage() {
         </div>
 
         {/* Sidebar direita */}
-        <div className="space-y-4">
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+        <div className="space-y-5">
+          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7">
             <h3 className="font-black text-slate-900 mb-4">Dicas rápidas 💡</h3>
             <div className="space-y-3">
               {tips.map((tip) => (
@@ -195,7 +195,7 @@ export default async function DashboardPage() {
           </div>
 
           {planoGratuito && (
-            <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl p-6 text-white shadow-lg shadow-purple-200">
+            <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl p-7 text-white shadow-lg shadow-purple-200">
               <p className="font-black text-lg mb-1">Quer mais? 🚀</p>
               <p className="text-purple-200 text-sm mb-4 leading-relaxed">
                 Assine e gere aulas ilimitadas todos os meses.

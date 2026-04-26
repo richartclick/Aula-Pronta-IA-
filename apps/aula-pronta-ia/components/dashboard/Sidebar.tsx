@@ -25,7 +25,7 @@ export default function DashboardSidebar() {
       {/* Desktop sidebar */}
       <aside className="hidden lg:flex flex-col w-64 bg-white border-r border-slate-100 shadow-sm min-h-screen">
         {/* Logo */}
-        <div className="p-6 border-b border-slate-100">
+        <div className="p-7 border-b border-slate-100">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-md">
               <span className="text-white font-black text-sm">AI</span>
@@ -38,7 +38,7 @@ export default function DashboardSidebar() {
         </div>
 
         {/* Main nav */}
-        <nav className="flex-1 p-4 space-y-1">
+        <nav className="flex-1 p-5 space-y-1.5">
           <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider px-3 mb-3">Menu</p>
           {navItems.map((item) => {
             const active = pathname === item.href;
@@ -67,7 +67,7 @@ export default function DashboardSidebar() {
         </nav>
 
         {/* Bottom nav */}
-        <div className="p-4 border-t border-slate-100 space-y-1">
+        <div className="p-5 border-t border-slate-100 space-y-1.5">
           {bottomItems.map((item) => {
             const active = pathname === item.href;
             return (
@@ -88,7 +88,7 @@ export default function DashboardSidebar() {
         </div>
 
         {/* Upgrade link */}
-        <div className="p-4">
+        <div className="p-5">
           <Link
             href="/dashboard/plano"
             className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs py-3 rounded-xl hover:opacity-90 transition-opacity shadow-md shadow-blue-200"

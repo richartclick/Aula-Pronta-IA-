@@ -35,9 +35,9 @@ export default async function FavoritosPage() {
   const lista = aulas ?? [];
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6 pb-20 lg:pb-0">
+    <div className="max-w-5xl mx-auto space-y-8 pb-20 lg:pb-0">
       <div>
-        <h1 className="text-2xl font-black text-slate-900">⭐ Favoritos</h1>
+        <h1 className="text-3xl font-black text-slate-900">⭐ Favoritos</h1>
         <p className="text-slate-500 text-sm mt-1">{lista.length} aula{lista.length !== 1 ? "s" : ""} favorita{lista.length !== 1 ? "s" : ""}</p>
       </div>
 
@@ -51,7 +51,7 @@ export default async function FavoritosPage() {
           </Link>
         </div>
       ) : (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
           {lista.map((aula) => {
             const gradiente = disciplinaGradiente[aula.disciplina] ?? "from-slate-500 to-slate-700";
             const emoji = disciplinaEmoji[aula.disciplina] ?? "📄";
@@ -67,7 +67,7 @@ export default async function FavoritosPage() {
                   <h3 className="font-black text-sm leading-snug">{aula.titulo}</h3>
                   <p className="text-white/70 text-xs mt-1">{aula.disciplina}</p>
                 </div>
-                <div className="p-4 space-y-3">
+                <div className="p-5 space-y-3">
                   <div className="flex gap-2 flex-wrap">
                     <span className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-lg font-medium">{aula.serie}</span>
                     <span className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-lg font-medium">⏱ {aula.duracao}</span>

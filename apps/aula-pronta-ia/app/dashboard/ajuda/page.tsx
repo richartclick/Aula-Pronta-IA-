@@ -29,15 +29,15 @@ const faqs = [
 
 export default function AjudaPage() {
   return (
-    <div className="max-w-3xl mx-auto space-y-6 pb-20 lg:pb-0">
+    <div className="max-w-3xl mx-auto space-y-8 pb-20 lg:pb-0">
       <div>
-        <h1 className="text-2xl font-black text-slate-900">❓ Ajuda</h1>
+        <h1 className="text-3xl font-black text-slate-900">❓ Ajuda</h1>
         <p className="text-slate-500 text-sm mt-1">Perguntas frequentes sobre o Aula Pronta IA</p>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-4">
         {faqs.map((faq, i) => (
-          <div key={i} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+          <div key={i} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7">
             <p className="font-black text-slate-900 mb-2">💬 {faq.q}</p>
             <p className="text-slate-600 text-sm leading-relaxed">{faq.a}</p>
           </div>

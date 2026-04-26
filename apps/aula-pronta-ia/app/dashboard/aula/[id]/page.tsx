@@ -35,7 +35,7 @@ export default async function AulaPage({ params }: { params: Promise<{ id: strin
   const conteudo = aula.conteudo;
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6 pb-24 lg:pb-8">
+    <div className="max-w-3xl mx-auto space-y-8 pb-24 lg:pb-8">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-7 text-white shadow-lg shadow-blue-200">
         <div className="flex items-start justify-between gap-4">
