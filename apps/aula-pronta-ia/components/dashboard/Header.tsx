@@ -19,7 +19,7 @@ export default function DashboardHeader() {
   const inicial = email ? email[0].toUpperCase() : "P";
 
   return (
-    <header className="bg-white border-b border-slate-100 px-8 py-5 flex items-center justify-between sticky top-0 z-40">
+    <header className="bg-white border-b border-slate-100 shadow-sm px-8 py-5 flex items-center justify-between sticky top-0 z-40">
       <div>
         <p className="text-slate-900 font-bold text-lg">{greeting}! 👋</p>
         <p className="text-slate-400 text-sm mt-0.5">O que criamos hoje?</p>

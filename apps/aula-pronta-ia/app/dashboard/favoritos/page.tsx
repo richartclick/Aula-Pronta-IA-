@@ -57,7 +57,7 @@ export default async function FavoritosPage() {
             const emoji = disciplinaEmoji[aula.disciplina] ?? "📄";
             return (
               <div key={aula.id} className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all">
-                <div className={`bg-gradient-to-br ${gradiente} p-5 text-white`}>
+                <div className={`bg-gradient-to-br ${gradiente} p-6 text-white`}>
                   <div className="flex items-start justify-between mb-3">
                     <span className="text-3xl">{emoji}</span>
                     <form action={toggleFavorita.bind(null, aula.id, aula.favorita)}>

@@ -102,7 +102,7 @@ export default async function DashboardPage() {
           { icon: "⭐", value: String(totalFavoritas), label: "Aulas favoritas", color: "text-yellow-600", bg: "bg-yellow-50" },
           { icon: "🎯", value: restantes, label: planoGratuito ? "Aulas restantes grátis" : "Plano ativo", color: "text-purple-600", bg: "bg-purple-50" },
         ].map((stat) => (
-          <div key={stat.label} className={`${stat.bg} rounded-2xl p-5 flex items-center gap-4`}>
+          <div key={stat.label} className={`${stat.bg} rounded-2xl p-5 flex items-center gap-4 hover:shadow-md hover:-translate-y-1 transition-all duration-200 cursor-default`}>
             <span className="text-3xl">{stat.icon}</span>
             <div>
               <p className={`text-2xl font-black ${stat.color}`}>{stat.value}</p>

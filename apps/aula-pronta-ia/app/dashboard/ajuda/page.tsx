@@ -37,7 +37,7 @@ export default function AjudaPage() {
 
       <div className="space-y-4">
         {faqs.map((faq, i) => (
-          <div key={i} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7">
+          <div key={i} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
             <p className="font-black text-slate-900 mb-2">💬 {faq.q}</p>
             <p className="text-slate-600 text-sm leading-relaxed">{faq.a}</p>
           </div>

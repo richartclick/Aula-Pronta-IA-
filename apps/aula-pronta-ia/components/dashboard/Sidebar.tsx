@@ -8,7 +8,6 @@ const navItems = [
   { href: "/dashboard/gerar", icon: "⚡", label: "Gerar Aula", highlight: true },
   { href: "/dashboard/minhas-aulas", icon: "📚", label: "Minhas Aulas" },
   { href: "/dashboard/favoritos", icon: "⭐", label: "Favoritos" },
-  { href: "/dashboard/historico", icon: "🕐", label: "Histórico" },
 ];
 
 const bottomItems = [
