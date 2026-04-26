@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { toggleFavorita, excluirAula } from "@/app/actions/aulas";
+import { toggleFavorita } from "@/app/actions/aulas";
 import type { AulaCompleta } from "@/app/actions/gerar-aula";
+import BotaoExcluir from "./BotaoExcluir";
 
 const disciplinaEmoji: Record<string, string> = {
   Matemática: "🔢", Português: "📖", Ciências: "🔬", História: "🏛️",
@@ -133,16 +134,7 @@ export default async function MinhasAulasPage() {
                     >
                       👁 Ver aula
                     </Link>
-                    <form action={excluirAula.bind(null, aula.id)}>
-                      <button
-                        type="submit"
-                        title="Excluir aula"
-                        className="text-xs font-bold py-2 px-3 bg-red-50 text-red-500 rounded-xl hover:bg-red-100 transition-colors"
-                        onClick={(e) => { if (!confirm("Excluir esta aula?")) e.preventDefault(); }}
-                      >
-                        🗑
-                      </button>
-                    </form>
+                    <BotaoExcluir aulaId={aula.id} />
                   </div>
                 </div>
               </div>
