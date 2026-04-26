@@ -9,10 +9,10 @@ export default function Navbar() {
           <span className="font-bold text-slate-900 text-lg">Aula Pronta IA</span>
         </div>
         <a
-          href="#lead"
-          className="hidden sm:inline-flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors"
+          href="/registro"
+          className="hidden sm:inline-flex items-center gap-2 bg-green-500 hover:bg-green-400 text-white px-5 py-2.5 rounded-full text-sm font-bold transition-colors"
         >
-          Quero testar grátis
+          Criar conta grátis
         </a>
       </div>
     </nav>

@@ -22,10 +22,10 @@ export default function HeroSection() {
 
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <a
-                href="#lead"
-                className="animate-pulse-glow inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-400 text-white font-bold py-4 px-8 rounded-2xl text-lg transition-all"
+                href="/registro"
+                className="inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-400 text-white font-black py-4 px-8 rounded-2xl text-lg transition-all shadow-lg shadow-green-500/30"
               >
-                👉 Quero testar agora
+                Criar minha conta grátis →
               </a>
               <a
                 href="#demo"

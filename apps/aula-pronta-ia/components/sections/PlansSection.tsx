@@ -6,7 +6,7 @@ const plans = [
     color: "border-slate-200",
     badge: null,
     cta: "Começar grátis",
-    ctaStyle: "bg-slate-900 hover:bg-slate-700 text-white",
+    ctaStyle: "bg-green-500 hover:bg-green-400 text-white font-bold",
     features: [
       "5 aulas por mês",
       "Todos os formatos de aula",
@@ -23,7 +23,7 @@ const plans = [
     badge: "Mais popular",
     badgeColor: "bg-blue-600",
     cta: "Assinar agora",
-    ctaStyle: "bg-blue-600 hover:bg-blue-700 text-white",
+    ctaStyle: "bg-green-500 hover:bg-green-400 text-white font-bold",
     features: [
       "Aulas ilimitadas",
       "Todos os formatos de aula",
@@ -97,8 +97,8 @@ export default function PlansSection() {
               </ul>
 
               <a
-                href="#lead"
-                className={`block text-center font-bold py-3 px-6 rounded-xl transition-colors ${plan.ctaStyle}`}
+                href="/registro"
+                className={`block text-center py-3 px-6 rounded-xl transition-colors ${plan.ctaStyle}`}
               >
                 {plan.cta}
               </a>
