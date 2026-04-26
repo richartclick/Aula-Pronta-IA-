@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import { login } from "@/app/actions/auth";
 
 export default function LoginPage() {
   const [state, action, isPending] = useActionState(login, null);
+  const [verSenha, setVerSenha] = useState(false);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
@@ -39,13 +41,22 @@ export default function LoginPage() {
                   Esqueceu a senha?
                 </Link>
               </div>
-              <input
-                name="senha"
-                type="password"
-                required
-                placeholder="••••••••"
-                className="w-full border-2 border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors text-sm"
-              />
+              <div className="relative">
+                <input
+                  name="senha"
+                  type={verSenha ? "text" : "password"}
+                  required
+                  placeholder="••••••••"
+                  className="w-full border-2 border-slate-200 rounded-xl px-4 py-3 pr-11 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors text-sm"
+                />
+                <button
+                  type="button"
+                  onClick={() => setVerSenha(!verSenha)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                >
+                  {verSenha ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
             </div>
 
             {state?.error && (

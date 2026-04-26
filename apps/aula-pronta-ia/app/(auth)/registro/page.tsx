@@ -1,11 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import { registro } from "@/app/actions/auth";
 
 export default function RegistroPage() {
   const [state, action, isPending] = useActionState(registro, null);
+  const [verSenha, setVerSenha] = useState(false);
+  const [verConfirmar, setVerConfirmar] = useState(false);
 
   if (state?.success) {
     return (
@@ -65,24 +68,42 @@ export default function RegistroPage() {
 
             <div>
               <label className="block text-sm font-bold text-slate-700 mb-2">Senha</label>
-              <input
-                name="senha"
-                type="password"
-                required
-                placeholder="Mínimo 6 caracteres"
-                className="w-full border-2 border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors text-sm"
-              />
+              <div className="relative">
+                <input
+                  name="senha"
+                  type={verSenha ? "text" : "password"}
+                  required
+                  placeholder="Mínimo 6 caracteres"
+                  className="w-full border-2 border-slate-200 rounded-xl px-4 py-3 pr-11 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors text-sm"
+                />
+                <button
+                  type="button"
+                  onClick={() => setVerSenha(!verSenha)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                >
+                  {verSenha ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
             </div>
 
             <div>
               <label className="block text-sm font-bold text-slate-700 mb-2">Confirmar senha</label>
-              <input
-                name="confirmar"
-                type="password"
-                required
-                placeholder="Repita a senha"
-                className="w-full border-2 border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors text-sm"
-              />
+              <div className="relative">
+                <input
+                  name="confirmar"
+                  type={verConfirmar ? "text" : "password"}
+                  required
+                  placeholder="Repita a senha"
+                  className="w-full border-2 border-slate-200 rounded-xl px-4 py-3 pr-11 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors text-sm"
+                />
+                <button
+                  type="button"
+                  onClick={() => setVerConfirmar(!verConfirmar)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                >
+                  {verConfirmar ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
             </div>
 
             {state?.error && (
