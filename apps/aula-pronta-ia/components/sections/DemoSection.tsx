@@ -8,16 +8,16 @@ const outputItems = [
 
 export default function DemoSection() {
   return (
-    <section id="demo" className="py-24 px-4 bg-slate-900">
+    <section id="demo" className="py-32 px-4 bg-slate-900">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-20">
           <span className="text-blue-400 font-semibold text-sm uppercase tracking-wide">Veja em ação</span>
-          <h2 className="text-3xl sm:text-4xl font-black text-white mt-3">
+          <h2 className="text-4xl sm:text-5xl font-black text-white mt-4 leading-tight">
             De ideia a aula completa em segundos
           </h2>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
+        <div className="grid lg:grid-cols-2 gap-10 items-start">
           {/* Input */}
           <div>
             <p className="text-slate-400 text-sm mb-3 font-medium uppercase tracking-wide">Você informa →</p>

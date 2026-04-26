@@ -6,38 +6,38 @@ const steps = [
 
 export default function SolutionSection() {
   return (
-    <section className="py-24 px-4 bg-white">
+    <section className="py-32 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-20 items-center">
           <div>
             <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">A solução</span>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mt-3 mb-6">
+            <h2 className="text-4xl sm:text-5xl font-black text-slate-900 mt-4 mb-6 leading-tight">
               Conheça a{" "}
               <span className="text-blue-600">Aula Pronta IA</span>
             </h2>
-            <p className="text-slate-600 text-lg leading-relaxed mb-8">
+            <p className="text-slate-600 text-lg leading-relaxed mb-10">
               Uma plataforma desenvolvida especialmente para professores que querem recuperar seu tempo, sua criatividade e sua paixão pelo ensino.
             </p>
 
-            <div className="space-y-6">
+            <div className="space-y-8">
               {steps.map((step) => (
-                <div key={step.num} className="flex gap-4 items-start">
-                  <div className="flex-shrink-0 w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center">
+                <div key={step.num} className="flex gap-5 items-start">
+                  <div className="flex-shrink-0 w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center">
                     <span className="text-white font-black text-sm">{step.num}</span>
                   </div>
-                  <div>
-                    <h3 className="font-bold text-slate-900 mb-1">{step.title}</h3>
-                    <p className="text-slate-500 text-sm leading-relaxed">{step.desc}</p>
+                  <div className="pt-1">
+                    <h3 className="font-bold text-slate-900 text-lg mb-1.5">{step.title}</h3>
+                    <p className="text-slate-500 leading-relaxed">{step.desc}</p>
                   </div>
                 </div>
               ))}
             </div>
 
             <a
-              href="#lead"
-              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-2xl text-base transition-all mt-8"
+              href="/registro"
+              className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-400 text-white font-black py-4 px-8 rounded-2xl text-base transition-all mt-10 shadow-lg shadow-green-500/20"
             >
-              Quero começar agora →
+              Criar minha conta grátis →
             </a>
           </div>
 

@@ -9,21 +9,21 @@ const benefits = [
 
 export default function BenefitsSection() {
   return (
-    <section className="py-24 px-4 bg-slate-50">
+    <section className="py-32 px-4 bg-slate-50">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-20">
           <span className="text-green-600 font-semibold text-sm uppercase tracking-wide">Por que professores amam</span>
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mt-3">
+          <h2 className="text-4xl sm:text-5xl font-black text-slate-900 mt-4 leading-tight">
             Tudo que você precisa em um só lugar
           </h2>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {benefits.map((b) => (
-            <div key={b.title} className="bg-white rounded-2xl p-6 card-hover border border-slate-100">
-              <div className="text-4xl mb-4">{b.icon}</div>
-              <h3 className="font-bold text-slate-900 text-lg mb-2">{b.title}</h3>
-              <p className="text-slate-500 text-sm leading-relaxed">{b.desc}</p>
+            <div key={b.title} className="bg-white rounded-2xl p-8 card-hover border border-slate-100">
+              <div className="text-5xl mb-5">{b.icon}</div>
+              <h3 className="font-bold text-slate-900 text-xl mb-3">{b.title}</h3>
+              <p className="text-slate-500 leading-relaxed">{b.desc}</p>
             </div>
           ))}
         </div>

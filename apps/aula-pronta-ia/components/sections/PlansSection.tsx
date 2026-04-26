@@ -56,19 +56,19 @@ const plans = [
 
 export default function PlansSection() {
   return (
-    <section className="py-24 px-4 bg-white">
+    <section className="py-32 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-20">
           <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">Planos</span>
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mt-3">
+          <h2 className="text-4xl sm:text-5xl font-black text-slate-900 mt-4 leading-tight">
             Comece grátis. Cresça no seu ritmo.
           </h2>
-          <p className="text-slate-600 mt-3">Sem compromisso. Cancele quando quiser.</p>
+          <p className="text-slate-600 mt-4 text-lg">Sem compromisso. Cancele quando quiser.</p>
         </div>
 
-        <div className="grid sm:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-3 gap-8">
           {plans.map((plan) => (
-            <div key={plan.name} className={`rounded-2xl border-2 ${plan.color} p-6 card-hover relative flex flex-col`}>
+            <div key={plan.name} className={`rounded-2xl border-2 ${plan.color} p-8 card-hover relative flex flex-col`}>
               {plan.badge && (
                 <div className={`absolute -top-3 left-1/2 -translate-x-1/2 ${plan.badgeColor} text-white text-xs font-bold px-4 py-1 rounded-full`}>
                   {plan.badge}
