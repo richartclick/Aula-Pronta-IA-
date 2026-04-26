@@ -17,8 +17,8 @@ export default function Home() {
       <ProblemSection />
       <SolutionSection />
       <BenefitsSection />
-      <ProofSection />
       <DemoSection />
+      <ProofSection />
       <PlansSection />
       <LeadSection />
       <Footer />
