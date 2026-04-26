@@ -56,7 +56,7 @@ const plans = [
 
 export default function PlansSection() {
   return (
-    <section className="py-32 px-4 bg-white">
+    <section id="planos" className="py-32 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-20">
           <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">Planos</span>

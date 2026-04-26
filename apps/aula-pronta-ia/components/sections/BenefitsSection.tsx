@@ -9,7 +9,7 @@ const benefits = [
 
 export default function BenefitsSection() {
   return (
-    <section className="py-32 px-4 bg-slate-50">
+    <section id="beneficios" className="py-32 px-4 bg-slate-50">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-20">
           <span className="text-green-600 font-semibold text-sm uppercase tracking-wide">Por que professores amam</span>

@@ -34,7 +34,7 @@ const stats = [
 
 export default function ProofSection() {
   return (
-    <section className="py-32 px-4 bg-white">
+    <section id="depoimentos" className="py-32 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
         {/* Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
