@@ -40,7 +40,7 @@ export default async function AulaPage({ params }: { params: Promise<{ id: strin
       <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-7 text-white shadow-lg shadow-blue-200">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-xl font-black leading-snug">{aula.titulo}</h1>
+            <h1 className="text-2xl font-black leading-snug">{aula.titulo}</h1>
             <p className="text-blue-100 text-sm mt-2">{aula.disciplina} • {aula.serie} • {aula.duracao}</p>
             {conteudo.pergunta_norteadora && (
               <p className="text-blue-200 text-sm italic mt-3">💡 {conteudo.pergunta_norteadora}</p>
@@ -173,7 +173,7 @@ export default async function AulaPage({ params }: { params: Promise<{ id: strin
       </div>
 
       {/* Divisor */}
-      <div className="border-t-2 border-dashed border-slate-200 pt-2">
+      <div className="border-t-2 border-dashed border-slate-200 pt-8">
         <p className="text-xs text-slate-400 text-center mb-4">Atividades para os alunos</p>
         <BotaoAtividades
           aulaId={aula.id}
@@ -199,7 +199,7 @@ function Section({ icon, title, cor, children }: { icon: string; title: string; 
   };
   return (
     <div className={`rounded-2xl border p-7 ${bg[cor] ?? "bg-white border-slate-100"}`}>
-      <h3 className={`font-black text-base mb-5 flex items-center gap-2 ${title_color[cor] ?? "text-slate-900"}`}>
+      <h3 className={`font-black text-lg mb-6 flex items-center gap-2 ${title_color[cor] ?? "text-slate-900"}`}>
         {icon} {title}
       </h3>
       {children}

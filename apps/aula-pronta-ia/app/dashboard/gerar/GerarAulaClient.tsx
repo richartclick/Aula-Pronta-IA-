@@ -120,11 +120,11 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
         </div>
       )}
 
-      <form action={action} className="space-y-5">
+      <form action={action} className="space-y-6">
         <input type="hidden" name="estilo" value={estiloSel} />
 
         {/* Tema */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-3">
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-3">
           <div>
             <label className="block font-bold text-slate-900 text-base">
               Tema da aula <span className="text-red-400">*</span>
@@ -141,7 +141,7 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
         </div>
 
         {/* Série + Disciplina + Duração */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-4">
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-4">
           <div>
             <h3 className="font-bold text-slate-900 text-base">Detalhes da turma</h3>
             <p className="text-slate-400 text-xs mt-0.5">Adapta o conteúdo para o nível certo</p>
@@ -196,7 +196,7 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
         </div>
 
         {/* Estilo */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-4">
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-4">
           <div>
             <h3 className="font-bold text-slate-900 text-base">Estilo da aula</h3>
             <p className="text-slate-400 text-xs mt-0.5">Como você prefere conduzir a turma</p>
@@ -230,7 +230,7 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
         </div>
 
         {/* Observações */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-3">
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-3">
           <div>
             <label className="block font-bold text-slate-900 text-base">
               Observações extras{" "}
@@ -329,7 +329,7 @@ function AulaResultado({
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-5 pb-20 lg:pb-8">
+    <div className="max-w-2xl mx-auto space-y-6 pb-20 lg:pb-8">
       {/* Header de sucesso */}
       <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-3xl p-7 text-white shadow-xl shadow-emerald-200">
         <div className="flex items-start gap-4 mb-4">
@@ -337,7 +337,7 @@ function AulaResultado({
             🎉
           </div>
           <div>
-            <h1 className="text-xl font-black leading-snug">Aula gerada com sucesso!</h1>
+            <h1 className="text-2xl font-black leading-snug">Aula gerada com sucesso!</h1>
             <p className="text-emerald-100 text-sm mt-1 leading-relaxed">{aula.titulo}</p>
           </div>
         </div>
@@ -609,7 +609,7 @@ function Secao({
   return (
     <div className={`rounded-2xl border p-6 ${bg[cor] ?? "bg-white border-slate-100"}`}>
       <h3
-        className={`font-black text-base mb-5 flex items-center gap-2.5 ${
+        className={`font-black text-lg mb-6 flex items-center gap-2.5 ${
           titleCor[cor] ?? "text-slate-900"
         }`}
       >
@@ -632,7 +632,7 @@ function BloqueioUpgrade({ aulasNoMes, limite }: { aulasNoMes: number; limite: n
         <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl mb-4">
           <span className="text-4xl">🚀</span>
         </div>
-        <h1 className="text-2xl font-black text-slate-900">Limite do plano gratuito atingido</h1>
+        <h1 className="text-3xl font-black text-slate-900">Limite do plano gratuito atingido</h1>
         <p className="text-slate-500 text-sm mt-2">
           Você gerou{" "}
           <span className="font-bold text-slate-700">
