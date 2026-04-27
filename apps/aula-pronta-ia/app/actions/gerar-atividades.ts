@@ -68,6 +68,9 @@ Retorne APENAS JSON válido (sem markdown):
 Crie entre 4 e 6 questões variadas e adequadas para a faixa etária. Conteúdo da aula: ${conteudoResumo}`;
 
   try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 25000);
+
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
@@ -76,11 +79,14 @@ Crie entre 4 e 6 questões variadas e adequadas para a faixa etária. Conteúdo 
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-6",
-        max_tokens: 3000,
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 2000,
         messages: [{ role: "user", content: prompt }],
       }),
+      signal: controller.signal,
     });
+
+    clearTimeout(timer);
 
     if (!res.ok) return { error: "Erro ao chamar a IA. Tente novamente." };
 

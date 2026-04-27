@@ -55,7 +55,7 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
     uso?.restantes === 0 ? "bg-red-500" : uso && uso.restantes <= 1 ? "bg-amber-500" : "bg-blue-500";
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8 pb-20 lg:pb-8">
+    <div className="max-w-2xl mx-auto space-y-8 pb-32 lg:pb-8">
       {/* Header */}
       <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-7 text-white shadow-xl shadow-blue-200">
         <div className="flex items-start gap-4">
