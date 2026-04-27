@@ -120,9 +120,9 @@ export default async function DashboardPage() {
             <Link
               key={action.href}
               href={action.href}
-              className={`bg-gradient-to-br ${action.color} ${action.shadow} shadow-lg rounded-2xl p-5 flex flex-col gap-2 hover:scale-105 transition-transform`}
+              className={`bg-gradient-to-br ${action.color} ${action.shadow} shadow-lg rounded-2xl p-5 flex flex-col items-center justify-center text-center gap-2 min-h-[130px] hover:scale-105 transition-transform`}
             >
-              <span className="text-3xl">{action.icon}</span>
+              <span className="text-4xl">{action.icon}</span>
               <p className="font-bold text-sm text-white">{action.label}</p>
               <p className="text-xs text-white opacity-80">{action.desc}</p>
             </Link>

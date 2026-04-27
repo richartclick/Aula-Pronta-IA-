@@ -55,7 +55,7 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
     uso?.restantes === 0 ? "bg-red-500" : uso && uso.restantes <= 1 ? "bg-amber-500" : "bg-blue-500";
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8 pb-32 lg:pb-8">
+    <div className="max-w-5xl mx-auto space-y-8 pb-32 lg:pb-8">
       {/* Header */}
       <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-7 text-white shadow-xl shadow-blue-200">
         <div className="flex items-start gap-4">
@@ -123,7 +123,7 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
       <form action={action} className="space-y-6">
         <input type="hidden" name="estilo" value={estiloSel} />
 
-        {/* Tema */}
+        {/* Tema — largura total */}
         <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-3">
           <div>
             <label className="block font-bold text-slate-900 text-base">
@@ -140,138 +140,159 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
           />
         </div>
 
-        {/* Série + Disciplina + Duração */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-4">
-          <div>
-            <h3 className="font-bold text-slate-900 text-base">Detalhes da turma</h3>
-            <p className="text-slate-400 text-xs mt-0.5">Adapta o conteúdo para o nível certo</p>
-          </div>
-          <div className="grid sm:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-slate-500 text-xs font-bold mb-2 uppercase tracking-wide">
-                Série / Turma <span className="text-red-400">*</span>
-              </label>
-              <select
-                name="serie"
-                required
-                className="w-full border-2 border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-blue-500 transition-colors text-sm bg-slate-50 focus:bg-white"
-              >
-                <option value="">Selecione...</option>
-                {series.map((s) => (
-                  <option key={s} value={s}>{s}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-slate-500 text-xs font-bold mb-2 uppercase tracking-wide">
-                Disciplina <span className="text-red-400">*</span>
-              </label>
-              <select
-                name="disciplina"
-                required
-                className="w-full border-2 border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-blue-500 transition-colors text-sm bg-slate-50 focus:bg-white"
-              >
-                <option value="">Selecione...</option>
-                {disciplinas.map((d) => (
-                  <option key={d} value={d}>{d}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-slate-500 text-xs font-bold mb-2 uppercase tracking-wide">
-                Duração <span className="text-red-400">*</span>
-              </label>
-              <select
-                name="duracao"
-                required
-                className="w-full border-2 border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-blue-500 transition-colors text-sm bg-slate-50 focus:bg-white"
-              >
-                <option value="">Selecione...</option>
-                {duracoes.map((d) => (
-                  <option key={d} value={d}>{d}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
+        {/* Grade duas colunas no desktop */}
+        <div className="grid lg:grid-cols-2 gap-6 lg:items-start">
 
-        {/* Estilo */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-4">
-          <div>
-            <h3 className="font-bold text-slate-900 text-base">Estilo da aula</h3>
-            <p className="text-slate-400 text-xs mt-0.5">Como você prefere conduzir a turma</p>
+          {/* Coluna esquerda */}
+          <div className="space-y-6">
+
+            {/* Detalhes da turma */}
+            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-4">
+              <div>
+                <h3 className="font-bold text-slate-900 text-base">Detalhes da turma</h3>
+                <p className="text-slate-400 text-xs mt-0.5">Adapta o conteúdo para o nível certo</p>
+              </div>
+              <div className="space-y-3">
+
+                {/* Série / Turma — azul */}
+                <div className="bg-blue-50 border-2 border-blue-100 rounded-xl p-4">
+                  <label className="block text-blue-600 text-xs font-bold mb-2 uppercase tracking-wide">
+                    Série / Turma <span className="text-red-400">*</span>
+                  </label>
+                  <select
+                    name="serie"
+                    required
+                    className="w-full bg-white border-2 border-blue-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-blue-500 transition-colors text-sm"
+                  >
+                    <option value="">Selecione...</option>
+                    {series.map((s) => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Disciplina — roxo */}
+                <div className="bg-purple-50 border-2 border-purple-100 rounded-xl p-4">
+                  <label className="block text-purple-600 text-xs font-bold mb-2 uppercase tracking-wide">
+                    Disciplina <span className="text-red-400">*</span>
+                  </label>
+                  <select
+                    name="disciplina"
+                    required
+                    className="w-full bg-white border-2 border-purple-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-purple-500 transition-colors text-sm"
+                  >
+                    <option value="">Selecione...</option>
+                    {disciplinas.map((d) => (
+                      <option key={d} value={d}>{d}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Duração — âmbar */}
+                <div className="bg-amber-50 border-2 border-amber-100 rounded-xl p-4">
+                  <label className="block text-amber-600 text-xs font-bold mb-2 uppercase tracking-wide">
+                    Duração <span className="text-red-400">*</span>
+                  </label>
+                  <select
+                    name="duracao"
+                    required
+                    className="w-full bg-white border-2 border-amber-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-amber-500 transition-colors text-sm"
+                  >
+                    <option value="">Selecione...</option>
+                    {duracoes.map((d) => (
+                      <option key={d} value={d}>{d}</option>
+                    ))}
+                  </select>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Observações */}
+            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-3">
+              <div>
+                <label className="block font-bold text-slate-900 text-base">
+                  Observações extras{" "}
+                  <span className="text-slate-300 font-normal text-sm">(opcional)</span>
+                </label>
+                <p className="text-slate-400 text-xs mt-0.5">Diga algo específico sobre sua turma</p>
+              </div>
+              <textarea
+                name="observacoes"
+                rows={3}
+                placeholder="Ex: turma agitada, alunos com dificuldade em leitura, preparar para prova, incluir atividade ao ar livre..."
+                className="w-full border-2 border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors text-sm resize-none bg-slate-50 focus:bg-white"
+              />
+            </div>
+
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            {estilos.map((e) => (
-              <button
-                key={e.value}
-                type="button"
-                onClick={() => setEstiloSel(e.value)}
-                className={`flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left ${
-                  estiloSel === e.value
-                    ? "border-blue-500 bg-blue-50"
-                    : "border-slate-200 hover:border-slate-300 hover:bg-slate-50"
-                }`}
-              >
-                <span className="text-2xl shrink-0">{e.icon}</span>
-                <div>
-                  <p
-                    className={`text-sm font-bold leading-tight ${
-                      estiloSel === e.value ? "text-blue-700" : "text-slate-800"
+
+          {/* Coluna direita */}
+          <div className="space-y-6">
+
+            {/* Estilo */}
+            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-4">
+              <div>
+                <h3 className="font-bold text-slate-900 text-base">Estilo da aula</h3>
+                <p className="text-slate-400 text-xs mt-0.5">Como você prefere conduzir a turma</p>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                {estilos.map((e) => (
+                  <button
+                    key={e.value}
+                    type="button"
+                    onClick={() => setEstiloSel(e.value)}
+                    className={`flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left ${
+                      estiloSel === e.value
+                        ? "border-blue-500 bg-blue-50"
+                        : "border-slate-200 hover:border-slate-300 hover:bg-slate-50"
                     }`}
                   >
-                    {e.label}
-                  </p>
-                  <p className="text-xs text-slate-400 mt-0.5">{e.desc}</p>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
+                    <span className="text-2xl shrink-0">{e.icon}</span>
+                    <div>
+                      <p
+                        className={`text-sm font-bold leading-tight ${
+                          estiloSel === e.value ? "text-blue-700" : "text-slate-800"
+                        }`}
+                      >
+                        {e.label}
+                      </p>
+                      <p className="text-xs text-slate-400 mt-0.5">{e.desc}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
 
-        {/* Observações */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-3">
-          <div>
-            <label className="block font-bold text-slate-900 text-base">
-              Observações extras{" "}
-              <span className="text-slate-300 font-normal text-sm">(opcional)</span>
-            </label>
-            <p className="text-slate-400 text-xs mt-0.5">Diga algo específico sobre sua turma</p>
-          </div>
-          <textarea
-            name="observacoes"
-            rows={3}
-            placeholder="Ex: turma agitada, alunos com dificuldade em leitura, preparar para prova, incluir atividade ao ar livre..."
-            className="w-full border-2 border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors text-sm resize-none bg-slate-50 focus:bg-white"
-          />
-        </div>
-
-        {state.status === "error" && (
-          <div className="bg-red-50 border border-red-200 rounded-2xl px-5 py-4 flex items-start gap-3">
-            <span className="text-red-500 text-lg shrink-0">⚠️</span>
-            <p className="text-red-700 text-sm font-medium">{state.message}</p>
-          </div>
-        )}
-
-        {/* Botão sticky no mobile — sempre visível enquanto preenche o form */}
-        <div className="sticky bottom-20 lg:static -mx-4 lg:mx-0 px-4 lg:px-0 py-3 lg:py-0 bg-white/95 lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none border-t border-slate-100 lg:border-0 shadow-lg lg:shadow-none">
-          <button
-            type="submit"
-            disabled={isPending}
-            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-black py-5 rounded-2xl text-lg transition-all shadow-xl shadow-blue-200 flex items-center justify-center gap-3"
-          >
-            {isPending ? (
-              <>
-                <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                <span>Gerando sua aula...</span>
-              </>
-            ) : (
-              "⚡ Gerar aula agora"
+            {state.status === "error" && (
+              <div className="bg-red-50 border border-red-200 rounded-2xl px-5 py-4 flex items-start gap-3">
+                <span className="text-red-500 text-lg shrink-0">⚠️</span>
+                <p className="text-red-700 text-sm font-medium">{state.message}</p>
+              </div>
             )}
-          </button>
-          <p className="text-center text-slate-400 text-xs mt-2 lg:mt-3">
-            Normalmente leva entre 5 e 10 segundos · Alimentado por IA
-          </p>
+
+            {/* Botão sticky no mobile — sempre visível enquanto preenche o form */}
+            <div className="sticky bottom-20 lg:static -mx-4 lg:mx-0 px-4 lg:px-0 py-3 lg:py-0 bg-white lg:bg-transparent border-t border-slate-100 lg:border-0 shadow-lg lg:shadow-none">
+              <button
+                type="submit"
+                disabled={isPending}
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-black py-5 rounded-2xl text-lg transition-all shadow-xl shadow-blue-200 flex items-center justify-center gap-3"
+              >
+                {isPending ? (
+                  <>
+                    <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span>Gerando sua aula...</span>
+                  </>
+                ) : (
+                  "⚡ Gerar aula agora"
+                )}
+              </button>
+              <p className="text-center text-slate-400 text-xs mt-2 lg:mt-3">
+                Normalmente leva entre 5 e 10 segundos · Alimentado por IA
+              </p>
+            </div>
+
+          </div>
         </div>
       </form>
     </div>

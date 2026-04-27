@@ -98,7 +98,7 @@ export default function DashboardSidebar() {
       </aside>
 
       {/* Mobile bottom bar */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-100 flex justify-around py-2 px-4">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-100 flex justify-around pt-2 px-4" style={{ paddingBottom: 'max(8px, env(safe-area-inset-bottom))' }}>
         {navItems.slice(0, 4).map((item) => {
           const active = pathname === item.href;
           return (
