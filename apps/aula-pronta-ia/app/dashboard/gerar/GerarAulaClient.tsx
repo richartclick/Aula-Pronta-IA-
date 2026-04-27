@@ -253,24 +253,26 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
           </div>
         )}
 
-        <button
-          type="submit"
-          disabled={isPending}
-          className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-black py-5 rounded-2xl text-lg transition-all shadow-xl shadow-blue-200 flex items-center justify-center gap-3"
-        >
-          {isPending ? (
-            <>
-              <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              <span>Gerando sua aula...</span>
-            </>
-          ) : (
-            "⚡ Gerar aula agora"
-          )}
-        </button>
-
-        <p className="text-center text-slate-400 text-xs">
-          Normalmente leva entre 5 e 10 segundos · Alimentado por IA
-        </p>
+        {/* Botão sticky no mobile — sempre visível enquanto preenche o form */}
+        <div className="sticky bottom-20 lg:static -mx-4 lg:mx-0 px-4 lg:px-0 py-3 lg:py-0 bg-white/95 lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none border-t border-slate-100 lg:border-0 shadow-lg lg:shadow-none">
+          <button
+            type="submit"
+            disabled={isPending}
+            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-black py-5 rounded-2xl text-lg transition-all shadow-xl shadow-blue-200 flex items-center justify-center gap-3"
+          >
+            {isPending ? (
+              <>
+                <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <span>Gerando sua aula...</span>
+              </>
+            ) : (
+              "⚡ Gerar aula agora"
+            )}
+          </button>
+          <p className="text-center text-slate-400 text-xs mt-2 lg:mt-3">
+            Normalmente leva entre 5 e 10 segundos · Alimentado por IA
+          </p>
+        </div>
       </form>
     </div>
   );
