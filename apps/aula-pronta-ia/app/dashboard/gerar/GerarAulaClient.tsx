@@ -361,6 +361,70 @@ function AulaResultado({
         )}
       </div>
 
+      {/* Botões de ação — logo após o header para visibilidade no mobile */}
+      {erroPDF && (
+        <div className="bg-red-50 border border-red-200 rounded-2xl px-5 py-4 flex items-start gap-3">
+          <span className="text-red-500 shrink-0">⚠️</span>
+          <p className="text-red-700 text-sm">Erro ao gerar o PDF. Tente novamente.</p>
+        </div>
+      )}
+
+      <div className="grid sm:grid-cols-3 gap-3">
+        <button
+          onClick={handleBaixarPDF}
+          disabled={baixando}
+          className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold py-4 rounded-2xl hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition-opacity shadow-lg shadow-blue-200 flex items-center justify-center gap-2 text-sm"
+        >
+          {baixando ? (
+            <>
+              <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              Gerando PDF...
+            </>
+          ) : (
+            "📥 Baixar PDF"
+          )}
+        </button>
+        <button
+          onClick={handleFavoritar}
+          disabled={!aulaId || salvandoFavorito}
+          className="bg-white border-2 border-slate-200 text-slate-700 font-bold py-4 rounded-2xl hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm flex items-center justify-center gap-2"
+        >
+          {favorita ? "⭐ Nos favoritos" : "☆ Favoritar"}
+        </button>
+        <button
+          onClick={onNova}
+          className="bg-emerald-500 text-white font-bold py-4 rounded-2xl hover:bg-emerald-400 transition-colors text-sm flex items-center justify-center gap-2"
+        >
+          ⚡ Nova aula
+        </button>
+      </div>
+
+      {/* Atividades para alunos — visível imediatamente no mobile */}
+      {aulaId && (
+        <div className="border-t-2 border-dashed border-slate-200 pt-6 space-y-4">
+          <div className="text-center">
+            <p className="text-xs font-black text-slate-400 uppercase tracking-widest">
+              Atividades para os alunos
+            </p>
+            <p className="text-slate-500 text-sm mt-1">
+              Gere exercícios com gabarito a partir desta aula — com PDF para imprimir.
+            </p>
+          </div>
+          <BotaoAtividades
+            aulaId={aulaId}
+            tema={meta.tema}
+            serie={meta.serie}
+            disciplina={meta.disciplina}
+            conteudo={aula}
+          />
+        </div>
+      )}
+
+      {/* Divisor antes do conteúdo completo da aula */}
+      <div className="border-t-2 border-slate-100 pt-2">
+        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest text-center mb-6">Conteúdo completo da aula</p>
+      </div>
+
       {/* Objetivos */}
       <Secao icon="🎯" titulo="Objetivos de aprendizagem" cor="blue">
         <ul className="space-y-3">
@@ -515,64 +579,6 @@ function AulaResultado({
         </Secao>
       )}
 
-      {/* Botões de ação */}
-      {erroPDF && (
-        <div className="bg-red-50 border border-red-200 rounded-2xl px-5 py-4 flex items-start gap-3">
-          <span className="text-red-500 shrink-0">⚠️</span>
-          <p className="text-red-700 text-sm">Erro ao gerar o PDF. Tente novamente.</p>
-        </div>
-      )}
-
-      <div className="grid sm:grid-cols-3 gap-3">
-        <button
-          onClick={handleBaixarPDF}
-          disabled={baixando}
-          className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold py-4 rounded-2xl hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition-opacity shadow-lg shadow-blue-200 flex items-center justify-center gap-2 text-sm"
-        >
-          {baixando ? (
-            <>
-              <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              Gerando PDF...
-            </>
-          ) : (
-            "📥 Baixar PDF"
-          )}
-        </button>
-        <button
-          onClick={handleFavoritar}
-          disabled={!aulaId || salvandoFavorito}
-          className="bg-white border-2 border-slate-200 text-slate-700 font-bold py-4 rounded-2xl hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm flex items-center justify-center gap-2"
-        >
-          {favorita ? "⭐ Nos favoritos" : "☆ Favoritar"}
-        </button>
-        <button
-          onClick={onNova}
-          className="bg-emerald-500 text-white font-bold py-4 rounded-2xl hover:bg-emerald-400 transition-colors text-sm flex items-center justify-center gap-2"
-        >
-          ⚡ Nova aula
-        </button>
-      </div>
-
-      {/* Atividades para alunos */}
-      {aulaId && (
-        <div className="border-t-2 border-dashed border-slate-200 pt-8 space-y-4">
-          <div className="text-center">
-            <p className="text-xs font-black text-slate-400 uppercase tracking-widest">
-              Atividades para os alunos
-            </p>
-            <p className="text-slate-500 text-sm mt-1">
-              Gere exercícios com gabarito a partir desta aula — com PDF para imprimir.
-            </p>
-          </div>
-          <BotaoAtividades
-            aulaId={aulaId}
-            tema={meta.tema}
-            serie={meta.serie}
-            disciplina={meta.disciplina}
-            conteudo={aula}
-          />
-        </div>
-      )}
     </div>
   );
 }
