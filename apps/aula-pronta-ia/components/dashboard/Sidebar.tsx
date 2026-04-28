@@ -98,18 +98,24 @@ export default function DashboardSidebar() {
       </aside>
 
       {/* Mobile bottom bar */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-100 flex justify-around pt-2 px-4" style={{ paddingBottom: 'max(8px, env(safe-area-inset-bottom))' }}>
-        {navItems.slice(0, 4).map((item) => {
-          const active = pathname === item.href;
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-100 flex justify-around pt-2 px-2" style={{ paddingBottom: 'max(8px, env(safe-area-inset-bottom))' }}>
+        {[
+          { href: "/dashboard", icon: "🏠", label: "Início" },
+          { href: "/dashboard/gerar", icon: "⚡", label: "Gerar" },
+          { href: "/dashboard/minhas-aulas", icon: "📚", label: "Aulas" },
+          { href: "/dashboard/plano", icon: "💎", label: "Plano" },
+          { href: "/dashboard/perfil", icon: "👤", label: "Perfil" },
+        ].map((item) => {
+          const active = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href));
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-all ${
+              className={`flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-xl transition-all min-w-[56px] ${
                 active ? "text-blue-600" : "text-slate-400"
               }`}
             >
-              <span className="text-xl">{item.icon}</span>
+              <span className="text-2xl">{item.icon}</span>
               <span className="text-xs font-medium">{item.label}</span>
             </Link>
           );

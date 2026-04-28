@@ -122,15 +122,15 @@ export default async function MinhasAulasPage() {
                 {/* Corpo */}
                 <div className="p-5 space-y-3">
                   <div className="flex gap-2 flex-wrap">
-                    <span className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-lg font-medium">{aula.serie}</span>
-                    <span className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-lg font-medium">⏱ {aula.duracao}</span>
+                    <span className="text-xs bg-slate-100 text-slate-600 px-2.5 py-1.5 rounded-lg font-medium">{aula.serie}</span>
+                    <span className="text-xs bg-slate-100 text-slate-600 px-2.5 py-1.5 rounded-lg font-medium">⏱ {aula.duracao}</span>
                   </div>
                   <p className="text-slate-400 text-xs">{formatarData(aula.created_at)}</p>
 
                   <div className="flex gap-2">
                     <Link
                       href={`/dashboard/aula/${aula.id}`}
-                      className="flex-1 text-center text-xs font-bold py-2 bg-blue-50 text-blue-700 rounded-xl hover:bg-blue-100 transition-colors"
+                      className="flex-1 text-center text-sm font-bold py-2.5 bg-blue-50 text-blue-700 rounded-xl hover:bg-blue-100 transition-colors"
                     >
                       👁 Ver aula
                     </Link>
