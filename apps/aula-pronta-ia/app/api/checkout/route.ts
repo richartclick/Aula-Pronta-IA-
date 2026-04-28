@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     payment_method_types: ["card"],
     line_items: [{ price: priceId, quantity: 1 }],
     customer_email: user?.email ?? undefined,
-    success_url: `${origin}/dashboard/plano?sucesso=1`,
+    success_url: `${origin}/dashboard/plano?sucesso=1&plano=${plano}`,
     cancel_url: `${origin}/dashboard/plano?cancelado=1`,
     locale: "pt-BR",
     subscription_data: {

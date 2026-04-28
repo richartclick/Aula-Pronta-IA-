@@ -89,6 +89,8 @@ export default function PlanoClient({
   const params = useSearchParams();
   const sucesso = params.get("sucesso");
   const cancelado = params.get("cancelado");
+  const planoSucesso = params.get("plano");
+  const nomePlanoSucesso = planoSucesso === "premium" ? "Premium" : planoSucesso === "basico" ? "Básico" : "";
   const [loadingPlano, setLoadingPlano] = useState<string | null>(null);
   const [loadingPortal, setLoadingPortal] = useState(false);
 
@@ -144,7 +146,7 @@ export default function PlanoClient({
           <span className="text-2xl">🎉</span>
           <div>
             <p className="font-black text-emerald-800">Assinatura ativada com sucesso!</p>
-            <p className="text-emerald-700 text-sm">Bem-vinda ao plano premium. Aproveite todas as funcionalidades!</p>
+            <p className="text-emerald-700 text-sm">Bem-vinda ao plano {nomePlanoSucesso}. Aproveite todas as funcionalidades!</p>
           </div>
         </div>
       )}
