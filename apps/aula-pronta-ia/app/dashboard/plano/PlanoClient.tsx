@@ -31,13 +31,13 @@ const planosConfig = [
     botaoCor: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:opacity-90",
     icon: "⚡",
     recursos: [
-      "Aulas ilimitadas",
+      "70 aulas por mês",
       "Todos os formatos",
       "Download PDF e Word",
       "Suporte prioritário",
       "Novidades em primeira mão",
     ],
-    falta: ["Recursos premium"],
+    falta: ["Aulas ilimitadas"],
   },
   {
     nome: "Premium",
@@ -49,7 +49,8 @@ const planosConfig = [
     botaoCor: "bg-gradient-to-r from-yellow-500 to-orange-500 text-white hover:opacity-90",
     icon: "💎",
     recursos: [
-      "Tudo do Básico",
+      "Aulas ilimitadas",
+      "Tudo do plano Básico +",
       "Banco de atividades extras",
       "Suporte VIP via WhatsApp",
       "Personalização por turma",
@@ -194,7 +195,7 @@ export default function PlanoClient({
         <p className="text-slate-500">Comece grátis. Faça upgrade quando quiser. Cancele quando precisar.</p>
       </div>
 
-      <div className="grid sm:grid-cols-3 gap-5">
+      <div className="grid sm:grid-cols-3 gap-5 pt-5">
         {planos.map((plano) => (
           <div
             key={plano.nome}
