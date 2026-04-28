@@ -2,11 +2,35 @@ import { createClient } from "@/lib/supabase/server";
 import { logout } from "@/app/actions/auth";
 import { getUsoMensal } from "@/lib/uso";
 import Link from "next/link";
+import Stripe from "stripe";
+import { redirect } from "next/navigation";
+
+async function abrirPortal() {
+  "use server";
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  const { data: perfil } = await supabase
+    .from("profiles")
+    .select("stripe_customer_id")
+    .eq("id", user!.id)
+    .single();
+  if (!perfil?.stripe_customer_id) redirect("/dashboard/plano");
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2026-03-25.dahlia" });
+  const session = await stripe.billingPortal.sessions.create({
+    customer: perfil.stripe_customer_id,
+    return_url: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://aula-pronta-ia.vercel.app"}/dashboard/perfil`,
+  });
+  redirect(session.url);
+}
 
 export default async function PerfilPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  const uso = await getUsoMensal();
+  const [uso, { data: perfil }] = await Promise.all([
+    getUsoMensal(),
+    supabase.from("profiles").select("stripe_customer_id").eq("id", user!.id).single(),
+  ]);
+  const temAssinatura = !!perfil?.stripe_customer_id;
 
   const planoLabel = uso?.plano === "gratuito" ? "Plano Gratuito" : uso?.plano === "basico" ? "Plano Básico" : "Plano Premium";
   const planoBadgeColor = uso?.plano === "gratuito" ? "bg-slate-100 text-slate-700" : uso?.plano === "basico" ? "bg-blue-100 text-blue-700" : "bg-purple-100 text-purple-700";
@@ -62,6 +86,24 @@ export default async function PerfilPage() {
           </div>
           <span className="text-slate-400 text-sm">→</span>
         </Link>
+
+        {temAssinatura && (
+          <form action={abrirPortal}>
+            <button
+              type="submit"
+              className="w-full flex items-center justify-between bg-white rounded-2xl border border-blue-100 shadow-sm p-4 hover:bg-blue-50 transition-colors"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-xl">⚙️</span>
+                <div className="text-left">
+                  <p className="font-semibold text-slate-900 text-sm">Gerenciar assinatura</p>
+                  <p className="text-slate-400 text-xs">Cancele ou troque de plano</p>
+                </div>
+              </div>
+              <span className="text-slate-400 text-sm">→</span>
+            </button>
+          </form>
+        )}
 
         <Link
           href="/esqueceu-senha"
