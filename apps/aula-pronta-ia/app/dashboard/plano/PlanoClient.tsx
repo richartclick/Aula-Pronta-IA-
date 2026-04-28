@@ -195,7 +195,7 @@ export default function PlanoClient({
         <p className="text-slate-500">Comece grátis. Faça upgrade quando quiser. Cancele quando precisar.</p>
       </div>
 
-      <div className="grid sm:grid-cols-3 gap-5 pt-5">
+      <div className="grid sm:grid-cols-3 gap-5 pt-8">
         {planos.map((plano) => (
           <div
             key={plano.nome}
