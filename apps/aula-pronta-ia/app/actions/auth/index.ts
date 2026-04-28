@@ -43,8 +43,9 @@ export async function esqueceuSenha(_prev: { error?: string; success?: boolean }
   const supabase = await createClient();
   const email = formData.get("email") as string;
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aula-pronta-ia.vercel.app";
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/redefinir-senha`,
+    redirectTo: `${siteUrl}/auth/callback?next=/redefinir-senha`,
   });
 
   if (error) return { error: "Não foi possível enviar o email. Verifique o endereço informado." };

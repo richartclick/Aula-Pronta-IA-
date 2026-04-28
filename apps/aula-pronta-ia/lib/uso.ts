@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 
 export const LIMITE_GRATUITO = 5;
+export const LIMITE_BASICO = 70;
 
 export type UsoMensal = {
   plano: string;
@@ -23,7 +24,7 @@ export async function getUsoMensal(): Promise<UsoMensal | null> {
 
   const plano = perfil?.plano ?? "gratuito";
 
-  if (plano !== "gratuito") {
+  if (plano === "premium") {
     return { plano, aulasNoMes: 0, limite: Infinity, restantes: Infinity, bloqueado: false };
   }
 
@@ -33,11 +34,13 @@ export async function getUsoMensal(): Promise<UsoMensal | null> {
   const mesReset = resetEm ? resetEm.getFullYear() * 12 + resetEm.getMonth() : -1;
   const aulasNoMes = mesReset === mesAtual ? (perfil?.geracoes_este_mes ?? 0) : 0;
 
+  const limite = plano === "basico" ? LIMITE_BASICO : LIMITE_GRATUITO;
+
   return {
     plano,
     aulasNoMes,
-    limite: LIMITE_GRATUITO,
-    restantes: Math.max(0, LIMITE_GRATUITO - aulasNoMes),
-    bloqueado: aulasNoMes >= LIMITE_GRATUITO,
+    limite,
+    restantes: Math.max(0, limite - aulasNoMes),
+    bloqueado: aulasNoMes >= limite,
   };
 }
