@@ -57,13 +57,13 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
   return (
     <div className="max-w-5xl mx-auto space-y-8 pb-32 lg:pb-8">
       {/* Header */}
-      <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-7 text-white shadow-xl shadow-blue-200">
-        <div className="flex items-start gap-4">
-          <div className="w-14 h-14 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center text-3xl shrink-0">
+      <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-5 lg:p-7 text-white shadow-xl shadow-blue-200">
+        <div className="flex items-start gap-3 lg:gap-4">
+          <div className="w-11 h-11 lg:w-14 lg:h-14 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center text-2xl lg:text-3xl shrink-0">
             ⚡
           </div>
           <div>
-            <h1 className="text-3xl font-black leading-tight">Gerar nova aula</h1>
+            <h1 className="text-2xl lg:text-3xl font-black leading-tight">Gerar nova aula</h1>
             <p className="text-blue-100 text-sm mt-1 leading-relaxed">
               Preencha os detalhes e a IA cria seu plano completo em segundos.
             </p>
@@ -124,7 +124,7 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
         <input type="hidden" name="estilo" value={estiloSel} />
 
         {/* Tema — largura total */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-3">
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 lg:p-7 space-y-3">
           <div>
             <label className="block font-bold text-slate-900 text-base">
               Tema da aula <span className="text-red-400">*</span>
@@ -209,7 +209,7 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
             </div>
 
             {/* Observações */}
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-3">
+            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 lg:p-7 space-y-3">
               <div>
                 <label className="block font-bold text-slate-900 text-base">
                   Observações extras{" "}
@@ -236,13 +236,13 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
                 <h3 className="font-bold text-slate-900 text-base">Estilo da aula</h3>
                 <p className="text-slate-400 text-xs mt-0.5">Como você prefere conduzir a turma</p>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {estilos.map((e) => (
                   <button
                     key={e.value}
                     type="button"
                     onClick={() => setEstiloSel(e.value)}
-                    className={`flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left ${
+                    className={`flex items-center gap-3 p-3 lg:p-4 rounded-xl border-2 transition-all text-left ${
                       estiloSel === e.value
                         ? "border-blue-500 bg-blue-50"
                         : "border-slate-200 hover:border-slate-300 hover:bg-slate-50"
@@ -272,7 +272,7 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
             )}
 
             {/* Botão sticky no mobile — sempre visível enquanto preenche o form */}
-            <div className="sticky bottom-20 lg:static -mx-4 lg:mx-0 px-4 lg:px-0 py-3 lg:py-0 bg-white lg:bg-transparent border-t border-slate-100 lg:border-0 shadow-lg lg:shadow-none">
+            <div className="sticky bottom-24 lg:static -mx-4 lg:mx-0 px-4 lg:px-0 py-3 lg:py-0 bg-white lg:bg-transparent border-t border-slate-100 lg:border-0 shadow-lg lg:shadow-none">
               <button
                 type="submit"
                 disabled={isPending}
