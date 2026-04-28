@@ -192,27 +192,32 @@ export default function PlanoClient({
         </div>
       )}
 
-      <div className="text-center">
+      <div className="text-center pb-2">
         <h1 className="text-3xl font-black text-slate-900 mb-2">💎 Escolha seu plano</h1>
         <p className="text-slate-500">Comece grátis. Faça upgrade quando quiser. Cancele quando precisar.</p>
       </div>
 
-      <div className="grid sm:grid-cols-3 gap-5 pt-8">
+      <div className="grid sm:grid-cols-3 gap-5">
         {planos.map((plano) => (
-          <div
-            key={plano.nome}
-            className={`relative bg-white rounded-2xl border-2 ${plano.cor} p-6 flex flex-col shadow-sm hover:shadow-md transition-shadow`}
-          >
-            {plano.destaque && !plano.atual && (
-              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-black px-4 py-1 rounded-full shadow">
-                Mais popular ⭐
-              </div>
-            )}
-            {plano.atual && (
-              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-emerald-600 text-white text-xs font-bold px-4 py-1 rounded-full shadow">
-                ✓ Plano atual
-              </div>
-            )}
+          <div key={plano.nome} className="flex flex-col">
+
+            {/* Área reservada para badge — garante alinhamento mesmo sem badge */}
+            <div className="h-7 flex items-center justify-center mb-1">
+              {plano.destaque && !plano.atual && (
+                <div className="bg-blue-600 text-white text-xs font-black px-4 py-1 rounded-full shadow">
+                  Mais popular ⭐
+                </div>
+              )}
+              {plano.atual && (
+                <div className="bg-emerald-600 text-white text-xs font-bold px-4 py-1 rounded-full shadow">
+                  ✓ Plano atual
+                </div>
+              )}
+            </div>
+
+            <div
+              className={`bg-white rounded-2xl border-2 ${plano.cor} p-6 flex flex-col flex-1 shadow-sm hover:shadow-md transition-shadow`}
+            >
 
             <div className="mb-5">
               <span className="text-3xl">{plano.icon}</span>
@@ -256,6 +261,7 @@ export default function PlanoClient({
                 plano.botao
               )}
             </button>
+            </div>
           </div>
         ))}
       </div>
