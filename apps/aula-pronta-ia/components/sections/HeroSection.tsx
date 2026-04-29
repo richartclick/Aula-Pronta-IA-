@@ -43,10 +43,10 @@ export default function HeroSection() {
                 <span className="text-green-400 font-bold">✓</span> 5 aulas grátis por mês
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-green-400 font-bold">✓</span> Sem cartão de crédito
+                <span className="text-green-400 font-bold">✓</span> Pronto em 30 segundos
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-green-400 font-bold">✓</span> Cancele quando quiser
+                <span className="text-green-400 font-bold">✓</span> Para todas as disciplinas
               </div>
             </div>
           </div>
