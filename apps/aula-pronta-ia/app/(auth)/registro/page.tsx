@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useActionState, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { registro } from "@/app/actions/auth";
+import Image from "next/image";
 
 export default function RegistroPage() {
   const [state, action, isPending] = useActionState(registro, null);
@@ -34,8 +35,8 @@ export default function RegistroPage() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl shadow-lg shadow-blue-200 mb-4">
-            <span className="text-2xl">⚡</span>
+          <div className="flex justify-center mb-2">
+            <Image src="/logomarca.png" alt="Aula Pronta IA" width={120} height={120} className="object-contain" priority />
           </div>
           <h1 className="text-2xl font-black text-slate-900">Aula Pronta IA</h1>
           <p className="text-slate-500 text-sm mt-1">Crie sua conta grátis</p>
