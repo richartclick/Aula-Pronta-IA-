@@ -65,6 +65,11 @@ export default function DashboardSidebar() {
           })}
         </nav>
 
+        {/* Robô decorativo */}
+        <div className="flex justify-center px-4 pb-2">
+          <Image src="/robo.png" alt="Assistente IA" width={160} height={160} className="object-contain drop-shadow-sm" />
+        </div>
+
         {/* Bottom nav */}
         <div className="p-5 border-t border-slate-100 space-y-1.5">
           {bottomItems.map((item) => {

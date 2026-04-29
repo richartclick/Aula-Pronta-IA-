@@ -152,17 +152,17 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
                 <h3 className="font-bold text-slate-900 text-base">Detalhes da turma</h3>
                 <p className="text-slate-400 text-xs mt-0.5">Adapta o conteúdo para o nível certo</p>
               </div>
-              <div className="space-y-3 lg:space-y-5">
+              <div className="space-y-3 lg:space-y-7">
 
                 {/* Série / Turma — azul */}
-                <div className="bg-blue-50 border-2 border-blue-100 rounded-xl p-4 lg:p-5">
-                  <label className="block text-blue-600 text-xs font-bold mb-2 lg:mb-3 uppercase tracking-wide">
+                <div className="bg-blue-50 border-2 border-blue-100 rounded-xl p-4 lg:p-6">
+                  <label className="block text-blue-600 text-xs font-bold mb-2 lg:mb-4 uppercase tracking-wide">
                     Série / Turma <span className="text-red-400">*</span>
                   </label>
                   <select
                     name="serie"
                     required
-                    className="w-full bg-white border-2 border-blue-200 rounded-xl px-4 py-3 lg:py-4 text-slate-900 focus:outline-none focus:border-blue-500 transition-colors text-sm"
+                    className="w-full bg-white border-2 border-blue-200 rounded-xl px-4 py-3 lg:py-4 text-slate-900 focus:outline-none focus:border-blue-500 transition-colors text-sm lg:text-base"
                   >
                     <option value="">Selecione...</option>
                     {series.map((s) => (
@@ -172,14 +172,14 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
                 </div>
 
                 {/* Disciplina — roxo */}
-                <div className="bg-purple-50 border-2 border-purple-100 rounded-xl p-4 lg:p-5">
-                  <label className="block text-purple-600 text-xs font-bold mb-2 lg:mb-3 uppercase tracking-wide">
+                <div className="bg-purple-50 border-2 border-purple-100 rounded-xl p-4 lg:p-6">
+                  <label className="block text-purple-600 text-xs font-bold mb-2 lg:mb-4 uppercase tracking-wide">
                     Disciplina <span className="text-red-400">*</span>
                   </label>
                   <select
                     name="disciplina"
                     required
-                    className="w-full bg-white border-2 border-purple-200 rounded-xl px-4 py-3 lg:py-4 text-slate-900 focus:outline-none focus:border-purple-500 transition-colors text-sm"
+                    className="w-full bg-white border-2 border-purple-200 rounded-xl px-4 py-3 lg:py-4 text-slate-900 focus:outline-none focus:border-purple-500 transition-colors text-sm lg:text-base"
                   >
                     <option value="">Selecione...</option>
                     {disciplinas.map((d) => (
@@ -189,14 +189,14 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
                 </div>
 
                 {/* Duração — âmbar */}
-                <div className="bg-amber-50 border-2 border-amber-100 rounded-xl p-4 lg:p-5">
-                  <label className="block text-amber-600 text-xs font-bold mb-2 lg:mb-3 uppercase tracking-wide">
+                <div className="bg-amber-50 border-2 border-amber-100 rounded-xl p-4 lg:p-6">
+                  <label className="block text-amber-600 text-xs font-bold mb-2 lg:mb-4 uppercase tracking-wide">
                     Duração <span className="text-red-400">*</span>
                   </label>
                   <select
                     name="duracao"
                     required
-                    className="w-full bg-white border-2 border-amber-200 rounded-xl px-4 py-3 lg:py-4 text-slate-900 focus:outline-none focus:border-amber-500 transition-colors text-sm"
+                    className="w-full bg-white border-2 border-amber-200 rounded-xl px-4 py-3 lg:py-4 text-slate-900 focus:outline-none focus:border-amber-500 transition-colors text-sm lg:text-base"
                   >
                     <option value="">Selecione...</option>
                     {duracoes.map((d) => (
