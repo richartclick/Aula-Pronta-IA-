@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const links = [
   { label: "Como funciona", href: "#demo" },
   { label: "Benefícios", href: "#beneficios" },
@@ -11,11 +13,15 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-8">
 
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2.5 shrink-0">
-          <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center shadow-sm">
-            <span className="text-white font-black text-sm">IA</span>
-          </div>
-          <span className="font-black text-slate-900 text-lg">Aula Pronta IA</span>
+        <a href="/" className="flex items-center shrink-0">
+          <Image
+            src="/logomarca.png"
+            alt="Aula Pronta IA"
+            width={110}
+            height={44}
+            className="object-contain"
+            priority
+          />
         </a>
 
         {/* Links — só desktop */}

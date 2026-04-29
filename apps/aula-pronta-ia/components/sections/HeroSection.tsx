@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function HeroSection() {
   return (
     <section className="gradient-hero min-h-screen flex items-center pt-16 px-4">
@@ -49,70 +51,16 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right: Product Mock */}
-          <div className="animate-float hidden lg:block">
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-5 shadow-2xl">
-
-              {/* Browser bar */}
-              <div className="flex items-center gap-2 mb-5 pb-4 border-b border-white/10">
-                <div className="w-3 h-3 rounded-full bg-red-400/80" />
-                <div className="w-3 h-3 rounded-full bg-yellow-400/80" />
-                <div className="w-3 h-3 rounded-full bg-green-400/80" />
-                <div className="flex-1 bg-white/10 rounded-lg px-3 py-1 ml-2">
-                  <span className="text-white/40 text-xs">aula-pronta-ia.vercel.app/dashboard/gerar</span>
-                </div>
-              </div>
-
-              {/* Input card */}
-              <div className="bg-white/10 rounded-2xl p-4 mb-3 space-y-2.5">
-                <div className="flex gap-2">
-                  <div className="flex-1 bg-white/15 rounded-xl px-3 py-2">
-                    <p className="text-white/40 text-xs mb-0.5">Tema</p>
-                    <p className="text-white text-sm font-semibold">Frações no cotidiano</p>
-                  </div>
-                  <div className="bg-white/15 rounded-xl px-3 py-2">
-                    <p className="text-white/40 text-xs mb-0.5">Série</p>
-                    <p className="text-white text-sm font-semibold">5º Ano</p>
-                  </div>
-                  <div className="bg-white/15 rounded-xl px-3 py-2">
-                    <p className="text-white/40 text-xs mb-0.5">Duração</p>
-                    <p className="text-white text-sm font-semibold">45 min</p>
-                  </div>
-                </div>
-                <div className="bg-blue-500/60 rounded-xl px-4 py-2.5 text-center">
-                  <span className="text-white text-sm font-black">⚡ Gerar aula agora</span>
-                </div>
-              </div>
-
-              {/* Result */}
-              <div className="bg-emerald-500/20 border border-emerald-400/30 rounded-2xl p-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-emerald-300 text-sm">🎉</span>
-                  <span className="text-emerald-300 text-sm font-bold">Aula gerada em 7 segundos!</span>
-                </div>
-                <div className="space-y-2">
-                  {[
-                    { icon: "🎯", label: "Objetivos de aprendizagem", detail: "3 objetivos alinhados à BNCC" },
-                    { icon: "📋", label: "Desenvolvimento", detail: "3 etapas com mediação" },
-                    { icon: "🎮", label: "Atividades", detail: "Individual + grupo" },
-                    { icon: "📝", label: "Avaliação + Para casa", detail: "Formativa e somativa" },
-                  ].map((item) => (
-                    <div key={item.label} className="flex items-center gap-2.5 bg-white/10 rounded-xl px-3 py-2">
-                      <span className="text-base">{item.icon}</span>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-white text-xs font-semibold truncate">{item.label}</p>
-                        <p className="text-white/50 text-xs">{item.detail}</p>
-                      </div>
-                      <span className="text-emerald-400 text-xs font-bold">✓</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-3 bg-blue-500/40 rounded-xl px-4 py-2.5 text-center">
-                  <span className="text-white text-xs font-bold">📥 Baixar PDF da aula</span>
-                </div>
-              </div>
-
-            </div>
+          {/* Right: Robot */}
+          <div className="flex justify-center items-center animate-float">
+            <Image
+              src="/robo.png"
+              alt="Assistente Aula Pronta IA"
+              width={520}
+              height={520}
+              className="object-contain drop-shadow-2xl"
+              priority
+            />
           </div>
 
         </div>
