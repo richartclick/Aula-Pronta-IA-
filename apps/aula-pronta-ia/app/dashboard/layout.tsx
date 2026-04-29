@@ -1,7 +1,22 @@
 import DashboardSidebar from "@/components/dashboard/Sidebar";
 import DashboardHeader from "@/components/dashboard/Header";
+import OnboardingOverlay from "@/components/onboarding/OnboardingOverlay";
+import { createClient } from "@/lib/supabase/server";
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  let onboardingCompleto = true;
+  if (user) {
+    const { data } = await supabase
+      .from("profiles")
+      .select("onboarding_completo")
+      .eq("id", user.id)
+      .single();
+    onboardingCompleto = data?.onboarding_completo ?? false;
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 flex">
       <DashboardSidebar />
@@ -11,6 +26,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {children}
         </main>
       </div>
+      {!onboardingCompleto && <OnboardingOverlay />}
     </div>
   );
 }
