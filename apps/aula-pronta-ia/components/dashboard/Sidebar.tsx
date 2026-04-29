@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const navItems = [
   { href: "/dashboard", icon: "🏠", label: "Início" },
@@ -24,16 +25,15 @@ export default function DashboardSidebar() {
       {/* Desktop sidebar */}
       <aside className="hidden lg:flex flex-col w-64 bg-white border-r border-slate-100 shadow-sm min-h-screen">
         {/* Logo */}
-        <div className="p-7 border-b border-slate-100">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-md">
-              <span className="text-white font-black text-sm">AI</span>
-            </div>
-            <div>
-              <p className="font-black text-slate-900 text-sm leading-tight">Aula Pronta</p>
-              <p className="text-blue-600 font-bold text-xs">IA</p>
-            </div>
-          </div>
+        <div className="p-5 border-b border-slate-100 flex items-center justify-center">
+          <Image
+            src="/logomarca.png"
+            alt="Aula Pronta IA"
+            width={140}
+            height={140}
+            className="object-contain"
+            priority
+          />
         </div>
 
         {/* Main nav */}
