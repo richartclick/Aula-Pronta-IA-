@@ -195,6 +195,21 @@ export default function PlanoClient({
       <div className="text-center pb-2">
         <h1 className="text-3xl font-black text-slate-900 mb-2">💎 Escolha seu plano</h1>
         <p className="text-slate-500">Comece grátis. Faça upgrade quando quiser. Cancele quando precisar.</p>
+        <div className="flex flex-wrap justify-center gap-2 mt-3">
+          {[
+            "Sem fidelidade",
+            "Cancele quando quiser",
+            "Garantia de 7 dias",
+            "Pagamento seguro",
+          ].map((selo) => (
+            <span
+              key={selo}
+              className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 text-xs font-semibold px-3 py-1.5 rounded-full border border-emerald-200"
+            >
+              ✓ {selo}
+            </span>
+          ))}
+        </div>
       </div>
 
       <div className="grid sm:grid-cols-3 gap-5">
