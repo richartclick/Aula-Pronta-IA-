@@ -3,14 +3,14 @@ export default function DemoSection() {
     <section id="demo" className="pb-24 bg-[#fafafa]">
       <div className="max-w-[1200px] mx-auto px-5 md:px-10">
 
-        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 mb-10 items-end">
+        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-6 lg:gap-16 mb-8 lg:mb-10 items-end">
           <div>
             <span className="eyebrow"><span className="eyebrow-dot" />Veja na prática</span>
           </div>
           <div>
             <h2
               className="font-fraunces leading-[.98] tracking-[-0.032em] mt-3 text-slate-900"
-              style={{ fontSize: 'clamp(38px, 5.2vw, 72px)', fontWeight: 380 }}
+              style={{ fontSize: 'clamp(28px, 6vw, 68px)', fontWeight: 380 }}
             >
               Da descrição ao plano,{" "}
               <span className="gradient-text" style={{ fontStyle: 'italic', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>
@@ -27,7 +27,7 @@ export default function DemoSection() {
           <div className="grid lg:grid-cols-[1fr_1.1fr]">
 
             {/* Form side */}
-            <div className="p-8 lg:border-r border-slate-200">
+            <div className="p-5 sm:p-8 border-b lg:border-b-0 lg:border-r border-slate-200">
               <label className="block text-[11px] uppercase tracking-[.14em] text-slate-500 font-semibold mb-2">Tópico da aula</label>
               <div className="bg-blue-50 rounded-[12px] px-4 py-3 text-[14px] text-slate-700 font-semibold mb-3 border border-transparent">
                 Sistema solar — planetas internos e externos
@@ -59,7 +59,7 @@ export default function DemoSection() {
             </div>
 
             {/* Output side */}
-            <div className="p-8" style={{ background: 'linear-gradient(180deg, #fff, #f8fafc)' }}>
+            <div className="p-5 sm:p-8" style={{ background: 'linear-gradient(180deg, #fff, #f8fafc)' }}>
               <div className="flex items-center justify-between mb-5 gap-3">
                 <h4
                   className="font-fraunces text-slate-900 leading-tight"

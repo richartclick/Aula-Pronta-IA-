@@ -6,7 +6,7 @@ export default function HeroSection() {
   return (
     <section className="pt-20 overflow-hidden bg-[#fafafa]">
       <div className="max-w-[1200px] mx-auto px-5 md:px-10 pt-14 pb-0">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
           {/* Left: Text */}
           <div>
@@ -66,9 +66,9 @@ export default function HeroSection() {
           </div>
 
           {/* Right: Visual */}
-          <div className="relative flex items-center justify-center min-h-[480px]">
+          <div className="relative flex items-center justify-center min-h-[300px] sm:min-h-[440px]">
             <div
-              className="absolute inset-[-40px] pointer-events-none"
+              className="absolute inset-0 pointer-events-none"
               style={{
                 background: 'radial-gradient(50% 50% at 75% 25%, rgba(167,139,250,.45), transparent 70%), radial-gradient(45% 55% at 15% 80%, rgba(29,78,216,.35), transparent 70%)',
                 filter: 'blur(30px)',
@@ -81,8 +81,8 @@ export default function HeroSection() {
                 <p className="text-slate-500 text-[11.5px] mt-0.5">para gerar a aula</p>
               </div>
             </div>
-            <div className="relative z-[1] animate-float">
-              <Image src="/robo.png" alt="Assistente Aula Pronta IA" width={440} height={440} className="object-contain drop-shadow-2xl" priority />
+            <div className="relative z-[1] animate-float w-full max-w-[340px] sm:max-w-[440px]">
+              <Image src="/robo.png" alt="Assistente Aula Pronta IA" width={440} height={440} className="w-full h-auto object-contain drop-shadow-2xl" priority />
             </div>
             <div className="absolute bottom-8 right-0 z-10 bg-white rounded-2xl shadow-lg border border-slate-200 px-4 py-3 hidden sm:flex items-center gap-3" style={{ transform: 'rotate(3.5deg)' }}>
               <div className="w-8 h-8 bg-green-100 rounded-xl flex items-center justify-center text-sm shrink-0">★</div>

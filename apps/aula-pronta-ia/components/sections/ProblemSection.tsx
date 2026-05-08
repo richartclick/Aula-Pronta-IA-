@@ -10,14 +10,14 @@ export default function ProblemSection() {
     <section className="py-24 bg-[#fafafa]">
       <div className="max-w-[1200px] mx-auto px-5 md:px-10">
 
-        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 mb-16 items-end">
+        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-6 lg:gap-16 mb-12 lg:mb-16 items-end">
           <div>
             <span className="eyebrow"><span className="eyebrow-dot" />O problema</span>
           </div>
           <div>
             <h2
               className="font-fraunces leading-[.98] tracking-[-0.032em] mt-3 text-slate-900"
-              style={{ fontSize: 'clamp(36px, 5.2vw, 68px)', fontWeight: 380 }}
+              style={{ fontSize: 'clamp(28px, 6vw, 68px)', fontWeight: 380 }}
             >
               Planejar bem{" "}
               <span className="gradient-text" style={{ fontStyle: 'italic', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>leva tempo.</span>

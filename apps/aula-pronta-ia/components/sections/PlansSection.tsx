@@ -7,14 +7,14 @@ export default function PlansSection() {
     <section id="planos" className="pb-24 bg-[#fafafa]">
       <div className="max-w-[1200px] mx-auto px-5 md:px-10">
 
-        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 mb-16 items-end">
+        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-6 lg:gap-16 mb-12 lg:mb-16 items-end">
           <div>
             <span className="eyebrow"><span className="eyebrow-dot" />Planos</span>
           </div>
           <div>
             <h2
               className="font-fraunces leading-[.98] tracking-[-0.032em] mt-3 text-slate-900"
-              style={{ fontSize: 'clamp(38px, 5.2vw, 72px)', fontWeight: 380 }}
+              style={{ fontSize: 'clamp(28px, 6vw, 68px)', fontWeight: 380 }}
             >
               Comece grátis.<br />
               <span className="gradient-text" style={{ fontStyle: 'italic', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>
@@ -50,7 +50,7 @@ export default function PlansSection() {
 
           {/* Básico — destaque */}
           <div
-            className="rounded-[18px] p-9 flex flex-col relative -translate-y-3 shadow-2xl"
+            className="rounded-[18px] p-9 flex flex-col relative sm:-translate-y-3 shadow-2xl"
             style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1d4ed8 100%)' }}
           >
             <span className="absolute -top-3 right-6 bg-[#ff6568] text-white text-[10.5px] font-bold px-4 py-1.5 rounded-full uppercase tracking-[.08em]" style={{ boxShadow: '0 8px 20px -6px rgba(255,101,104,.55)' }}>
@@ -90,7 +90,7 @@ export default function PlansSection() {
               <span className="text-slate-500 text-sm self-end mb-2 font-medium">,90 / mês</span>
             </div>
             <ul className="space-y-3 mb-8 flex-1">
-              {["Tudo do plano Básico", "Recursos e atividades exclusivas", "Personalização por turma", "WhatsApp VIP com a equipe"].map((f) => (
+              {["Aulas ilimitadas", "Tudo do plano Básico", "Recursos e atividades exclusivas", "Personalização por turma", "WhatsApp VIP com a equipe"].map((f) => (
                 <li key={f} className="flex items-start gap-2.5 text-sm text-green-600"><CheckIcon /><span className="text-slate-700">{f}</span></li>
               ))}
             </ul>
