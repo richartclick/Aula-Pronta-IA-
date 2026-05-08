@@ -1,86 +1,83 @@
 const steps = [
-  { num: "01", title: "Descreva sua aula", desc: "Informe o tema, a série e o tempo disponível" },
-  { num: "02", title: "A IA trabalha", desc: "Nossa inteligência artificial cria o conteúdo completo em segundos" },
-  { num: "03", title: "Aula pronta!", desc: "Receba um plano de aula completo, pronto para aplicar em sala" },
+  {
+    n: "— passo 01",
+    title: "Descreva sua aula",
+    desc: "Tema, série, duração e o jeitão da turma. Quanto mais específico, mais útil sai do outro lado.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" strokeWidth="1.6"><path d="M4 19h16M4 5h16M4 12h10" /></svg>
+    ),
+  },
+  {
+    n: "— passo 02",
+    title: "A IA monta tudo",
+    desc: "Em segundos, ela conecta objetivos da BNCC, conteúdo estruturado, atividades e critérios de avaliação.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" strokeWidth="1.6"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 3" /></svg>
+    ),
+  },
+  {
+    n: "— passo 03",
+    title: "Aula na sua mão",
+    desc: "Ajuste o que quiser, exporte em PDF ou Word e leve para a sala. Ou para o seu coordenador.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" strokeWidth="1.6"><path d="M5 13l4 4L19 7" /></svg>
+    ),
+  },
 ];
 
 export default function SolutionSection() {
   return (
-    <section className="py-32 px-4 bg-white">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
-          <div>
-            <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">A solução</span>
-            <h2 className="text-4xl sm:text-5xl font-black text-slate-900 mt-4 mb-6 leading-tight">
-              Conheça a{" "}
-              <span className="text-blue-600">Aula Pronta IA</span>
-            </h2>
-            <p className="text-slate-600 text-lg leading-relaxed mb-10">
-              Uma plataforma desenvolvida especialmente para professores que querem recuperar seu tempo, sua criatividade e sua paixão pelo ensino.
-            </p>
+    <section id="como" className="py-32 px-7 bg-[#fafafa]" style={{ paddingTop: 0 }}>
+      <div className="max-w-[1240px] mx-auto">
+        <div
+          className="rounded-[28px] px-14 py-[74px] relative overflow-hidden"
+          style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1d4ed8 100%)' }}
+        >
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: 'radial-gradient(40% 60% at 90% 10%, rgba(167,139,250,.28), transparent 70%), radial-gradient(40% 60% at 10% 90%, rgba(96,165,250,.30), transparent 70%)',
+            }}
+          />
 
-            <div className="space-y-8">
-              {steps.map((step) => (
-                <div key={step.num} className="flex gap-5 items-start">
-                  <div className="flex-shrink-0 w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center">
-                    <span className="text-white font-black text-sm">{step.num}</span>
-                  </div>
-                  <div className="pt-1">
-                    <h3 className="font-bold text-slate-900 text-lg mb-1.5">{step.title}</h3>
-                    <p className="text-slate-500 leading-relaxed">{step.desc}</p>
-                  </div>
-                </div>
-              ))}
+          <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 mb-16 items-end relative">
+            <div>
+              <span className="eyebrow" style={{ color: '#cbd5e1' }}>
+                <span className="eyebrow-dot" style={{ background: '#a78bfa', boxShadow: '0 0 0 4px rgba(167,139,250,.25)' }} />
+                Como funciona
+              </span>
             </div>
-
-            <a
-              href="/registro"
-              className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-400 text-white font-black py-4 px-8 rounded-2xl text-base transition-all mt-10 shadow-lg shadow-green-500/20"
-            >
-              Criar minha conta grátis →
-            </a>
+            <div>
+              <h2
+                className="font-fraunces leading-[.98] tracking-[-0.032em] mt-3 text-white"
+                style={{ fontSize: 'clamp(38px, 5vw, 68px)', fontWeight: 380 }}
+              >
+                Da ideia ao plano{" "}
+                <span style={{ color: '#c4b5fd', fontStyle: 'italic', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>
+                  em três respiros.
+                </span>
+              </h2>
+            </div>
           </div>
 
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-3xl p-8">
-            <div className="bg-white rounded-2xl p-6 shadow-sm mb-4">
-              <p className="text-slate-400 text-xs mb-3 font-medium">ANTES — SEM A PLATAFORMA</p>
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-2xl">⏰</span>
-                <div>
-                  <p className="font-bold text-slate-900">3–4 horas</p>
-                  <p className="text-slate-500 text-xs">para planejar 1 aula</p>
+          <div className="grid lg:grid-cols-3 gap-8 relative">
+            {steps.map((step) => (
+              <div key={step.title} className="pt-7 border-t border-white/20">
+                <span className="text-[#c4b5fd] text-sm tracking-[.04em]" style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>
+                  {step.n}
+                </span>
+                <h3
+                  className="font-fraunces text-white mt-3 mb-3 leading-tight tracking-[-0.025em]"
+                  style={{ fontSize: '32px', fontWeight: 380, fontVariationSettings: '"opsz" 144, "SOFT" 60' }}
+                >
+                  {step.title}
+                </h3>
+                <p className="text-slate-300 text-[14.5px] leading-[1.65] font-normal">{step.desc}</p>
+                <div className="mt-6 w-14 h-14 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
+                  {step.icon}
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">😩</span>
-                <div>
-                  <p className="font-bold text-slate-900">Esgotamento</p>
-                  <p className="text-slate-500 text-xs">ao chegar em sala</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-center my-3">
-              <span className="text-2xl">⬇️</span>
-            </div>
-
-            <div className="bg-green-600 rounded-2xl p-6 text-white">
-              <p className="text-green-200 text-xs mb-3 font-medium">DEPOIS — COM A AULA PRONTA IA</p>
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-2xl">⚡</span>
-                <div>
-                  <p className="font-bold">Menos de 1 minuto</p>
-                  <p className="text-green-200 text-xs">para gerar uma aula completa</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">🎉</span>
-                <div>
-                  <p className="font-bold">Energia e criatividade</p>
-                  <p className="text-green-200 text-xs">para seus alunos</p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

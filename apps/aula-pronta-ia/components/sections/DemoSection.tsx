@@ -1,87 +1,98 @@
-const outputItems = [
-  { icon: "📋", label: "Objetivos de aprendizagem", detail: "Claros e alinhados à BNCC" },
-  { icon: "📖", label: "Conteúdo detalhado", detail: "Estruturado em introdução, desenvolvimento e conclusão" },
-  { icon: "🎯", label: "Atividades práticas", detail: "Individuais e em grupo, com instruções" },
-  { icon: "📝", label: "Avaliação sugerida", detail: "Critérios e rubrica prontos" },
-  { icon: "📦", label: "Recursos necessários", detail: "Lista de materiais e links sugeridos" },
-];
-
 export default function DemoSection() {
   return (
-    <section id="demo" className="py-32 px-4 bg-slate-900">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-20">
-          <span className="text-blue-400 font-semibold text-sm uppercase tracking-wide">Veja em ação</span>
-          <h2 className="text-4xl sm:text-5xl font-black text-white mt-4 leading-tight">
-            De ideia a aula completa em segundos
-          </h2>
+    <section id="demo" className="py-32 px-7 bg-[#fafafa]" style={{ paddingTop: 0 }}>
+      <div className="max-w-[1240px] mx-auto">
+
+        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 mb-10 items-end">
+          <div>
+            <span className="eyebrow"><span className="eyebrow-dot" />Veja na prática</span>
+          </div>
+          <div>
+            <h2
+              className="font-fraunces leading-[.98] tracking-[-0.032em] mt-3 text-slate-900"
+              style={{ fontSize: 'clamp(38px, 5.2vw, 72px)', fontWeight: 380 }}
+            >
+              Da descrição ao plano,{" "}
+              <span className="gradient-text" style={{ fontStyle: 'italic', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>
+                em um respiro.
+              </span>
+            </h2>
+            <p className="text-slate-500 text-[16.5px] leading-[1.65] mt-4 font-normal max-w-lg">
+              Veja o que sai do outro lado quando você descreve uma aula simples. Direto ao que funciona em sala.
+            </p>
+          </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-10 items-start">
-          {/* Input */}
-          <div>
-            <p className="text-slate-400 text-sm mb-3 font-medium uppercase tracking-wide">Você informa →</p>
-            <div className="bg-slate-800 rounded-2xl p-6 border border-slate-700">
-              <div className="space-y-4">
-                <div>
-                  <label className="text-slate-400 text-xs mb-1 block">Tema da aula</label>
-                  <div className="bg-slate-700 rounded-xl px-4 py-3 text-white text-sm">
-                    Frações e números decimais
-                  </div>
-                </div>
-                <div>
-                  <label className="text-slate-400 text-xs mb-1 block">Série / Turma</label>
-                  <div className="bg-slate-700 rounded-xl px-4 py-3 text-white text-sm">
-                    5º Ano — Ensino Fundamental
-                  </div>
-                </div>
-                <div>
-                  <label className="text-slate-400 text-xs mb-1 block">Duração</label>
-                  <div className="bg-slate-700 rounded-xl px-4 py-3 text-white text-sm">
-                    45 minutos
-                  </div>
-                </div>
-                <div>
-                  <label className="text-slate-400 text-xs mb-1 block">Estilo de aula</label>
-                  <div className="bg-slate-700 rounded-xl px-4 py-3 text-white text-sm">
-                    Dinâmico, com atividades em grupo
-                  </div>
-                </div>
-                <button className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-colors">
-                  ⚡ Gerar aula agora
-                </button>
-              </div>
-            </div>
-          </div>
+        <div className="bg-white border border-slate-200 rounded-[28px] p-4 shadow-lg">
+          <div className="grid lg:grid-cols-[1fr_1.1fr]">
 
-          {/* Output */}
-          <div>
-            <p className="text-slate-400 text-sm mb-3 font-medium uppercase tracking-wide">A IA entrega →</p>
-            <div className="bg-slate-800 rounded-2xl p-6 border border-green-500/30">
-              <div className="flex items-center gap-2 mb-5">
-                <div className="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse" />
-                <span className="text-green-400 text-sm font-medium">Aula gerada em 8 segundos</span>
+            {/* Form side */}
+            <div className="p-8 lg:border-r border-slate-200">
+              <label className="block text-[11px] uppercase tracking-[.14em] text-slate-500 font-semibold mb-2">Tópico da aula</label>
+              <div className="bg-blue-50 rounded-[12px] px-4 py-3 text-[14px] text-slate-700 font-semibold mb-3 border border-transparent">
+                Sistema solar — planetas internos e externos
               </div>
-              <div className="space-y-3">
-                {outputItems.map((item) => (
-                  <div key={item.label} className="flex items-start gap-3 bg-slate-700/50 rounded-xl p-3">
-                    <span className="text-xl flex-shrink-0">{item.icon}</span>
-                    <div>
-                      <p className="text-white text-sm font-semibold">{item.label}</p>
-                      <p className="text-slate-400 text-xs">{item.detail}</p>
+
+              <div className="grid grid-cols-2 gap-2 mb-3">
+                <div>
+                  <label className="block text-[11px] uppercase tracking-[.14em] text-slate-500 font-semibold mb-2">Série</label>
+                  <div className="bg-blue-50 rounded-[12px] px-4 py-3 text-[14px] text-slate-700 font-semibold border border-transparent">5º ano · Fund. I</div>
+                </div>
+                <div>
+                  <label className="block text-[11px] uppercase tracking-[.14em] text-slate-500 font-semibold mb-2">Duração</label>
+                  <div className="bg-blue-50 rounded-[12px] px-4 py-3 text-[14px] text-slate-700 font-semibold border border-transparent">50 minutos</div>
+                </div>
+              </div>
+
+              <label className="block text-[11px] uppercase tracking-[.14em] text-slate-500 font-semibold mb-2 mt-1">Estilo da turma</label>
+              <div className="bg-blue-50 rounded-[12px] px-4 py-3 text-[14px] text-slate-700 font-semibold mb-4 border border-transparent">
+                Visual e prática · 28 alunos · agitada à tarde
+              </div>
+
+              <button
+                className="w-full bg-blue-700 hover:bg-blue-600 text-white font-bold text-[14.5px] py-4 rounded-[12px] flex items-center justify-center gap-2 transition-all hover:-translate-y-px"
+                style={{ boxShadow: '0 18px 40px -12px rgba(29,78,216,.45)' }}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12l5 5L20 7" /></svg>
+                Gerar plano de aula
+              </button>
+            </div>
+
+            {/* Output side */}
+            <div className="p-8" style={{ background: 'linear-gradient(180deg, #fff, #f8fafc)' }}>
+              <div className="flex items-center justify-between mb-5 gap-3">
+                <h4
+                  className="font-fraunces text-slate-900 leading-tight"
+                  style={{ fontSize: '23px', fontWeight: 400, fontVariationSettings: '"opsz" 144, "SOFT" 50' }}
+                >
+                  Plano — Sistema Solar
+                </h4>
+                <span className="text-[11px] bg-blue-100 text-blue-700 px-3 py-1.5 rounded-full font-bold tracking-[.05em] shrink-0">BNCC EF05CI11</span>
+              </div>
+
+              {[
+                { label: "Objetivo de aprendizagem", body: "Reconhecer a organização do sistema solar e diferenciar planetas internos de externos pela composição e distância em relação ao Sol." },
+                { label: "Desenvolvimento", body: "Vídeo curto de abertura (5 min) → maquete coletiva com isopor (25 min) → discussão guiada por perguntas-chave (15 min) → síntese visual (5 min)." },
+                { label: "Atividade prática", body: "Em grupos, cada equipe representa um planeta e produz um cartaz com três fatos surpreendentes.", chips: ["Trabalho em grupo", "Visual", "Oral"] },
+                { label: "Avaliação", body: "Rubrica por critério: clareza (0–3), criatividade (0–3), grupo (0–4). Total 10 pontos." },
+              ].map((block, i) => (
+                <div key={block.label} className={`py-3 ${i > 0 ? 'border-t border-dashed border-slate-200' : ''}`}>
+                  <div className="text-[11px] uppercase tracking-[.14em] text-slate-500 font-semibold">{block.label}</div>
+                  <div className="text-[13.5px] text-slate-700 leading-[1.65] mt-1.5">{block.body}</div>
+                  {block.chips && (
+                    <div className="flex flex-wrap gap-1.5 mt-2">
+                      {block.chips.map((c) => (
+                        <span key={c} className="text-[11.5px] bg-white border border-slate-200 text-slate-600 px-3 py-1 rounded-full font-medium">{c}</span>
+                      ))}
                     </div>
-                    <span className="ml-auto text-green-400 text-sm">✓</span>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-5 pt-4 border-t border-slate-700">
-                <button className="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded-xl transition-colors text-sm">
-                  📥 Baixar plano de aula
-                </button>
-              </div>
+                  )}
+                </div>
+              ))}
             </div>
+
           </div>
         </div>
+
       </div>
     </section>
   );

@@ -1,42 +1,50 @@
 const pains = [
-  { emoji: "😓", title: "Falta de tempo", desc: "Horas planejando aulas depois de um dia exaustivo de trabalho" },
-  { emoji: "🧠", title: "Esgotamento mental", desc: "Criatividade em baixa depois de lidar com turmas cheias" },
-  { emoji: "📋", title: "Planejamento demorado", desc: "Cada aula leva horas para estruturar do zero" },
-  { emoji: "⚡", title: "Energia no limite", desc: "Chegando em sala sem energia para engajar os alunos" },
+  { num: "01", emoji: "⏰", title: "Sem tempo", desc: "Conselhos, correções e diários consomem a semana antes mesmo da aula começar." },
+  { num: "02", emoji: "🧠", title: "Cansaço mental", desc: "Planejar exige criatividade — algo difícil depois de oito horas em pé na sala." },
+  { num: "03", emoji: "📋", title: "Tudo lento", desc: "Pesquisar, escrever, formatar e alinhar à BNCC vira um ritual de três a quatro horas." },
+  { num: "04", emoji: "⚡", title: "Energia no chão", desc: "A pilha que devia ir para a turma já gastou no caderno de planejamento." },
 ];
 
 export default function ProblemSection() {
   return (
-    <section className="py-32 px-4 bg-slate-50">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-20">
-          <span className="text-red-500 font-semibold text-sm uppercase tracking-wide">A realidade de muitos professores</span>
-          <h2 className="text-4xl sm:text-5xl font-black text-slate-900 mt-4 mb-5 leading-tight">
-            Você não ficou professor para<br />
-            <span className="text-red-500">passar horas criando conteúdo…</span>
-          </h2>
-          <p className="text-slate-600 text-lg max-w-2xl mx-auto leading-relaxed">
-            Sabemos que a vocação de ensinar é incrível. Mas a burocracia e o planejamento estão sugando sua energia e seu tempo.
-          </p>
+    <section className="py-32 px-7 bg-[#fafafa]">
+      <div className="max-w-[1240px] mx-auto">
+
+        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 mb-16 items-end">
+          <div>
+            <span className="eyebrow"><span className="eyebrow-dot" />O peso invisível</span>
+          </div>
+          <div>
+            <h2
+              className="font-fraunces leading-[.98] tracking-[-0.032em] mt-3 text-slate-900"
+              style={{ fontSize: 'clamp(38px, 5.2vw, 72px)', fontWeight: 380 }}
+            >
+              A escola levou{" "}
+              <span className="gradient-text" style={{ fontStyle: 'italic', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>seu domingo</span>
+              —<br />e não devolveu.
+            </h2>
+            <p className="text-slate-500 text-[16.5px] leading-[1.65] mt-4 max-w-lg font-normal">
+              A rotina docente come o que sobra de criatividade. Antes da IA, fazer um plano decente custava um sábado inteiro — o sábado que era para a família.
+            </p>
+          </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-[18px]">
           {pains.map((pain) => (
-            <div key={pain.title} className="bg-white rounded-2xl p-8 border border-red-100 card-hover">
-              <div className="text-5xl mb-5">{pain.emoji}</div>
-              <h3 className="font-bold text-slate-900 text-lg mb-3">{pain.title}</h3>
-              <p className="text-slate-500 text-sm leading-relaxed">{pain.desc}</p>
+            <div key={pain.title} className="bg-white rounded-[18px] border border-slate-200 p-7 relative card-hover hover:border-blue-200">
+              <span
+                className="absolute top-4 right-5 font-fraunces text-slate-100 text-[46px] leading-none pointer-events-none select-none"
+                style={{ fontStyle: 'italic', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}
+              >
+                {pain.num}
+              </span>
+              <div className="w-12 h-12 bg-blue-50 rounded-[13px] flex items-center justify-center text-[22px] mb-5">{pain.emoji}</div>
+              <h3 className="font-bold text-slate-900 text-[18.5px] tracking-[-0.02em] mb-2">{pain.title}</h3>
+              <p className="text-slate-500 text-sm leading-[1.6]">{pain.desc}</p>
             </div>
           ))}
         </div>
 
-        <div className="mt-16 text-center">
-          <div className="inline-block bg-red-50 border border-red-200 rounded-2xl px-10 py-6 max-w-xl">
-            <p className="text-slate-700 text-base leading-relaxed">
-              <strong className="text-red-600">E o pior:</strong> no final do dia você ainda se pergunta se fez o suficiente pelos seus alunos. Isso precisa mudar.
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   );

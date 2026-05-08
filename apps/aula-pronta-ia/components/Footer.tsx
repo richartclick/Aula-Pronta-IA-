@@ -1,74 +1,70 @@
-const links = {
-  produto: [
-    { label: "Como funciona", href: "#demo" },
-    { label: "Benefícios", href: "#beneficios" },
-    { label: "Planos", href: "#planos" },
-    { label: "Depoimentos", href: "#depoimentos" },
-  ],
-  conta: [
-    { label: "Criar conta grátis", href: "/registro" },
-    { label: "Entrar", href: "/login" },
-    { label: "Esqueceu a senha?", href: "/esqueceu-senha" },
-  ],
-};
+import Image from "next/image";
+
+const cols = [
+  {
+    title: "Produto",
+    links: [
+      { label: "Benefícios", href: "#beneficios" },
+      { label: "Como funciona", href: "#como" },
+      { label: "Demonstração", href: "#demo" },
+      { label: "Planos", href: "#planos" },
+    ],
+  },
+  {
+    title: "Empresa",
+    links: [
+      { label: "Sobre nós", href: "#" },
+      { label: "Blog", href: "#" },
+      { label: "Contato", href: "#" },
+    ],
+  },
+  {
+    title: "Conta",
+    links: [
+      { label: "Criar conta grátis", href: "/registro" },
+      { label: "Entrar", href: "/login" },
+      { label: "Esqueceu a senha?", href: "/esqueceu-senha" },
+    ],
+  },
+];
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 text-slate-400 py-16 px-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid sm:grid-cols-3 gap-12 mb-12">
+    <footer className="border-t border-slate-200 bg-[#fafafa] py-14 px-7">
+      <div className="max-w-[1240px] mx-auto">
+
+        <div className="grid sm:grid-cols-[1.4fr_1fr_1fr_1fr] gap-8 mb-12">
 
           {/* Logo + tagline */}
           <div>
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center">
-                <span className="text-white font-black text-sm">IA</span>
-              </div>
-              <span className="font-black text-white text-lg">Aula Pronta IA</span>
-            </div>
-            <p className="text-sm leading-relaxed">
-              Tecnologia a serviço da educação. Transformando o planejamento do professor com inteligência artificial.
+            <a href="/" className="inline-flex items-center mb-4">
+              <Image src="/logomarca.png" alt="Aula Pronta IA" width={100} height={40} className="object-contain" />
+            </a>
+            <p className="text-[13.5px] text-slate-500 max-w-[300px] leading-[1.65]">
+              A IA brasileira que devolve horas para o professor. Planejamento alinhado à BNCC, em segundos.
             </p>
           </div>
 
-          {/* Links produto */}
-          <div>
-            <p className="text-white font-bold text-sm mb-4">Produto</p>
-            <ul className="space-y-3">
-              {links.produto.map((l) => (
-                <li key={l.label}>
-                  <a href={l.href} className="text-sm hover:text-white transition-colors">
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Links conta */}
-          <div>
-            <p className="text-white font-bold text-sm mb-4">Minha conta</p>
-            <ul className="space-y-3">
-              {links.conta.map((l) => (
-                <li key={l.label}>
-                  <a href={l.href} className="text-sm hover:text-white transition-colors">
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {cols.map((col) => (
+            <div key={col.title}>
+              <h5 className="text-[11.5px] uppercase tracking-[.14em] text-slate-500 font-semibold mb-3">{col.title}</h5>
+              <ul className="space-y-2">
+                {col.links.map((l) => (
+                  <li key={l.label}>
+                    <a href={l.href} className="text-sm text-slate-600 hover:text-blue-700 transition-colors block py-0.5">
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
         </div>
 
-        {/* Bottom */}
-        <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-slate-600">
-            © {new Date().getFullYear()} Aula Pronta IA. Todos os direitos reservados.
-          </p>
-          <p className="text-xs text-slate-600">
-            Feito com ❤️ para professores brasileiros
-          </p>
+        <div className="border-t border-slate-200 pt-7 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12.5px] text-slate-400">
+          <span>© {new Date().getFullYear()} Aula Pronta IA · Todos os direitos reservados</span>
+          <span>Feito no Brasil com café e IA</span>
         </div>
 
       </div>
