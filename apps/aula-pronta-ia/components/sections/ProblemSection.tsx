@@ -1,35 +1,35 @@
 const pains = [
-  { num: "01", emoji: "⏰", title: "Sem tempo", desc: "Conselhos, correções e diários consomem a semana antes mesmo da aula começar." },
-  { num: "02", emoji: "🧠", title: "Cansaço mental", desc: "Planejar exige criatividade — algo difícil depois de oito horas em pé na sala." },
-  { num: "03", emoji: "📋", title: "Tudo lento", desc: "Pesquisar, escrever, formatar e alinhar à BNCC vira um ritual de três a quatro horas." },
-  { num: "04", emoji: "⚡", title: "Energia no chão", desc: "A pilha que devia ir para a turma já gastou no caderno de planejamento." },
+  { num: "01", emoji: "⏰", title: "Tempo escasso", desc: "Reuniões, correções e preenchimento de formulários consomem a semana antes mesmo do planejamento começar." },
+  { num: "02", emoji: "🧠", title: "Cansaço acumulado", desc: "Criar aulas exige criatividade — algo difícil de reunir depois de horas em sala." },
+  { num: "03", emoji: "📋", title: "Processo lento", desc: "Pesquisar, redigir, formatar e alinhar à BNCC vira um ritual que consome horas preciosas." },
+  { num: "04", emoji: "⚡", title: "Energia esgotada", desc: "A disposição que deveria ir para os alunos já foi embora antes da aula começar." },
 ];
 
 export default function ProblemSection() {
   return (
-    <section className="py-32 px-4 sm:px-8 lg:px-16 bg-[#fafafa]">
-      <div className="max-w-[1240px] mx-auto">
+    <section className="py-24 bg-[#fafafa]">
+      <div className="max-w-[1200px] mx-auto px-5 md:px-10">
 
         <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 mb-16 items-end">
           <div>
-            <span className="eyebrow"><span className="eyebrow-dot" />O peso invisível</span>
+            <span className="eyebrow"><span className="eyebrow-dot" />O problema</span>
           </div>
           <div>
             <h2
               className="font-fraunces leading-[.98] tracking-[-0.032em] mt-3 text-slate-900"
-              style={{ fontSize: 'clamp(38px, 5.2vw, 72px)', fontWeight: 380 }}
+              style={{ fontSize: 'clamp(36px, 5.2vw, 68px)', fontWeight: 380 }}
             >
-              A escola levou{" "}
-              <span className="gradient-text" style={{ fontStyle: 'italic', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>seu domingo</span>
-              —<br />e não devolveu.
+              Planejar bem{" "}
+              <span className="gradient-text" style={{ fontStyle: 'italic', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>leva tempo.</span>
+              <br />Tempo que poderia ir para os alunos.
             </h2>
-            <p className="text-slate-500 text-[16.5px] leading-[1.65] mt-4 max-w-lg font-normal">
-              A rotina docente come o que sobra de criatividade. Antes da IA, fazer um plano decente custava um sábado inteiro — o sábado que era para a família.
+            <p className="text-slate-500 text-[16px] leading-[1.7] mt-5 max-w-lg font-normal">
+              A rotina docente consome muito mais do que as horas em sala. Planejamento, correções e documentações viram noites e fins de semana perdidos.
             </p>
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-[18px]">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {pains.map((pain) => (
             <div key={pain.title} className="bg-white rounded-[18px] border border-slate-200 shadow-md p-7 relative card-hover hover:border-blue-200 hover:shadow-lg">
               <span
@@ -39,8 +39,8 @@ export default function ProblemSection() {
                 {pain.num}
               </span>
               <div className="w-12 h-12 bg-blue-50 rounded-[13px] flex items-center justify-center text-[22px] mb-5">{pain.emoji}</div>
-              <h3 className="font-bold text-slate-900 text-[18.5px] tracking-[-0.02em] mb-2">{pain.title}</h3>
-              <p className="text-slate-500 text-sm leading-[1.6]">{pain.desc}</p>
+              <h3 className="font-bold text-slate-900 text-[17px] tracking-[-0.02em] mb-2">{pain.title}</h3>
+              <p className="text-slate-500 text-[13.5px] leading-[1.65]">{pain.desc}</p>
             </div>
           ))}
         </div>

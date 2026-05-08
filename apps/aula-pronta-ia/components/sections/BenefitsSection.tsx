@@ -7,12 +7,12 @@ const stats = [
 
 export default function BenefitsSection() {
   return (
-    <section id="beneficios" className="py-32 px-4 sm:px-8 lg:px-16 bg-[#fafafa]" style={{ paddingTop: 0 }}>
-      <div className="max-w-[1240px] mx-auto">
+    <section id="beneficios" className="pb-24 bg-[#fafafa]">
+      <div className="max-w-[1200px] mx-auto px-5 md:px-10">
 
         <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 mb-16 items-end">
           <div>
-            <span className="eyebrow"><span className="eyebrow-dot" />Por que professores amam</span>
+            <span className="eyebrow"><span className="eyebrow-dot" />Benefícios</span>
           </div>
           <div>
             <h2

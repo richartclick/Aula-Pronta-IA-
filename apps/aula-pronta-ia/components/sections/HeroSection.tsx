@@ -5,7 +5,7 @@ const marqueeItems = ["Educação Infantil", "Anos Iniciais", "Anos Finais", "En
 export default function HeroSection() {
   return (
     <section className="pt-20 overflow-hidden bg-[#fafafa]">
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-8 lg:px-16 pt-14 pb-0">
+      <div className="max-w-[1200px] mx-auto px-5 md:px-10 pt-14 pb-0">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
 
           {/* Left: Text */}
@@ -29,8 +29,8 @@ export default function HeroSection() {
               </span>
             </h1>
 
-            <p className="text-[18px] text-slate-600 leading-relaxed mt-8 mb-9 max-w-lg font-normal">
-              Descreva o que você vai dar, espere menos de um minuto e receba o plano completo: objetivos, atividades, rubricas e PDF para imprimir. Tudo alinhado à BNCC.
+            <p className="text-[17px] text-slate-600 leading-[1.7] mt-8 mb-9 max-w-lg font-normal">
+              Descreva o conteúdo da sua aula, aguarde alguns segundos e receba o plano completo — objetivos, atividades, avaliação e PDF para imprimir. Tudo alinhado à BNCC.
             </p>
 
             <div className="flex flex-wrap gap-3 mb-8">
@@ -39,7 +39,7 @@ export default function HeroSection() {
                 className="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-600 text-white font-semibold py-4 px-7 rounded-full text-[15px] transition-all hover:-translate-y-px"
                 style={{ boxShadow: '0 18px 40px -12px rgba(29,78,216,.45)' }}
               >
-                Começar grátis <span>↗</span>
+                Criar minha primeira aula →
               </a>
               <a
                 href="#demo"

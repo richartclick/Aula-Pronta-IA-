@@ -4,8 +4,8 @@ const CheckIcon = () => (
 
 export default function PlansSection() {
   return (
-    <section id="planos" className="py-32 px-4 sm:px-8 lg:px-16 bg-[#fafafa]" style={{ paddingTop: 0 }}>
-      <div className="max-w-[1240px] mx-auto">
+    <section id="planos" className="pb-24 bg-[#fafafa]">
+      <div className="max-w-[1200px] mx-auto px-5 md:px-10">
 
         <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 mb-16 items-end">
           <div>
@@ -57,7 +57,7 @@ export default function PlansSection() {
               Mais popular
             </span>
             <h3 className="text-[13px] font-bold tracking-[.14em] uppercase text-[#c4b5fd] mb-1.5">Básico</h3>
-            <p className="text-slate-300 text-sm mb-6 leading-[1.5]">Para quem usa o planner toda semana, sem limite.</p>
+            <p className="text-slate-300 text-sm mb-6 leading-[1.6]">Para quem planeja toda semana e quer mais aulas disponíveis.</p>
             <div className="flex items-start gap-1.5 mb-7">
               <span className="text-[24px] font-fraunces mt-2 text-slate-300" style={{ fontStyle: 'italic' }}>R$</span>
               <span className="font-fraunces text-white leading-none" style={{ fontSize: '68px', fontWeight: 380, fontVariationSettings: '"opsz" 144, "SOFT" 60' }}>29</span>

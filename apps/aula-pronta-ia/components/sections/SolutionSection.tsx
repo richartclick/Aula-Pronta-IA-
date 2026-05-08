@@ -27,8 +27,8 @@ const steps = [
 
 export default function SolutionSection() {
   return (
-    <section id="como" className="py-32 px-4 sm:px-8 lg:px-16 bg-[#fafafa]" style={{ paddingTop: 0 }}>
-      <div className="max-w-[1240px] mx-auto">
+    <section id="como" className="pb-24 bg-[#fafafa]">
+      <div className="max-w-[1200px] mx-auto px-5 md:px-10">
         <div
           className="rounded-[28px] px-14 py-[74px] relative overflow-hidden"
           style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1d4ed8 100%)' }}
@@ -54,7 +54,7 @@ export default function SolutionSection() {
               >
                 Da ideia ao plano{" "}
                 <span style={{ color: '#c4b5fd', fontStyle: 'italic', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>
-                  em três respiros.
+                  em três passos simples.
                 </span>
               </h2>
             </div>

@@ -30,8 +30,8 @@ const cols = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-slate-200 bg-[#fafafa] py-14 px-4 sm:px-8 lg:px-16">
-      <div className="max-w-[1240px] mx-auto">
+    <footer className="border-t border-slate-200 bg-[#fafafa] py-14">
+      <div className="max-w-[1200px] mx-auto px-5 md:px-10">
 
         <div className="grid sm:grid-cols-[1.4fr_1fr_1fr_1fr] gap-8 mb-12">
 

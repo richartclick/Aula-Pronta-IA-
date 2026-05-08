@@ -6,9 +6,9 @@ import { cn } from "@/lib/utils";
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
-  title: "Aula Pronta IA — Crie aulas completas em minutos com inteligência artificial",
-  description: "Pare de perder horas planejando aulas. Use a IA para criar conteúdos incríveis com rapidez e qualidade.",
-  keywords: "aulas com IA, planejamento de aulas, professor, inteligência artificial, educação",
+  title: "Aula Pronta IA — Planejamento de aulas alinhado à BNCC em segundos",
+  description: "Descreva sua aula e receba em segundos um plano completo com objetivos, atividades e avaliação — tudo alinhado à BNCC. Experimente grátis.",
+  keywords: "planejamento de aulas, IA para professores, BNCC, plano de aula, inteligência artificial, educação brasileira",
 };
 
 export default function RootLayout({

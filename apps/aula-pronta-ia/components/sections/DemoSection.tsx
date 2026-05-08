@@ -1,7 +1,7 @@
 export default function DemoSection() {
   return (
-    <section id="demo" className="py-32 px-4 sm:px-8 lg:px-16 bg-[#fafafa]" style={{ paddingTop: 0 }}>
-      <div className="max-w-[1240px] mx-auto">
+    <section id="demo" className="pb-24 bg-[#fafafa]">
+      <div className="max-w-[1200px] mx-auto px-5 md:px-10">
 
         <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 mb-10 items-end">
           <div>
@@ -14,7 +14,7 @@ export default function DemoSection() {
             >
               Da descrição ao plano,{" "}
               <span className="gradient-text" style={{ fontStyle: 'italic', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>
-                em um respiro.
+                em segundos.
               </span>
             </h2>
             <p className="text-slate-500 text-[16.5px] leading-[1.65] mt-4 font-normal max-w-lg">

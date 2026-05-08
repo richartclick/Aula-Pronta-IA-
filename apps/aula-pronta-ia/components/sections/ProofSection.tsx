@@ -27,8 +27,8 @@ const testimonials = [
 
 export default function ProofSection() {
   return (
-    <section id="depoimentos" className="py-32 px-4 sm:px-8 lg:px-16 bg-[#fafafa]" style={{ paddingTop: 0 }}>
-      <div className="max-w-[1240px] mx-auto">
+    <section id="depoimentos" className="pb-24 bg-[#fafafa]">
+      <div className="max-w-[1200px] mx-auto px-5 md:px-10">
 
         <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 mb-16 items-end">
           <div>
@@ -49,7 +49,7 @@ export default function ProofSection() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((t) => (
-            <div key={t.name} className="bg-slate-50 rounded-2xl p-8 card-hover border border-slate-100">
+            <div key={t.name} className="bg-white rounded-[18px] shadow-md border border-slate-200 p-7 card-hover hover:shadow-lg hover:border-blue-200">
               <div className="flex mb-4">
                 {Array.from({ length: t.stars }).map((_, i) => (
                   <span key={i} className="text-yellow-400 text-xl">★</span>

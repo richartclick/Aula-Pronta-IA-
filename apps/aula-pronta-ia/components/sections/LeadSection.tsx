@@ -10,10 +10,10 @@ export default function LeadSection() {
   const [state, action, isPending] = useActionState(submitLead, initialState);
 
   return (
-    <section id="lead" className="py-32 px-4 sm:px-8 lg:px-16" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1d4ed8 100%)' }}>
-      <div className="max-w-2xl mx-auto">
+    <section id="lead" className="py-24" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1d4ed8 100%)' }}>
+      <div className="max-w-2xl mx-auto px-5 md:px-10">
         <div className="text-center mb-10">
-          <span className="eyebrow" style={{ color: '#dbeafe' }}><span className="eyebrow-dot" style={{ background: '#fff', boxShadow: '0 0 0 4px rgba(255,255,255,.25)' }} />Pronta para devolver a sua noite?</span>
+          <span className="eyebrow" style={{ color: '#dbeafe' }}><span className="eyebrow-dot" style={{ background: '#fff', boxShadow: '0 0 0 4px rgba(255,255,255,.25)' }} />Comece hoje mesmo</span>
           <h2
             className="font-fraunces text-white leading-[.96] tracking-[-0.032em] mt-4 mb-6 mx-auto max-w-3xl"
             style={{ fontSize: 'clamp(42px, 6.4vw, 80px)', fontWeight: 380, fontVariationSettings: '"opsz" 144, "SOFT" 60' }}
@@ -23,8 +23,8 @@ export default function LeadSection() {
               já pode estar pronta.
             </span>
           </h2>
-          <p className="text-blue-200 text-[17px] leading-[1.6] max-w-md mx-auto font-normal">
-            Deixe seu contato e te avisamos com novidades, dicas e acesso antecipado a novos recursos.
+          <p className="text-blue-200 text-[17px] leading-[1.7] max-w-md mx-auto font-normal">
+            Deixe seu contato para receber novidades, dicas exclusivas e acesso antecipado a novos recursos.
           </p>
         </div>
 
