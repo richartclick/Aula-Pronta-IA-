@@ -115,7 +115,7 @@ export default async function DashboardPage() {
       {/* Quick actions */}
       <div>
         <h2 className="text-slate-900 font-black text-lg mb-4">Ações rápidas</h2>
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-3 gap-3 sm:gap-5">
           {quickActions.map((action) => (
             <Link
               key={action.href}
