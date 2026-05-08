@@ -7,7 +7,7 @@ const pains = [
 
 export default function ProblemSection() {
   return (
-    <section className="py-32 px-7 bg-[#fafafa]">
+    <section className="py-32 px-4 sm:px-8 lg:px-16 bg-[#fafafa]">
       <div className="max-w-[1240px] mx-auto">
 
         <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 mb-16 items-end">
@@ -31,7 +31,7 @@ export default function ProblemSection() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-[18px]">
           {pains.map((pain) => (
-            <div key={pain.title} className="bg-white rounded-[18px] border border-slate-200 p-7 relative card-hover hover:border-blue-200">
+            <div key={pain.title} className="bg-white rounded-[18px] border border-slate-200 shadow-md p-7 relative card-hover hover:border-blue-200 hover:shadow-lg">
               <span
                 className="absolute top-4 right-5 font-fraunces text-slate-100 text-[46px] leading-none pointer-events-none select-none"
                 style={{ fontStyle: 'italic', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}

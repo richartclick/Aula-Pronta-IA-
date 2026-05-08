@@ -5,7 +5,7 @@ const marqueeItems = ["Educação Infantil", "Anos Iniciais", "Anos Finais", "En
 export default function HeroSection() {
   return (
     <section className="pt-20 overflow-hidden bg-[#fafafa]">
-      <div className="max-w-[1240px] mx-auto px-7 pt-14 pb-0">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-8 lg:px-16 pt-14 pb-0">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
 
           {/* Left: Text */}
@@ -17,7 +17,7 @@ export default function HeroSection() {
 
             <h1
               className="font-fraunces leading-[0.92] tracking-[-0.038em] mt-6 text-slate-900"
-              style={{ fontSize: 'clamp(52px, 7.6vw, 100px)', fontWeight: 380 }}
+              style={{ fontSize: 'clamp(36px, 9vw, 100px)', fontWeight: 380 }}
             >
               A semana<br />
               <span className="gradient-text" style={{ fontStyle: 'italic', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>
@@ -74,7 +74,7 @@ export default function HeroSection() {
                 filter: 'blur(30px)',
               }}
             />
-            <div className="absolute top-8 left-0 z-10 bg-white rounded-2xl shadow-lg border border-slate-200 px-4 py-3 flex items-center gap-3" style={{ transform: 'rotate(-5deg)' }}>
+            <div className="absolute top-8 left-0 z-10 bg-white rounded-2xl shadow-lg border border-slate-200 px-4 py-3 hidden sm:flex items-center gap-3" style={{ transform: 'rotate(-5deg)' }}>
               <div className="w-8 h-8 bg-blue-100 rounded-xl flex items-center justify-center text-sm shrink-0">⚡</div>
               <div>
                 <p className="font-bold text-slate-900 text-sm leading-none">52s</p>
@@ -84,7 +84,7 @@ export default function HeroSection() {
             <div className="relative z-[1] animate-float">
               <Image src="/robo.png" alt="Assistente Aula Pronta IA" width={440} height={440} className="object-contain drop-shadow-2xl" priority />
             </div>
-            <div className="absolute bottom-8 right-0 z-10 bg-white rounded-2xl shadow-lg border border-slate-200 px-4 py-3 flex items-center gap-3" style={{ transform: 'rotate(3.5deg)' }}>
+            <div className="absolute bottom-8 right-0 z-10 bg-white rounded-2xl shadow-lg border border-slate-200 px-4 py-3 hidden sm:flex items-center gap-3" style={{ transform: 'rotate(3.5deg)' }}>
               <div className="w-8 h-8 bg-green-100 rounded-xl flex items-center justify-center text-sm shrink-0">★</div>
               <div>
                 <p className="font-bold text-slate-900 text-sm leading-none">4,9 / 5</p>

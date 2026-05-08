@@ -7,7 +7,7 @@ const stats = [
 
 export default function BenefitsSection() {
   return (
-    <section id="beneficios" className="py-32 px-7 bg-[#fafafa]" style={{ paddingTop: 0 }}>
+    <section id="beneficios" className="py-32 px-4 sm:px-8 lg:px-16 bg-[#fafafa]" style={{ paddingTop: 0 }}>
       <div className="max-w-[1240px] mx-auto">
 
         <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 mb-16 items-end">
@@ -33,7 +33,7 @@ export default function BenefitsSection() {
         {/* Bento grid */}
         <div className="grid grid-cols-6 auto-rows-[minmax(190px,auto)] gap-[18px]">
 
-          <div className="col-span-6 sm:col-span-3 bg-gradient-to-br from-blue-50 to-white rounded-[18px] border border-slate-200 p-7 card-hover hover:border-blue-200">
+          <div className="col-span-6 sm:col-span-3 bg-gradient-to-br from-blue-50 to-white rounded-[18px] border border-slate-200 shadow-md p-7 card-hover hover:border-blue-200 hover:shadow-lg">
             <div className="w-11 h-11 bg-white border border-blue-100 rounded-[12px] flex items-center justify-center text-xl">⏱️</div>
             <div
               className="font-fraunces leading-none tracking-[-0.035em] mt-3"
@@ -46,37 +46,37 @@ export default function BenefitsSection() {
             <p className="text-slate-500 text-sm leading-[1.6]">O tempo que ia para o caderno de planejamento agora cabe na sua vida.</p>
           </div>
 
-          <div className="col-span-6 sm:col-span-3 bg-white rounded-[18px] border border-slate-200 p-7 card-hover hover:border-blue-200">
+          <div className="col-span-6 sm:col-span-3 bg-white rounded-[18px] border border-slate-200 shadow-md p-7 card-hover hover:border-blue-200 hover:shadow-lg">
             <div className="w-11 h-11 bg-blue-50 rounded-[12px] flex items-center justify-center text-xl">🎯</div>
             <h3 className="font-bold text-slate-900 text-[19px] tracking-[-0.02em] mt-3 mb-2">Aulas que engajam</h3>
             <p className="text-slate-500 text-sm leading-[1.6]">Atividades, dinâmicas e projetos pensados para o estilo da sua turma. Nada de texto-padrão de apostila.</p>
           </div>
 
-          <div className="col-span-6 sm:col-span-2 bg-white rounded-[18px] border border-slate-200 p-7 card-hover hover:border-blue-200">
+          <div className="col-span-6 sm:col-span-2 bg-white rounded-[18px] border border-slate-200 shadow-md p-7 card-hover hover:border-blue-200 hover:shadow-lg">
             <div className="w-11 h-11 bg-blue-50 rounded-[12px] flex items-center justify-center text-xl">📚</div>
             <h3 className="font-bold text-slate-900 text-[19px] tracking-[-0.02em] mt-3 mb-2">Conteúdo estruturado</h3>
             <p className="text-slate-500 text-sm leading-[1.6]">Abertura, desenvolvimento e fechamento já organizados — não precisa reescrever do zero.</p>
           </div>
 
-          <div className="col-span-6 sm:col-span-2 rounded-[18px] border-transparent p-7 card-hover" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1d4ed8 100%)' }}>
+          <div className="col-span-6 sm:col-span-2 rounded-[18px] border-transparent shadow-md p-7 card-hover" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1d4ed8 100%)' }}>
             <div className="w-11 h-11 bg-white/10 rounded-[12px] flex items-center justify-center text-xl">🤖</div>
             <h3 className="font-bold text-white text-[19px] tracking-[-0.02em] mt-3 mb-2">IA atualizada e contextual</h3>
             <p className="text-slate-300 text-sm leading-[1.6]">Modelo treinado para a educação básica brasileira, com a BNCC como referência principal.</p>
           </div>
 
-          <div className="col-span-6 sm:col-span-2 bg-gradient-to-br from-white to-[#f5f3ff] rounded-[18px] border border-slate-200 p-7 card-hover hover:border-blue-200">
+          <div className="col-span-6 sm:col-span-2 bg-gradient-to-br from-white to-[#f5f3ff] rounded-[18px] border border-slate-200 shadow-md p-7 card-hover hover:border-blue-200 hover:shadow-lg">
             <div className="w-11 h-11 bg-[#e9d5ff] rounded-[12px] flex items-center justify-center text-xl">⚡</div>
             <h3 className="font-bold text-slate-900 text-[19px] tracking-[-0.02em] mt-3 mb-2">Energia em sala</h3>
             <p className="text-slate-500 text-sm leading-[1.6]">Você chega na escola com pilha — não cansado de planejar a aula que ainda vai dar.</p>
           </div>
 
-          <div className="col-span-6 sm:col-span-3 bg-white rounded-[18px] border border-slate-200 p-7 card-hover hover:border-blue-200">
+          <div className="col-span-6 sm:col-span-3 bg-white rounded-[18px] border border-slate-200 shadow-md p-7 card-hover hover:border-blue-200 hover:shadow-lg">
             <div className="w-11 h-11 bg-blue-50 rounded-[12px] flex items-center justify-center text-xl">📱</div>
             <h3 className="font-bold text-slate-900 text-[19px] tracking-[-0.02em] mt-3 mb-2">Adapta para qualquer série</h3>
             <p className="text-slate-500 text-sm leading-[1.6]">Da educação infantil ao ensino médio. Mesmo conteúdo, tom certo para cada faixa etária.</p>
           </div>
 
-          <div className="col-span-6 sm:col-span-3 bg-gradient-to-br from-[#ecfdf5] to-white rounded-[18px] border border-slate-200 p-7 card-hover hover:border-green-200">
+          <div className="col-span-6 sm:col-span-3 bg-gradient-to-br from-[#ecfdf5] to-white rounded-[18px] border border-slate-200 shadow-md p-7 card-hover hover:border-green-200 hover:shadow-lg">
             <div className="w-11 h-11 bg-[#d0fae5] rounded-[12px] flex items-center justify-center text-xl">📝</div>
             <h3 className="font-bold text-slate-900 text-[19px] tracking-[-0.02em] mt-3 mb-2">BNCC sem dor de cabeça</h3>
             <p className="text-slate-500 text-sm leading-[1.6]">Cada plano vem com os códigos de habilidade já mapeados. Não precisa abrir o documento de novo.</p>

@@ -10,7 +10,7 @@ export default function LeadSection() {
   const [state, action, isPending] = useActionState(submitLead, initialState);
 
   return (
-    <section id="lead" className="py-32 px-7" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1d4ed8 100%)' }}>
+    <section id="lead" className="py-32 px-4 sm:px-8 lg:px-16" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1d4ed8 100%)' }}>
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-10">
           <span className="eyebrow" style={{ color: '#dbeafe' }}><span className="eyebrow-dot" style={{ background: '#fff', boxShadow: '0 0 0 4px rgba(255,255,255,.25)' }} />Pronta para devolver a sua noite?</span>

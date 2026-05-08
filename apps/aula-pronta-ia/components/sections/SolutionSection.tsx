@@ -27,7 +27,7 @@ const steps = [
 
 export default function SolutionSection() {
   return (
-    <section id="como" className="py-32 px-7 bg-[#fafafa]" style={{ paddingTop: 0 }}>
+    <section id="como" className="py-32 px-4 sm:px-8 lg:px-16 bg-[#fafafa]" style={{ paddingTop: 0 }}>
       <div className="max-w-[1240px] mx-auto">
         <div
           className="rounded-[28px] px-14 py-[74px] relative overflow-hidden"

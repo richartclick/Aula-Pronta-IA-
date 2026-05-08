@@ -25,33 +25,26 @@ const testimonials = [
   },
 ];
 
-const stats = [
-  { value: "+5.000", label: "Professores na plataforma" },
-  { value: "< 60s", label: "Para gerar uma aula" },
-  { value: "98%", label: "Satisfação dos usuários" },
-  { value: "3h+", label: "Economizadas por semana" },
-];
-
 export default function ProofSection() {
   return (
-    <section id="depoimentos" className="py-32 px-4 bg-white">
-      <div className="max-w-6xl mx-auto">
-        {/* Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
-          {stats.map((stat) => (
-            <div key={stat.label} className="text-center bg-blue-50 rounded-2xl p-8">
-              <div className="text-5xl font-black text-blue-600 mb-2">{stat.value}</div>
-              <div className="text-slate-600">{stat.label}</div>
-            </div>
-          ))}
-        </div>
+    <section id="depoimentos" className="py-32 px-4 sm:px-8 lg:px-16 bg-[#fafafa]" style={{ paddingTop: 0 }}>
+      <div className="max-w-[1240px] mx-auto">
 
-        {/* Testimonials */}
-        <div className="text-center mb-16">
-          <span className="text-yellow-500 font-semibold text-sm uppercase tracking-wide">Depoimentos</span>
-          <h2 className="text-4xl sm:text-5xl font-black text-slate-900 mt-4 leading-tight">
-            Professores que transformaram sua rotina
-          </h2>
+        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 mb-16 items-end">
+          <div>
+            <span className="eyebrow"><span className="eyebrow-dot" />Depoimentos</span>
+          </div>
+          <div>
+            <h2
+              className="font-fraunces leading-[.98] tracking-[-0.032em] mt-3 text-slate-900"
+              style={{ fontSize: 'clamp(38px, 5.2vw, 72px)', fontWeight: 380 }}
+            >
+              Professores que{" "}
+              <span className="gradient-text" style={{ fontStyle: 'italic', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>
+                transformaram a rotina.
+              </span>
+            </h2>
+          </div>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">

@@ -4,7 +4,7 @@ const CheckIcon = () => (
 
 export default function PlansSection() {
   return (
-    <section id="planos" className="py-32 px-7 bg-[#fafafa]" style={{ paddingTop: 0 }}>
+    <section id="planos" className="py-32 px-4 sm:px-8 lg:px-16 bg-[#fafafa]" style={{ paddingTop: 0 }}>
       <div className="max-w-[1240px] mx-auto">
 
         <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 mb-16 items-end">
@@ -64,7 +64,7 @@ export default function PlansSection() {
               <span className="text-slate-300 text-sm self-end mb-2 font-medium">,90 / mês</span>
             </div>
             <ul className="space-y-3 mb-8 flex-1">
-              {["Aulas ilimitadas", "Exportação em PDF e Word", "Histórico completo", "Atividades adaptadas por estilo", "Suporte prioritário"].map((f) => (
+              {["70 aulas por mês", "Exportação em PDF e Word", "Histórico completo", "Atividades adaptadas por estilo", "Suporte prioritário"].map((f) => (
                 <li key={f} className="flex items-start gap-2.5 text-sm text-[#e2e8f0]">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b9f8cf" strokeWidth="2.4" className="shrink-0 mt-[3px]"><polyline points="20 6 9 17 4 12" /></svg>
                   {f}

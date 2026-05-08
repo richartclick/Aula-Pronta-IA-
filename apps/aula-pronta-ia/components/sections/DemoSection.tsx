@@ -1,6 +1,6 @@
 export default function DemoSection() {
   return (
-    <section id="demo" className="py-32 px-7 bg-[#fafafa]" style={{ paddingTop: 0 }}>
+    <section id="demo" className="py-32 px-4 sm:px-8 lg:px-16 bg-[#fafafa]" style={{ paddingTop: 0 }}>
       <div className="max-w-[1240px] mx-auto">
 
         <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 mb-10 items-end">
