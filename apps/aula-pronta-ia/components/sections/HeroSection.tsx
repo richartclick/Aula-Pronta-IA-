@@ -17,7 +17,7 @@ export default function HeroSection() {
 
             <h1
               className="font-fraunces leading-[0.92] tracking-[-0.038em] mt-6 text-slate-900"
-              style={{ fontSize: 'clamp(36px, 9vw, 100px)', fontWeight: 380 }}
+              style={{ fontSize: 'clamp(28px, 6.5vw, 82px)', fontWeight: 380 }}
             >
               A semana<br />
               <span className="gradient-text" style={{ fontStyle: 'italic', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>
