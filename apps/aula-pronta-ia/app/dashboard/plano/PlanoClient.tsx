@@ -139,7 +139,7 @@ export default function PlanoClient({
   }
 
   return (
-    <div className="max-w-5xl mx-auto space-y-10 pb-20 lg:pb-0">
+    <div className="w-full max-w-5xl mx-auto space-y-10 pb-20 lg:pb-0 px-4 sm:px-6 lg:px-8">
 
       {sucesso && (
         <div className="bg-emerald-50 border border-emerald-300 rounded-2xl p-5 flex items-center gap-3">

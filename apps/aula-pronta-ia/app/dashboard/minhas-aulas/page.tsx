@@ -62,7 +62,7 @@ export default async function MinhasAulasPage() {
   const lista = (aulas ?? []) as AulaRow[];
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8 pb-20 lg:pb-0">
+    <div className="w-full max-w-5xl mx-auto space-y-8 pb-20 lg:pb-0 px-4 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>

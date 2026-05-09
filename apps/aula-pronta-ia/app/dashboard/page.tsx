@@ -48,7 +48,7 @@ export default async function DashboardPage() {
   const planoGratuito = uso?.plano === "gratuito";
 
   return (
-    <div className="max-w-6xl mx-auto space-y-8 pb-20 lg:pb-0">
+    <div className="w-full max-w-6xl mx-auto space-y-8 pb-20 lg:pb-0 px-4 sm:px-6 lg:px-8">
 
       {/* Welcome banner */}
       <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-3xl p-6 sm:p-8 text-white shadow-xl shadow-blue-200">

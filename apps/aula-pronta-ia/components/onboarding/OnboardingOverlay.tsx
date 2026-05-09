@@ -48,7 +48,7 @@ export default function OnboardingOverlay() {
       <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden">
 
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 pt-8 pb-6 text-center">
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 sm:px-8 pt-8 pb-6 text-center">
           <div className="flex justify-center mb-4">
             <Image
               src="/robo.png"
@@ -82,7 +82,7 @@ export default function OnboardingOverlay() {
         </div>
 
         {/* Body */}
-        <div className="px-8 py-6">
+        <div className="px-6 sm:px-8 py-6">
 
           {/* Passo 1 — nome */}
           {step === 1 && (

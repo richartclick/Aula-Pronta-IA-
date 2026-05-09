@@ -55,7 +55,7 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
     uso?.restantes === 0 ? "bg-red-500" : uso && uso.restantes <= 1 ? "bg-amber-500" : "bg-blue-500";
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8 pb-32 lg:pb-8">
+    <div className="w-full max-w-5xl mx-auto space-y-8 pb-32 lg:pb-8 px-4 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-5 lg:p-7 text-white shadow-xl shadow-blue-200">
         <div className="flex items-start gap-3 lg:gap-4">
@@ -272,7 +272,7 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
             )}
 
             {/* Botão sticky no mobile — sempre visível enquanto preenche o form */}
-            <div className="sticky bottom-24 lg:static -mx-4 lg:mx-0 px-4 lg:px-0 py-3 lg:py-0 bg-white lg:bg-transparent border-t border-slate-100 lg:border-0 shadow-lg lg:shadow-none">
+            <div className="sticky bottom-24 lg:static -mx-4 sm:-mx-6 lg:mx-0 px-4 sm:px-6 lg:px-0 py-3 lg:py-0 bg-white lg:bg-transparent border-t border-slate-100 lg:border-0 shadow-lg lg:shadow-none">
               <button
                 type="submit"
                 disabled={isPending}
@@ -352,7 +352,7 @@ function AulaResultado({
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6 pb-20 lg:pb-8">
+    <div className="w-full max-w-2xl mx-auto space-y-6 pb-20 lg:pb-8 px-4 sm:px-6 lg:px-8">
       {/* Header de sucesso */}
       <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-3xl p-7 text-white shadow-xl shadow-emerald-200">
         <div className="flex items-start gap-4 mb-4">
@@ -656,7 +656,7 @@ function Secao({
 
 function BloqueioUpgrade({ aulasNoMes, limite }: { aulasNoMes: number; limite: number }) {
   return (
-    <div className="max-w-lg mx-auto mt-6 space-y-6 pb-20 lg:pb-8">
+    <div className="w-full max-w-lg mx-auto mt-6 space-y-6 pb-20 lg:pb-8 px-4 sm:px-6 lg:px-8">
       <div className="text-center">
         <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl mb-4">
           <span className="text-4xl">🚀</span>

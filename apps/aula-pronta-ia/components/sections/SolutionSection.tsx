@@ -28,7 +28,7 @@ const steps = [
 export default function SolutionSection() {
   return (
     <section id="como" className="pb-24 bg-[#fafafa]">
-      <div className="max-w-[1200px] mx-auto px-5 md:px-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           className="rounded-[24px] sm:rounded-[28px] px-6 sm:px-10 md:px-14 py-12 sm:py-[74px] relative overflow-hidden"
           style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1d4ed8 100%)' }}

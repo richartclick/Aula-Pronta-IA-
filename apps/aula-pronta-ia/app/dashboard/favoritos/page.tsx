@@ -35,7 +35,7 @@ export default async function FavoritosPage() {
   const lista = aulas ?? [];
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8 pb-20 lg:pb-0">
+    <div className="w-full max-w-5xl mx-auto space-y-8 pb-20 lg:pb-0 px-4 sm:px-6 lg:px-8">
       <div>
         <h1 className="text-3xl font-black text-slate-900">⭐ Favoritos</h1>
         <p className="text-slate-500 text-sm mt-1">{lista.length} aula{lista.length !== 1 ? "s" : ""} favorita{lista.length !== 1 ? "s" : ""}</p>

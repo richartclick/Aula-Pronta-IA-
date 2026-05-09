@@ -29,7 +29,7 @@ const faqs = [
 
 export default function AjudaPage() {
   return (
-    <div className="max-w-3xl mx-auto space-y-8 pb-20 lg:pb-0">
+    <div className="w-full max-w-3xl mx-auto space-y-8 pb-20 lg:pb-0 px-4 sm:px-6 lg:px-8">
       <div>
         <h1 className="text-3xl font-black text-slate-900">❓ Ajuda</h1>
         <p className="text-slate-500 text-sm mt-1">Perguntas frequentes sobre o Aula Pronta IA</p>

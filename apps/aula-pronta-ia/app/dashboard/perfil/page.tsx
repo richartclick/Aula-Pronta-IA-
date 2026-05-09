@@ -36,7 +36,7 @@ export default async function PerfilPage() {
   const planoBadgeColor = uso?.plano === "gratuito" ? "bg-slate-100 text-slate-700" : uso?.plano === "basico" ? "bg-blue-100 text-blue-700" : "bg-purple-100 text-purple-700";
 
   return (
-    <div className="max-w-xl mx-auto space-y-8 pb-20 lg:pb-0">
+    <div className="w-full max-w-xl mx-auto space-y-8 pb-20 lg:pb-0 px-4 sm:px-6 lg:px-8">
       <div>
         <h1 className="text-3xl font-black text-slate-900">👤 Perfil</h1>
         <p className="text-slate-500 text-sm mt-1">Suas informações de conta</p>
