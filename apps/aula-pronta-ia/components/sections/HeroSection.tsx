@@ -5,7 +5,7 @@ const marqueeItems = ["Educação Infantil", "Anos Iniciais", "Anos Finais", "En
 export default function HeroSection() {
   return (
     <section className="pt-20 overflow-hidden bg-[#fafafa]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-0">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
           {/* Left: Text */}
@@ -17,7 +17,7 @@ export default function HeroSection() {
 
             <h1
               className="font-fraunces leading-[0.94] tracking-[-0.035em] mt-6 text-slate-900"
-              style={{ fontSize: 'clamp(22px, 5vw, 66px)', fontWeight: 380 }}
+              style={{ fontSize: 'clamp(32px, 5.5vw, 72px)', fontWeight: 380 }}
             >
               A semana<br />
               <span className="gradient-text" style={{ fontStyle: 'italic', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>
@@ -66,7 +66,7 @@ export default function HeroSection() {
           </div>
 
           {/* Right: Visual */}
-          <div className="relative flex items-center justify-center min-h-[260px] sm:min-h-[380px]">
+          <div className="relative flex items-center justify-center min-h-[300px] sm:min-h-[440px]">
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
@@ -81,8 +81,8 @@ export default function HeroSection() {
                 <p className="text-slate-500 text-[11.5px] mt-0.5">para gerar a aula</p>
               </div>
             </div>
-            <div className="relative z-[1] animate-float w-full max-w-[240px] sm:max-w-[340px]">
-              <Image src="/robo.png" alt="Assistente Aula Pronta IA" width={340} height={340} className="w-full h-auto object-contain drop-shadow-2xl" priority />
+            <div className="relative z-[1] animate-float w-full max-w-[300px] sm:max-w-[420px]">
+              <Image src="/robo.png" alt="Assistente Aula Pronta IA" width={420} height={420} className="w-full h-auto object-contain drop-shadow-2xl" priority />
             </div>
             <div className="absolute bottom-8 right-0 z-10 bg-white rounded-2xl shadow-lg border border-slate-200 px-4 py-3 hidden sm:flex items-center gap-3" style={{ transform: 'rotate(3.5deg)' }}>
               <div className="w-8 h-8 bg-green-100 rounded-xl flex items-center justify-center text-sm shrink-0">★</div>
