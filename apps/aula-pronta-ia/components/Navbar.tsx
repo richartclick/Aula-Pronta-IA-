@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 const links = [
   { label: "Como funciona", href: "#demo" },
@@ -8,8 +11,22 @@ const links = [
 ];
 
 export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-slate-200/60" style={{ backdropFilter: 'saturate(160%) blur(14px)', background: 'rgba(250,250,250,.82)' }}>
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 border-b transition-all duration-200"
+      style={scrolled
+        ? { background: "#ffffff", borderColor: "rgba(15,23,42,0.12)" }
+        : { backdropFilter: "saturate(160%) blur(14px)", background: "rgba(250,250,250,.82)", borderColor: "rgba(203,213,225,0.6)" }
+      }
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-8">
 
         {/* Logo */}
