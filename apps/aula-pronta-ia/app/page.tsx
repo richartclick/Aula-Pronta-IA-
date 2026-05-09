@@ -11,8 +11,11 @@ import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#fafafa] pt-16">
+    <main className="min-h-screen bg-[#fafafa]">
       <Navbar />
+      {/* Spacer igual à altura da navbar fixa (h-16 = 64px). Usa inline style
+          para ser imune a conflitos entre CSS layers e o reset global padding:0 */}
+      <div style={{ height: '4rem' }} aria-hidden="true" />
       <HeroSection />
       <ProblemSection />
       <SolutionSection />
