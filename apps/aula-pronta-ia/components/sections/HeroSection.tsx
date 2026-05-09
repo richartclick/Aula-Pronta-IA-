@@ -9,15 +9,15 @@ export default function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
           {/* Left: Text */}
-          <div>
+          <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-3 bg-white border border-slate-200 rounded-full px-4 py-2 mb-6 shadow-sm">
               <span className="bg-blue-700 text-white text-[10.5px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">novo</span>
               <span className="text-slate-700 text-sm font-medium">IA brasileira treinada com a BNCC</span>
             </div>
 
             <h1
-              className="font-fraunces leading-[0.92] tracking-[-0.038em] mt-6 text-slate-900"
-              style={{ fontSize: 'clamp(28px, 6.5vw, 82px)', fontWeight: 380 }}
+              className="font-fraunces leading-[0.94] tracking-[-0.035em] mt-6 text-slate-900"
+              style={{ fontSize: 'clamp(22px, 5vw, 66px)', fontWeight: 380 }}
             >
               A semana<br />
               <span className="gradient-text" style={{ fontStyle: 'italic', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>
@@ -29,11 +29,11 @@ export default function HeroSection() {
               </span>
             </h1>
 
-            <p className="text-[17px] text-slate-600 leading-[1.7] mt-8 mb-9 max-w-lg font-normal">
+            <p className="text-[16px] text-slate-600 leading-[1.7] mt-7 mb-8 max-w-lg font-normal mx-auto lg:mx-0">
               Descreva o conteúdo da sua aula, aguarde alguns segundos e receba o plano completo — objetivos, atividades, avaliação e PDF para imprimir. Tudo alinhado à BNCC.
             </p>
 
-            <div className="flex flex-wrap gap-3 mb-8">
+            <div className="flex flex-wrap gap-3 mb-8 justify-center lg:justify-start">
               <a
                 href="/registro"
                 className="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-600 text-white font-semibold py-4 px-7 rounded-full text-[15px] transition-all hover:-translate-y-px"
@@ -49,7 +49,7 @@ export default function HeroSection() {
               </a>
             </div>
 
-            <div className="flex flex-wrap gap-6 text-sm text-slate-500 font-medium">
+            <div className="flex flex-wrap gap-6 text-sm text-slate-500 font-medium justify-center lg:justify-start">
               <span className="flex items-center gap-2">
                 <svg className="text-green-500" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4"><polyline points="20 6 9 17 4 12" /></svg>
                 5 aulas grátis por mês
@@ -66,7 +66,7 @@ export default function HeroSection() {
           </div>
 
           {/* Right: Visual */}
-          <div className="relative flex items-center justify-center min-h-[300px] sm:min-h-[440px]">
+          <div className="relative flex items-center justify-center min-h-[260px] sm:min-h-[380px]">
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
@@ -81,8 +81,8 @@ export default function HeroSection() {
                 <p className="text-slate-500 text-[11.5px] mt-0.5">para gerar a aula</p>
               </div>
             </div>
-            <div className="relative z-[1] animate-float w-full max-w-[340px] sm:max-w-[440px]">
-              <Image src="/robo.png" alt="Assistente Aula Pronta IA" width={440} height={440} className="w-full h-auto object-contain drop-shadow-2xl" priority />
+            <div className="relative z-[1] animate-float w-full max-w-[240px] sm:max-w-[340px]">
+              <Image src="/robo.png" alt="Assistente Aula Pronta IA" width={340} height={340} className="w-full h-auto object-contain drop-shadow-2xl" priority />
             </div>
             <div className="absolute bottom-8 right-0 z-10 bg-white rounded-2xl shadow-lg border border-slate-200 px-4 py-3 hidden sm:flex items-center gap-3" style={{ transform: 'rotate(3.5deg)' }}>
               <div className="w-8 h-8 bg-green-100 rounded-xl flex items-center justify-center text-sm shrink-0">★</div>
