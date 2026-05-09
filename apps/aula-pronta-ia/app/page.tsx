@@ -11,7 +11,7 @@ import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#fafafa]">
+    <main className="min-h-screen bg-[#fafafa] pt-16">
       <Navbar />
       <HeroSection />
       <ProblemSection />
