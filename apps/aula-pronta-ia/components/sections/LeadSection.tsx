@@ -11,7 +11,7 @@ export default function LeadSection() {
 
   return (
     <section id="lead" className="py-24" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1d4ed8 100%)' }}>
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-2xl mx-auto px-5 sm:px-8 lg:px-14">
         <div className="text-center mb-10">
           <span className="eyebrow" style={{ color: '#dbeafe' }}><span className="eyebrow-dot" style={{ background: '#fff', boxShadow: '0 0 0 4px rgba(255,255,255,.25)' }} />Comece hoje mesmo</span>
           <h2

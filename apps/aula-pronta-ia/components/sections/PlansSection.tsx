@@ -5,7 +5,7 @@ const CheckIcon = () => (
 export default function PlansSection() {
   return (
     <section id="planos" className="pb-24 bg-[#fafafa]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-14">
 
         <div className="grid lg:grid-cols-[1fr_1.5fr] gap-6 lg:gap-16 mb-12 lg:mb-16 items-end">
           <div>

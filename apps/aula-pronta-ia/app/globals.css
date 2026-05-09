@@ -4,10 +4,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
-* {
+*, *::before, *::after {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
 html {
@@ -244,6 +242,8 @@ body {
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    padding: 0;
+    margin: 0;
   }
   body {
     @apply bg-background text-foreground;

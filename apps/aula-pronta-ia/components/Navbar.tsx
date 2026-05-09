@@ -27,7 +27,7 @@ export default function Navbar() {
         : { backdropFilter: "saturate(160%) blur(14px)", background: "rgba(250,250,250,.82)", borderColor: "rgba(203,213,225,0.6)" }
       }
     >
-      <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12 h-[72px] flex items-center justify-between gap-10">
+      <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-14 h-[72px] flex items-center justify-between gap-10">
 
         {/* Logo */}
         <a href="/" className="flex items-center shrink-0 py-2">
