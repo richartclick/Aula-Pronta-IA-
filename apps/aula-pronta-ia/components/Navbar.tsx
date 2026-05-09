@@ -27,27 +27,27 @@ export default function Navbar() {
         : { backdropFilter: "saturate(160%) blur(14px)", background: "rgba(250,250,250,.82)", borderColor: "rgba(203,213,225,0.6)" }
       }
     >
-      <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-14 h-[72px] flex items-center justify-between gap-10">
+      <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-14 h-[80px] flex items-center justify-between gap-12">
 
         {/* Logo */}
-        <a href="/" className="flex items-center shrink-0 py-2">
+        <a href="/" className="flex items-center shrink-0">
           <Image
             src="/logomarca.png"
             alt="Aula Pronta IA"
-            width={124}
-            height={48}
+            width={134}
+            height={52}
             className="object-contain"
             priority
           />
         </a>
 
         {/* Links — só desktop */}
-        <div className="hidden lg:flex items-center gap-9">
+        <div className="hidden lg:flex items-center gap-10">
           {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-slate-500 hover:text-slate-900 text-[14px] font-medium tracking-[-0.01em] transition-colors"
+              className="text-slate-500 hover:text-slate-900 text-[15px] font-medium tracking-[-0.01em] transition-colors duration-150"
             >
               {link.label}
             </a>
@@ -55,16 +55,16 @@ export default function Navbar() {
         </div>
 
         {/* CTAs */}
-        <div className="flex items-center gap-4 shrink-0">
+        <div className="flex items-center gap-5 shrink-0">
           <a
             href="/login"
-            className="hidden sm:inline-flex text-slate-600 hover:text-slate-900 text-[14px] font-semibold transition-colors"
+            className="hidden sm:inline-flex text-slate-600 hover:text-slate-900 text-[15px] font-semibold transition-colors duration-150"
           >
             Entrar
           </a>
           <a
             href="/registro"
-            className="inline-flex items-center gap-1.5 bg-green-500 hover:bg-green-400 text-white px-6 py-[11px] rounded-full text-[14px] font-bold transition-colors shadow-sm shadow-green-200"
+            className="inline-flex items-center gap-1.5 bg-green-500 hover:bg-green-400 text-white px-7 py-3 rounded-full text-[15px] font-bold transition-colors duration-150 shadow-sm shadow-green-200"
           >
             Começar grátis
           </a>

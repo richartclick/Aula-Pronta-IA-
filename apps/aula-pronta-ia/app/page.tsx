@@ -15,7 +15,7 @@ export default function Home() {
       <Navbar />
       {/* Spacer igual à altura da navbar fixa (h-16 = 64px). Usa inline style
           para ser imune a conflitos entre CSS layers e o reset global padding:0 */}
-      <div style={{ height: '72px' }} aria-hidden="true" />
+      <div style={{ height: '80px' }} aria-hidden="true" />
       <HeroSection />
       <ProblemSection />
       <SolutionSection />
