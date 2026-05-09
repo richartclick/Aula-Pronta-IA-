@@ -5,7 +5,7 @@ const marqueeItems = ["Educação Infantil", "Anos Iniciais", "Anos Finais", "En
 export default function HeroSection() {
   return (
     <section className="overflow-hidden bg-[#fafafa]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 lg:pt-20 pb-0">
+      <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12 pt-12 lg:pt-20 pb-0">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
           {/* Left: Text */}

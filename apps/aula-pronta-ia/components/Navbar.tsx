@@ -27,27 +27,27 @@ export default function Navbar() {
         : { backdropFilter: "saturate(160%) blur(14px)", background: "rgba(250,250,250,.82)", borderColor: "rgba(203,213,225,0.6)" }
       }
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-8">
+      <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12 h-[72px] flex items-center justify-between gap-10">
 
         {/* Logo */}
-        <a href="/" className="flex items-center shrink-0">
+        <a href="/" className="flex items-center shrink-0 py-2">
           <Image
             src="/logomarca.png"
             alt="Aula Pronta IA"
-            width={110}
-            height={44}
+            width={124}
+            height={48}
             className="object-contain"
             priority
           />
         </a>
 
         {/* Links — só desktop */}
-        <div className="hidden lg:flex items-center gap-7">
+        <div className="hidden lg:flex items-center gap-9">
           {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-slate-500 hover:text-slate-900 text-sm font-medium transition-colors"
+              className="text-slate-500 hover:text-slate-900 text-[14px] font-medium tracking-[-0.01em] transition-colors"
             >
               {link.label}
             </a>
@@ -55,16 +55,16 @@ export default function Navbar() {
         </div>
 
         {/* CTAs */}
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-4 shrink-0">
           <a
             href="/login"
-            className="hidden sm:inline-flex text-slate-600 hover:text-slate-900 text-sm font-semibold transition-colors"
+            className="hidden sm:inline-flex text-slate-600 hover:text-slate-900 text-[14px] font-semibold transition-colors"
           >
             Entrar
           </a>
           <a
             href="/registro"
-            className="inline-flex items-center gap-1.5 bg-green-500 hover:bg-green-400 text-white px-5 py-2.5 rounded-full text-sm font-bold transition-colors shadow-sm shadow-green-200"
+            className="inline-flex items-center gap-1.5 bg-green-500 hover:bg-green-400 text-white px-6 py-[11px] rounded-full text-[14px] font-bold transition-colors shadow-sm shadow-green-200"
           >
             Começar grátis
           </a>
