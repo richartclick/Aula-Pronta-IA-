@@ -1,7 +1,5 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-
-export const maxDuration = 60;
 import { createClient } from "@/lib/supabase/server";
 import type { AulaCompleta } from "@/app/actions/gerar-aula";
 import BotaoPDF from "./BotaoPDF";
