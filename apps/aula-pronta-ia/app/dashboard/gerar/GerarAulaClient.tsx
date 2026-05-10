@@ -446,6 +446,13 @@ function AulaResultado({
         <p className="text-xs font-bold text-slate-400 uppercase tracking-widest text-center mb-6">Conteúdo completo da aula</p>
       </div>
 
+      {/* Conteúdo didático */}
+      {aula.conteudo_didatico && (
+        <Secao icon="📚" titulo="Conteúdo da aula" cor="indigo">
+          <p className="text-slate-700 text-sm leading-relaxed whitespace-pre-line">{aula.conteudo_didatico}</p>
+        </Secao>
+      )}
+
       {/* Objetivos */}
       <Secao icon="🎯" titulo="Objetivos de aprendizagem" cor="blue">
         <ul className="space-y-3">

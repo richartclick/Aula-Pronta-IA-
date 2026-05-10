@@ -104,6 +104,23 @@ async function salvarAulaNoBanco(
   }
 }
 
+function instrucaoPorDisciplina(disciplina: string): string {
+  const mapa: Record<string, string> = {
+    "Inglês": "O campo conteudo_didatico DEVE estar parcialmente em inglês: inclua vocabulário (mínimo 10 palavras EM INGLÊS com tradução em português), frases de exemplo completas em inglês, explicação da estrutura gramatical do tema e um mini-diálogo em inglês com tradução. Ex: 'Hello! My name is Ana. (Olá! Meu nome é Ana.)'",
+    "Matemática": "O campo conteudo_didatico DEVE ter: definição clara do conceito matemático, fórmula(s) com notação correta, pelo menos 3 exemplos resolvidos passo a passo com números reais, e uma dica de memorização. Ex: 'Área do triângulo = (base × altura) ÷ 2. Exemplo: base=6cm, altura=4cm → Área = (6×4)÷2 = 12cm²'",
+    "Física": "O campo conteudo_didatico DEVE ter: conceito físico explicado, fórmula com símbolos e unidades SI, exemplo de problema resolvido com valores numéricos reais mostrando cada passo, e conexão com o cotidiano.",
+    "Química": "O campo conteudo_didatico DEVE ter: conceito químico detalhado, fórmulas moleculares ou equações de reação balanceadas, nomes dos elementos e compostos envolvidos, e exemplos do cotidiano onde este processo ocorre.",
+    "Biologia": "O campo conteudo_didatico DEVE ter: terminologia científica correta, descrição detalhada do processo ou estrutura biológica, classificação científica quando aplicável, e dados/curiosidades científicas reais sobre o tema.",
+    "Ciências": "O campo conteudo_didatico DEVE ter: explicação científica clara do fenômeno, causas e efeitos comprovados, experimento simples que demonstre o conceito, e exemplos observáveis no cotidiano com dados reais.",
+    "Português": "O campo conteudo_didatico DEVE ter: regras gramaticais detalhadas com exemplos reais de frases corretas e incorretas, ou análise literária com trechos reais da obra/gênero trabalhado, incluindo dicas de uso e exceções.",
+    "História": "O campo conteudo_didatico DEVE ter: contexto histórico detalhado do período, datas e eventos relevantes em ordem cronológica, personagens históricos reais com seus papéis e motivações, causas e consequências históricas.",
+    "Geografia": "O campo conteudo_didatico DEVE ter: dados geográficos reais e atuais (localização, clima, relevo, população, PIB quando relevante), comparações entre regiões/países/biomas, e impactos humanos ou ambientais reais.",
+    "Artes": "O campo conteudo_didatico DEVE ter: técnica artística específica com instruções práticas passo a passo, contexto histórico do movimento ou estilo, pelo menos 3 artistas de referência com obras conhecidas e suas características.",
+    "Educação Física": "O campo conteudo_didatico DEVE ter: regras oficiais do esporte/modalidade, fundamentos técnicos com descrição dos movimentos corretos, sequência didática de ensino para iniciantes, variações e adaptações para diferentes habilidades.",
+  };
+  return mapa[disciplina] ?? "O campo conteudo_didatico DEVE ter o conteúdo real, específico e detalhado desta disciplina com exemplos concretos, definições precisas e informações que o aluno vai de fato aprender.";
+}
+
 export async function gerarAula(
   _prev: AulaGeradaState,
   formData: FormData
@@ -149,64 +166,66 @@ export async function gerarAula(
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
   if (anthropicKey) {
     try {
-      const prompt = `Você é um especialista em educação brasileira com domínio da BNCC. Crie um plano de aula COMPLETO e DETALHADO para:
+      const prompt = `Você é um professor especialista em ${disciplina} com domínio da BNCC. Crie um plano de aula real, rico e específico para:
 - Tema: ${tema}
-- Série/Turma: ${serie}
+- Série: ${serie}
 - Disciplina: ${disciplina}
 - Duração: ${duracao}
 - Estilo: ${estilo || "dinâmico e interativo"}
-${observacoes ? `- Observações da professora: ${observacoes}` : ""}
+${observacoes ? `- Observações: ${observacoes}` : ""}
 
-Retorne APENAS um JSON válido (sem markdown, sem explicações) com esta estrutura exata:
+REGRA OBRIGATÓRIA PARA ${disciplina.toUpperCase()}: ${instrucaoPorDisciplina(disciplina)}
+
+Retorne APENAS JSON válido (sem markdown) com esta estrutura:
 {
-  "titulo": "título criativo e específico para esta aula",
-  "bncc": ["código BNCC real da disciplina/série", "outro código relacionado"],
-  "conteudo_didatico": "explique aqui o conteúdo da matéria em si — os conceitos, definições e informações que o aluno vai aprender nesta aula, de forma clara e adequada para a série",
-  "objetivos": ["objetivo 1 com verbo de ação", "objetivo 2", "objetivo 3"],
-  "pergunta_norteadora": "pergunta provocadora que conecta o tema com a realidade do aluno",
-  "contextualizacao": "parágrafo conectando o tema com o cotidiano dos alunos desta série",
+  "titulo": "título criativo e específico para ${disciplina} — ${tema} — ${serie}",
+  "bncc": ["código BNCC real e correto para ${disciplina} no ${serie}", "outro código relacionado"],
+  "conteudo_didatico": "SIGA A REGRA OBRIGATÓRIA ACIMA. Este campo é o coração da aula — o conteúdo real que o aluno vai aprender. Mínimo 200 palavras, rico e específico.",
+  "objetivos": ["objetivo com verbo de ação da Taxonomia de Bloom adequado ao ${serie}", "objetivo 2", "objetivo 3"],
+  "pergunta_norteadora": "pergunta instigante que conecta ${tema} com a realidade do aluno do ${serie}",
+  "contextualizacao": "como ${tema} aparece no cotidiano do aluno desta faixa etária — seja específico",
   "introducao": {
     "duracao": "X minutos",
-    "descricao": "como iniciar a aula de forma envolvente",
-    "dica_professor": "dica prática para a professora"
+    "descricao": "como iniciar a aula de forma envolvente e conectada ao conteudo_didatico",
+    "dica_professor": "dica prática e específica para conduzir esta introdução"
   },
   "desenvolvimento": [
     {
-      "etapa": "nome da etapa",
+      "etapa": "nome da etapa de ensino do conteúdo",
       "duracao": "X minutos",
-      "descricao": "o que fazer nesta etapa",
-      "perguntas_mediacao": ["pergunta 1", "pergunta 2"],
-      "dica_professor": "dica para esta etapa"
+      "descricao": "descrição detalhada do que fazer, referenciando o conteúdo real de ${disciplina}",
+      "perguntas_mediacao": ["pergunta específica sobre ${tema}", "outra pergunta"],
+      "dica_professor": "dica específica para esta etapa"
     }
   ],
   "atividades": [
     {
       "titulo": "nome da atividade",
-      "tipo": "individual ou grupo",
+      "tipo": "individual",
       "duracao": "X minutos",
-      "descricao": "descrição detalhada",
-      "objetivo_bloom": "nível da taxonomia de Bloom",
-      "diferenciacao": "como adaptar para diferentes níveis"
+      "descricao": "descrição detalhada com exercício real de ${disciplina} sobre ${tema}",
+      "objetivo_bloom": "nível da Taxonomia de Bloom",
+      "diferenciacao": "adaptação para alunos com dificuldade e para os avançados"
     }
   ],
   "fechamento": {
     "duracao": "X minutos",
-    "descricao": "como encerrar e fixar o aprendizado",
-    "perguntas_reflexao": ["pergunta 1", "pergunta 2"]
+    "descricao": "como encerrar retomando o conteudo_didatico e fixando o aprendizado",
+    "perguntas_reflexao": ["pergunta reflexiva sobre ${tema}", "outra"]
   },
   "avaliacao": {
-    "formativa": "como avaliar durante a aula",
-    "somativa": "proposta de avaliação formal",
-    "autoavaliacao": "frase para o aluno completar"
+    "formativa": "como avaliar a compreensão do conteúdo durante a aula",
+    "somativa": "proposta de avaliação formal sobre ${tema}",
+    "autoavaliacao": "frase para o aluno completar sobre o que aprendeu"
   },
-  "materiais": ["material 1", "material 2"],
+  "materiais": ["material específico para ensinar ${tema}", "outro material"],
   "adaptacoes": {
-    "inclusao": "adaptações para alunos com necessidades especiais",
-    "aceleracao": "desafios para alunos avançados",
-    "recursos_digitais": "ferramentas digitais gratuitas para enriquecer a aula"
+    "inclusao": "adaptações concretas para alunos com necessidades especiais neste conteúdo",
+    "aceleracao": "desafios extras sobre ${tema} para alunos avançados",
+    "recursos_digitais": "ferramentas digitais gratuitas específicas para ${disciplina} — ${tema}"
   },
-  "interdisciplinaridade": "como conectar com outras disciplinas",
-  "para_casa": "tarefa significativa e contextualizada"
+  "interdisciplinaridade": "conexão real de ${tema} com outras disciplinas",
+  "para_casa": "tarefa prática e contextualizada sobre ${tema}"
 }`;
 
       const res = await fetch("https://api.anthropic.com/v1/messages", {
@@ -217,8 +236,8 @@ Retorne APENAS um JSON válido (sem markdown, sem explicações) com esta estrut
           "content-type": "application/json",
         },
         body: JSON.stringify({
-          model: "claude-sonnet-4-6",
-          max_tokens: 4096,
+          model: "claude-haiku-4-5-20251001",
+          max_tokens: 2500,
           messages: [{ role: "user", content: prompt }],
         }),
       });
