@@ -23,6 +23,7 @@ export type Atividade = {
 export type AulaCompleta = {
   titulo: string;
   bncc: string[];
+  conteudo_didatico: string;
   objetivos: string[];
   pergunta_norteadora: string;
   contextualizacao: string;
@@ -160,6 +161,7 @@ Retorne APENAS um JSON válido (sem markdown, sem explicações) com esta estrut
 {
   "titulo": "título criativo e específico para esta aula",
   "bncc": ["código BNCC real da disciplina/série", "outro código relacionado"],
+  "conteudo_didatico": "explique aqui o conteúdo da matéria em si — os conceitos, definições e informações que o aluno vai aprender nesta aula, de forma clara e adequada para a série",
   "objetivos": ["objetivo 1 com verbo de ação", "objetivo 2", "objetivo 3"],
   "pergunta_norteadora": "pergunta provocadora que conecta o tema com a realidade do aluno",
   "contextualizacao": "parágrafo conectando o tema com o cotidiano dos alunos desta série",
@@ -248,6 +250,7 @@ Retorne APENAS um JSON válido (sem markdown, sem explicações) com esta estrut
         `(EF0${serie.charAt(0)}MA01) Reconhecer e aplicar conceitos de ${tema} em situações do cotidiano`,
         `(EF0${serie.charAt(0)}MA02) Desenvolver raciocínio lógico e pensamento crítico através de ${tema}`,
       ],
+      conteudo_didatico: `${tema} é um conteúdo fundamental para o ${serie}. Nesta aula, os alunos vão compreender os principais conceitos relacionados ao tema, explorando suas características, exemplos práticos e relação com o cotidiano.`,
       objetivos: [
         `Analisar os conceitos fundamentais de ${tema}, estabelecendo conexões com situações reais`,
         `Criar soluções para problemas práticos utilizando os conhecimentos de ${tema}`,

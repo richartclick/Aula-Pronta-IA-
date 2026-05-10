@@ -50,6 +50,13 @@ export default async function AulaPage({ params }: { params: Promise<{ id: strin
         </div>
       </div>
 
+      {/* Conteúdo didático */}
+      {conteudo.conteudo_didatico && (
+        <Section icon="📚" title="Conteúdo da aula" cor="indigo">
+          <p className="text-slate-700 text-sm leading-relaxed whitespace-pre-line">{conteudo.conteudo_didatico}</p>
+        </Section>
+      )}
+
       {/* Objetivos */}
       <Section icon="🎯" title="Objetivos de aprendizagem" cor="blue">
         <ul className="space-y-3">
