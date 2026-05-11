@@ -420,6 +420,13 @@ function AulaResultado({
         </button>
       </div>
 
+      {/* Conteúdo didático — aparece antes das atividades */}
+      {aula.conteudo_didatico && (
+        <Secao icon="📚" titulo="Conteúdo da aula" cor="indigo">
+          <p className="text-slate-700 text-sm leading-relaxed whitespace-pre-line">{aula.conteudo_didatico}</p>
+        </Secao>
+      )}
+
       {/* Atividades para alunos — visível imediatamente no mobile */}
       {aulaId && (
         <div className="border-t-2 border-dashed border-slate-200 pt-6 space-y-4">
@@ -445,13 +452,6 @@ function AulaResultado({
       <div className="border-t-2 border-slate-100 pt-2">
         <p className="text-xs font-bold text-slate-400 uppercase tracking-widest text-center mb-6">Conteúdo completo da aula</p>
       </div>
-
-      {/* Conteúdo didático */}
-      {aula.conteudo_didatico && (
-        <Secao icon="📚" titulo="Conteúdo da aula" cor="indigo">
-          <p className="text-slate-700 text-sm leading-relaxed whitespace-pre-line">{aula.conteudo_didatico}</p>
-        </Secao>
-      )}
 
       {/* Objetivos */}
       <Secao icon="🎯" titulo="Objetivos de aprendizagem" cor="blue">
