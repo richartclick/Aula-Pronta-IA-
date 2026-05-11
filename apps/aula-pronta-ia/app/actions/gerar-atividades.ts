@@ -65,11 +65,11 @@ Retorne APENAS JSON válido (sem markdown):
   ]
 }
 
-Crie exatamente 3 questões variadas e adequadas para a faixa etária. Conteúdo da aula: ${conteudoResumo}`;
+Crie exatamente 3 questões CURTAS e adequadas para a faixa etária. Enunciados e respostas em no máximo 2 frases. Conteúdo da aula: ${conteudoResumo}`;
 
   try {
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 25000);
+    const timer = setTimeout(() => controller.abort(), 8000);
 
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -80,7 +80,7 @@ Crie exatamente 3 questões variadas e adequadas para a faixa etária. Conteúdo
       },
       body: JSON.stringify({
         model: "claude-haiku-4-5-20251001",
-        max_tokens: 1300,
+        max_tokens: 900,
         messages: [{ role: "user", content: prompt }],
       }),
       signal: controller.signal,
