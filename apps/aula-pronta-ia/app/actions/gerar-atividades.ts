@@ -80,7 +80,7 @@ Crie exatamente 3 questões variadas e adequadas para a faixa etária. Conteúdo
       },
       body: JSON.stringify({
         model: "claude-haiku-4-5-20251001",
-        max_tokens: 1000,
+        max_tokens: 1300,
         messages: [{ role: "user", content: prompt }],
       }),
       signal: controller.signal,
