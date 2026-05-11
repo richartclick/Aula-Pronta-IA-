@@ -65,7 +65,7 @@ Retorne APENAS JSON válido (sem markdown):
   ]
 }
 
-Crie entre 4 e 6 questões variadas e adequadas para a faixa etária. Conteúdo da aula: ${conteudoResumo}`;
+Crie exatamente 3 questões variadas e adequadas para a faixa etária. Conteúdo da aula: ${conteudoResumo}`;
 
   try {
     const controller = new AbortController();
@@ -80,7 +80,7 @@ Crie entre 4 e 6 questões variadas e adequadas para a faixa etária. Conteúdo 
       },
       body: JSON.stringify({
         model: "claude-haiku-4-5-20251001",
-        max_tokens: 2000,
+        max_tokens: 1000,
         messages: [{ role: "user", content: prompt }],
       }),
       signal: controller.signal,

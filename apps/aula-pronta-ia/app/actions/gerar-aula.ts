@@ -166,7 +166,9 @@ export async function gerarAula(
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
   if (anthropicKey) {
     try {
-      const prompt = `Você é um professor especialista em ${disciplina} com domínio da BNCC. Crie um plano de aula real, rico e específico para:
+      const prompt = `Você é um professor especialista em ${disciplina} com domínio da BNCC. Crie um plano de aula real e específico. Seja CONCISO: máximo 2 etapas no desenvolvimento, 1 atividade, frases curtas em todos os campos.
+
+Dados da aula:
 - Tema: ${tema}
 - Série: ${serie}
 - Disciplina: ${disciplina}
@@ -237,7 +239,7 @@ Retorne APENAS JSON válido (sem markdown) com esta estrutura:
         },
         body: JSON.stringify({
           model: "claude-haiku-4-5-20251001",
-          max_tokens: 4000,
+          max_tokens: 1500,
           messages: [{ role: "user", content: prompt }],
         }),
       });
