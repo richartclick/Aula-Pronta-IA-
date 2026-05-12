@@ -284,6 +284,7 @@ Retorne APENAS JSON válido (sem markdown, sem texto fora do JSON) com esta estr
         body: JSON.stringify({
           model: "claude-haiku-4-5-20251001",
           max_tokens: 3000,
+          system: "Você é um gerador de planos de aula. Responda EXCLUSIVAMENTE com JSON válido — sem texto antes, sem texto depois, sem markdown, sem ```json. Apenas o objeto JSON puro.",
           messages: [{ role: "user", content: prompt }],
         }),
       });
@@ -296,26 +297,36 @@ Retorne APENAS JSON válido (sem markdown, sem texto fora do JSON) com esta estr
       }
 
       const data = await res.json();
-      const text: string = data.content[0].text;
-      const jsonStart = text.indexOf("{");
-      const jsonEnd = text.lastIndexOf("}") + 1;
+      const rawText: string = data?.content?.[0]?.text ?? "";
+      console.log("Resposta IA (primeiros 300 chars):", rawText.slice(0, 300));
+
+      const jsonStart = rawText.indexOf("{");
+      const jsonEnd = rawText.lastIndexOf("}") + 1;
       if (jsonStart === -1 || jsonEnd <= jsonStart) {
-        console.error("Resposta da IA não contém JSON válido:", text.slice(0, 200));
-        return { status: "error", message: "A IA retornou uma resposta inesperada. Tente novamente." };
+        console.error("Sem JSON na resposta:", rawText.slice(0, 300));
+        return { status: "error", message: "A IA retornou um formato inesperado. Tente novamente." };
       }
-      const aula: AulaCompleta = JSON.parse(text.slice(jsonStart, jsonEnd));
+
+      let aula: AulaCompleta;
+      try {
+        aula = JSON.parse(rawText.slice(jsonStart, jsonEnd));
+      } catch (parseErr) {
+        console.error("JSON inválido:", rawText.slice(jsonStart, jsonStart + 400));
+        return { status: "error", message: "A IA gerou um JSON inválido. Tente novamente." };
+      }
+
       const meta = { tema, serie, disciplina, duracao };
       const aulaId = await salvarAulaNoBanco(aula, meta);
       await incrementarGeracoes();
       return { status: "success", aula, aulaId: aulaId ?? undefined, meta };
     } catch (err) {
       const isTimeout = err instanceof Error && err.name === "AbortError";
-      console.error("Erro ao chamar Claude:", err);
+      console.error("Erro geral ao chamar Claude:", err instanceof Error ? err.message : err);
       return {
         status: "error",
         message: isTimeout
-          ? "A geração demorou mais que o esperado. Tente novamente em alguns segundos."
-          : "Erro de conexão com a IA. Verifique sua chave de API e tente novamente.",
+          ? "A geração demorou mais que o esperado. Tente novamente."
+          : "Erro de conexão com a IA. Tente novamente em alguns segundos.",
       };
     }
   }
