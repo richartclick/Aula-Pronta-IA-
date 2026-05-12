@@ -180,12 +180,12 @@ REGRA FUNDAMENTAL PARA ${disciplina.toUpperCase()} — OBRIGATÓRIO SEGUIR:
 ${instrucaoPorDisciplina(disciplina)}
 
 PADRÃO DE QUALIDADE EXIGIDO:
-- conteudo_didatico: mínimo 350 palavras, com conteúdo científico/técnico REAL desta disciplina — não genérico
-- desenvolvimento: 3 etapas bem detalhadas com metodologia ativa
-- atividades: 2 atividades completas (1 individual + 1 em grupo), com enunciados reais de exercícios
-- Todos os campos com profundidade pedagógica — nada de "preencha conforme necessário"
+- conteudo_didatico: conteúdo científico/técnico REAL desta disciplina — não genérico, com exemplos concretos
+- desenvolvimento: 2 etapas bem detalhadas com metodologia ativa
+- atividades: 2 atividades (1 individual + 1 em grupo), com enunciados reais
 - Códigos BNCC reais e corretos para ${disciplina} no ${serie}
 - Verbos da Taxonomia de Bloom adequados à faixa etária
+- Seja direto e objetivo — sem encher de palavras desnecessárias
 
 Retorne APENAS JSON válido (sem markdown, sem texto fora do JSON) com esta estrutura exata:
 {
@@ -270,8 +270,12 @@ Retorne APENAS JSON válido (sem markdown, sem texto fora do JSON) com esta estr
   "para_casa": "tarefa investigativa e significativa que o aluno quer fazer — não repetição mecânica do que foi feito em aula, mas aplicação em novo contexto ou produção criativa sobre ${tema}"
 }`;
 
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 50000);
+
       const res = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
+        signal: controller.signal,
         headers: {
           "x-api-key": anthropicKey,
           "anthropic-version": "2023-06-01",
@@ -279,10 +283,11 @@ Retorne APENAS JSON válido (sem markdown, sem texto fora do JSON) com esta estr
         },
         body: JSON.stringify({
           model: "claude-sonnet-4-6",
-          max_tokens: 4096,
+          max_tokens: 2500,
           messages: [{ role: "user", content: prompt }],
         }),
       });
+      clearTimeout(timeout);
 
       if (!res.ok) {
         const errBody = await res.text().catch(() => "sem detalhes");
@@ -304,8 +309,14 @@ Retorne APENAS JSON válido (sem markdown, sem texto fora do JSON) com esta estr
       await incrementarGeracoes();
       return { status: "success", aula, aulaId: aulaId ?? undefined, meta };
     } catch (err) {
+      const isTimeout = err instanceof Error && err.name === "AbortError";
       console.error("Erro ao chamar Claude:", err);
-      return { status: "error", message: "Erro de conexão com a IA. Verifique sua chave de API e tente novamente." };
+      return {
+        status: "error",
+        message: isTimeout
+          ? "A geração demorou mais que o esperado. Tente novamente em alguns segundos."
+          : "Erro de conexão com a IA. Verifique sua chave de API e tente novamente.",
+      };
     }
   }
 
