@@ -1,10 +1,5 @@
 {
   "installCommand": "pnpm install",
   "buildCommand": "next build",
-  "framework": "nextjs",
-  "functions": {
-    "app/dashboard/gerar/page.tsx": {
-      "maxDuration": 120
-    }
-  }
+  "framework": "nextjs"
 }
