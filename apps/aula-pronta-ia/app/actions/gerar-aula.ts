@@ -271,7 +271,7 @@ Retorne APENAS JSON válido (sem markdown, sem texto fora do JSON) com esta estr
 }`;
 
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 50000);
+      const timeout = setTimeout(() => controller.abort(), 45000);
 
       const res = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
@@ -282,8 +282,8 @@ Retorne APENAS JSON válido (sem markdown, sem texto fora do JSON) com esta estr
           "content-type": "application/json",
         },
         body: JSON.stringify({
-          model: "claude-sonnet-4-6",
-          max_tokens: 2500,
+          model: "claude-haiku-4-5-20251001",
+          max_tokens: 3000,
           messages: [{ role: "user", content: prompt }],
         }),
       });
