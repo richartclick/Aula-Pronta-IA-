@@ -166,112 +166,90 @@ export async function gerarAula(
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
   if (anthropicKey) {
     try {
-      const prompt = `Você é um pedagogo especialista em ${disciplina} com 20 anos de experiência em sala de aula e domínio profundo da BNCC. Você cria planos de aula que REALMENTE funcionam na prática — com conteúdo real, rico e aplicável. Professores que usam seus planos se destacam.
-
-DADOS DA AULA:
+      const prompt = `Crie um plano de aula completo para:
 - Tema: ${tema}
-- Série/Ano: ${serie}
+- Série: ${serie}
 - Disciplina: ${disciplina}
 - Duração: ${duracao}
-- Estilo pedagógico: ${estilo || "dinâmico, interativo e significativo"}
-${observacoes ? `- Observações do professor: ${observacoes}` : ""}
+- Estilo: ${estilo || "dinâmico e interativo"}
+${observacoes ? `- Observações: ${observacoes}` : ""}
 
-REGRA FUNDAMENTAL PARA ${disciplina.toUpperCase()} — OBRIGATÓRIO SEGUIR:
+REGRA OBRIGATÓRIA PARA ${disciplina.toUpperCase()}:
 ${instrucaoPorDisciplina(disciplina)}
 
-PADRÃO DE QUALIDADE EXIGIDO:
-- conteudo_didatico: conteúdo científico/técnico REAL desta disciplina — não genérico, com exemplos concretos
-- desenvolvimento: 2 etapas bem detalhadas com metodologia ativa
-- atividades: 2 atividades (1 individual + 1 em grupo), com enunciados reais
-- Códigos BNCC reais e corretos para ${disciplina} no ${serie}
-- Verbos da Taxonomia de Bloom adequados à faixa etária
-- Seja direto e objetivo — sem encher de palavras desnecessárias
-
-Retorne APENAS JSON válido (sem markdown, sem texto fora do JSON) com esta estrutura exata:
+Retorne APENAS JSON puro (sem markdown). Estrutura exata:
 {
-  "titulo": "título criativo, específico e atraente para ${disciplina} — ${tema} — ${serie}",
-  "bncc": ["(EFXXMAXX) código BNCC real para ${disciplina} no ${serie}", "(EFXXMAXX) segundo código relacionado", "(EFXXMAXX) terceiro código se aplicável"],
-  "conteudo_didatico": "CONTEÚDO REAL E RICO — siga a regra fundamental acima. Este é o coração da aula: o conhecimento que o aluno vai construir. Inclua conceitos, definições, exemplos concretos, dados reais, fórmulas, vocabulário específico da disciplina. Mínimo 350 palavras. Escrito como referência completa para o professor.",
+  "titulo": "título criativo e específico para ${disciplina} — ${tema} — ${serie}",
+  "bncc": ["código BNCC real 1 para ${disciplina} no ${serie}", "código BNCC real 2"],
+  "conteudo_didatico": "conteúdo real da disciplina: conceitos, definições, exemplos concretos, dados reais. Siga a regra obrigatória acima. Seja específico e rico.",
   "objetivos": [
-    "verbo Bloom (analisar/criar/avaliar) + o que o aluno fará com ${tema} — específico e mensurável",
-    "segundo objetivo com verbo diferente — aplicação prática",
-    "terceiro objetivo — desenvolvimento de habilidade de comunicação ou colaboração"
+    "verbo Bloom + aprendizagem específica sobre ${tema}",
+    "segundo objetivo com verbo diferente",
+    "terceiro objetivo — habilidade prática"
   ],
-  "pergunta_norteadora": "pergunta filosófica ou científica instigante que conecta ${tema} com a vida real do aluno do ${serie} — deve gerar curiosidade genuína",
-  "contextualizacao": "parágrafo rico explicando onde ${tema} aparece no cotidiano deste aluno específico (faixa etária do ${serie}), com exemplos concretos e surpreendentes que criem conexão emocional com o conteúdo",
+  "pergunta_norteadora": "pergunta instigante que conecta ${tema} à vida real do aluno",
+  "contextualizacao": "onde ${tema} aparece no cotidiano do aluno do ${serie} — exemplos concretos",
   "introducao": {
-    "duracao": "X minutos",
-    "descricao": "estratégia de abertura detalhada: como gerar curiosidade, o que apresentar, como fazer a transição para o conteúdo — com roteiro passo a passo para o professor",
-    "dica_professor": "dica experiente e específica: o que evitar, como lidar com resistência, como adaptar se a turma estiver dispersa"
+    "duracao": "X min",
+    "descricao": "como iniciar a aula e despertar curiosidade sobre ${tema}",
+    "dica_professor": "dica prática para engajar a turma neste momento"
   },
   "desenvolvimento": [
     {
-      "etapa": "1. Construção do Conhecimento Base",
-      "duracao": "X minutos",
-      "descricao": "descrição pedagógica detalhada desta etapa: o que ensinar, como apresentar o conteúdo de ${disciplina}, quais recursos usar, sequência didática passo a passo — referenciar o conteudo_didatico",
-      "perguntas_mediacao": ["pergunta de verificação de compreensão sobre ${tema}", "pergunta que conecta ao conhecimento prévio", "pergunta que desafia a pensar mais fundo"],
-      "dica_professor": "dica prática para conduzir esta etapa com segurança e engajamento"
+      "etapa": "1. Exploração do conteúdo",
+      "duracao": "X min",
+      "descricao": "como apresentar ${tema} — sequência didática, recursos, exemplos a usar",
+      "perguntas_mediacao": ["pergunta de verificação de compreensão", "pergunta que conecta ao cotidiano"],
+      "dica_professor": "dica para conduzir com segurança"
     },
     {
-      "etapa": "2. Aprofundamento e Prática Guiada",
-      "duracao": "X minutos",
-      "descricao": "como aprofundar o conteúdo, quais exemplos resolver junto com a turma, como modelar o raciocínio em voz alta, sequência de exercícios progressivos",
-      "perguntas_mediacao": ["pergunta de aplicação do conteúdo a situação nova", "pergunta que estimula o raciocínio crítico", "pergunta que conecta com outras disciplinas"],
-      "dica_professor": "como identificar e intervir quando alunos travam, como valorizar o erro produtivo"
-    },
-    {
-      "etapa": "3. Produção e Sistematização",
-      "duracao": "X minutos",
-      "descricao": "como os alunos produzem, criam ou sistematizam o conhecimento de forma autônoma — desafio real que exige usar o que aprenderam sobre ${tema}",
-      "perguntas_mediacao": ["pergunta que provoca síntese do aprendizado", "pergunta que conecta ${tema} com o próximo conteúdo", "pergunta de autoavaliação do aprendizado"],
-      "dica_professor": "como circular pela sala, o que observar, como fazer mediação sem dar a resposta"
+      "etapa": "2. Prática e aprofundamento",
+      "duracao": "X min",
+      "descricao": "como os alunos praticam e aprofundam o conhecimento sobre ${tema}",
+      "perguntas_mediacao": ["pergunta de aplicação", "pergunta de análise crítica"],
+      "dica_professor": "dica para lidar com dificuldades"
     }
   ],
   "atividades": [
     {
-      "titulo": "nome específico da atividade individual",
+      "titulo": "nome da atividade individual",
       "tipo": "individual",
-      "duracao": "X minutos",
-      "descricao": "enunciado REAL e completo da atividade — escreva os exercícios, questões ou tarefas concretas que o aluno vai realizar sobre ${tema} em ${disciplina}. Inclua o enunciado exato como seria entregue para o aluno.",
-      "objetivo_bloom": "nível e verbo da Taxonomia de Bloom — justifique por que este nível é adequado ao ${serie}",
-      "diferenciacao": "adaptação concreta para alunos com dificuldade (o que simplificar, qual apoio dar) E desafio extra para alunos avançados (o que acrescentar)"
+      "duracao": "X min",
+      "descricao": "enunciado real e completo: o que o aluno vai fazer sobre ${tema}",
+      "objetivo_bloom": "nível Bloom aplicado",
+      "diferenciacao": "simplificação para dificuldade / desafio para avançados"
     },
     {
-      "titulo": "nome específico da atividade em grupo",
+      "titulo": "nome da atividade em grupo",
       "tipo": "grupo",
-      "duracao": "X minutos",
-      "descricao": "enunciado REAL da atividade colaborativa — o que cada grupo vai fazer, produzir ou investigar sobre ${tema}. Como organizar os grupos, o que entregar ao final. Metodologia ativa aplicada.",
-      "objetivo_bloom": "nível da Taxonomia de Bloom — analisar/avaliar/criar",
-      "diferenciacao": "como adaptar para grupos com diferentes níveis — o que o grupo mais fraco recebe de apoio e o que o mais avançado recebe de desafio extra"
+      "duracao": "X min",
+      "descricao": "enunciado real: o que os grupos vão fazer, produzir ou investigar sobre ${tema}",
+      "objetivo_bloom": "nível Bloom — analisar/criar/avaliar",
+      "diferenciacao": "suporte para grupos com dificuldade / desafio extra para avançados"
     }
   ],
   "fechamento": {
-    "duracao": "X minutos",
-    "descricao": "roteiro de encerramento: como retomar a pergunta norteadora, o que sistematizar no quadro, como fazer os alunos verbalizarem o aprendizado e antecipar o próximo conteúdo",
-    "perguntas_reflexao": ["pergunta metacognitiva sobre o processo de aprendizagem", "pergunta que conecta ${tema} com a vida do aluno", "pergunta que lança o desafio para aprofundamento"]
+    "duracao": "X min",
+    "descricao": "como encerrar retomando a pergunta norteadora e sistematizando o aprendizado",
+    "perguntas_reflexao": ["pergunta metacognitiva", "pergunta que conecta ${tema} à vida do aluno"]
   },
   "avaliacao": {
-    "formativa": "estratégias concretas de avaliação durante a aula: quais comportamentos observar, como usar perguntas diagnósticas, como registrar evidências de aprendizagem sem interromper o fluxo",
-    "somativa": "proposta detalhada de avaliação formal: tipo de instrumento (prova, trabalho, projeto), critérios de avaliação claros, peso de cada habilidade, exemplo de questão ou rubrica",
-    "autoavaliacao": "ferramenta de autoavaliação do aluno — frase para completar, escala de confiança, ou checklist do que dominou sobre ${tema}"
+    "formativa": "como avaliar a aprendizagem durante a aula",
+    "somativa": "proposta de avaliação formal com critérios claros",
+    "autoavaliacao": "ferramenta de autoavaliação do aluno sobre ${tema}"
   },
-  "materiais": [
-    "material específico 1 com instrução de uso",
-    "material específico 2",
-    "material específico 3",
-    "recurso digital gratuito específico para ${disciplina} — ${tema} com instrução de acesso"
-  ],
+  "materiais": ["material 1", "material 2", "ferramenta digital gratuita para ${disciplina} — ${tema}"],
   "adaptacoes": {
-    "inclusao": "adaptações específicas e práticas para: alunos com dificuldades de leitura/escrita, TDAH, deficiência visual, deficiência auditiva — o que concretamente mudar na atividade e nos recursos",
-    "aceleracao": "3 desafios progressivos para alunos que dominam rapidamente o conteúdo — do mais simples ao mais complexo, conectados ao ${tema}",
-    "recursos_digitais": "3 a 5 ferramentas digitais gratuitas específicas para ${disciplina} — ${tema}: nome da ferramenta, como acessar, o que fazer com ela nesta aula"
+    "inclusao": "adaptações para alunos com dificuldades de aprendizagem ou inclusão",
+    "aceleracao": "desafios para alunos que dominam rapidamente",
+    "recursos_digitais": "2 ferramentas digitais gratuitas com instruções de uso"
   },
-  "interdisciplinaridade": "conexões ricas e concretas de ${tema} com pelo menos 3 outras disciplinas — o que especificamente se conecta, como o professor pode explorar essa conexão, sugestão de projeto integrado",
-  "para_casa": "tarefa investigativa e significativa que o aluno quer fazer — não repetição mecânica do que foi feito em aula, mas aplicação em novo contexto ou produção criativa sobre ${tema}"
+  "interdisciplinaridade": "conexões de ${tema} com outras 2 disciplinas — como explorar",
+  "para_casa": "tarefa significativa aplicando ${tema} em novo contexto"
 }`;
 
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 45000);
+      const timeout = setTimeout(() => controller.abort(), 55000);
 
       const res = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
@@ -283,7 +261,7 @@ Retorne APENAS JSON válido (sem markdown, sem texto fora do JSON) com esta estr
         },
         body: JSON.stringify({
           model: "claude-haiku-4-5-20251001",
-          max_tokens: 8192,
+          max_tokens: 4000,
           system: "Você é um gerador de planos de aula. Responda EXCLUSIVAMENTE com JSON válido — sem texto antes, sem texto depois, sem markdown, sem ```json. Apenas o objeto JSON puro.",
           messages: [{ role: "user", content: prompt }],
         }),
