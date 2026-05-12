@@ -283,7 +283,7 @@ Retorne APENAS JSON válido (sem markdown, sem texto fora do JSON) com esta estr
         },
         body: JSON.stringify({
           model: "claude-haiku-4-5-20251001",
-          max_tokens: 3000,
+          max_tokens: 8192,
           system: "Você é um gerador de planos de aula. Responda EXCLUSIVAMENTE com JSON válido — sem texto antes, sem texto depois, sem markdown, sem ```json. Apenas o objeto JSON puro.",
           messages: [{ role: "user", content: prompt }],
         }),
