@@ -288,7 +288,7 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
                 )}
               </button>
               <p className="text-center text-slate-400 text-xs mt-2 lg:mt-3">
-                Normalmente leva entre 5 e 10 segundos · Alimentado por IA
+                Normalmente leva entre 20 e 40 segundos · Alimentado por IA
               </p>
             </div>
 

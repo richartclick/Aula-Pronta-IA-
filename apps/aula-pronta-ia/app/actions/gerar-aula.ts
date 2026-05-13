@@ -47,6 +47,69 @@ export type AulaGeradaState = {
   uso?: { aulasNoMes: number; limite: number };
 };
 
+// ─── Extração segura de JSON com contagem de chaves balanceadas ───────────────
+// Corrige o bug de lastIndexOf("}") que encontrava chaves internas incorretas.
+function extrairJSON(texto: string): string | null {
+  const inicio = texto.indexOf("{");
+  if (inicio === -1) return null;
+
+  let profundidade = 0;
+  let emString = false;
+  let escapado = false;
+
+  for (let i = inicio; i < texto.length; i++) {
+    const c = texto[i];
+    if (escapado) { escapado = false; continue; }
+    if (c === "\\" && emString) { escapado = true; continue; }
+    if (c === '"') { emString = !emString; continue; }
+    if (emString) continue;
+    if (c === "{") profundidade++;
+    else if (c === "}") {
+      profundidade--;
+      if (profundidade === 0) return texto.slice(inicio, i + 1);
+    }
+  }
+  return null; // JSON truncado — objeto raiz nunca fechou
+}
+
+// ─── Nível educacional a partir da série ─────────────────────────────────────
+function nivelEducacional(serie: string): "infantil" | "fund1" | "fund2" | "medio" {
+  if (serie === "Educação Infantil") return "infantil";
+  if (serie.includes("EM")) return "medio";
+  const ano = parseInt(serie);
+  if (!isNaN(ano)) return ano <= 5 ? "fund1" : "fund2";
+  return "fund1";
+}
+
+function instrucoesPorNivel(nivel: ReturnType<typeof nivelEducacional>, serie: string): string {
+  const map: Record<string, string> = {
+    infantil: `NÍVEL EDUCAÇÃO INFANTIL (4-6 anos): use linguagem MUITO simples, atividades lúdicas e de movimento, sem leitura/escrita, foco em exploração sensorial e brincadeiras dirigidas. Objetivos de 1 linha apenas.`,
+    fund1: `NÍVEL FUNDAMENTAL I (${serie}): linguagem acessível, exemplos do cotidiano da criança, misture atividades escritas simples com práticas concretas.`,
+    fund2: `NÍVEL FUNDAMENTAL II (${serie}): linguagem mais formal, aprofundamento conceitual, atividades que exigem argumentação e pensamento crítico.`,
+    medio: `NÍVEL ENSINO MÉDIO (${serie}): linguagem técnica e precisa, conecte com ENEM/vestibular, aprofundamento avançado, interdisciplinaridade obrigatória.`,
+  };
+  return map[nivel];
+}
+
+// ─── Instrução específica por disciplina ─────────────────────────────────────
+function instrucaoPorDisciplina(disciplina: string): string {
+  const mapa: Record<string, string> = {
+    "Inglês": "conteudo_didatico DEVE ter: min 8 palavras em inglês com tradução, 2 frases de exemplo em inglês e mini-diálogo.",
+    "Matemática": "conteudo_didatico DEVE ter: definição do conceito, fórmula com notação correta e 2 exemplos resolvidos passo a passo.",
+    "Física": "conteudo_didatico DEVE ter: conceito físico, fórmula com unidades SI e 1 exemplo resolvido com valores reais.",
+    "Química": "conteudo_didatico DEVE ter: conceito, fórmulas moleculares ou equação balanceada e exemplo do cotidiano.",
+    "Biologia": "conteudo_didatico DEVE ter: terminologia científica correta, descrição do processo/estrutura e dado científico real.",
+    "Ciências": "conteudo_didatico DEVE ter: explicação do fenômeno, causas/efeitos e experimento simples possível em sala.",
+    "Português": "conteudo_didatico DEVE ter: regras gramaticais com exemplos corretos/incorretos OU análise literária com trecho real.",
+    "História": "conteudo_didatico DEVE ter: contexto histórico, datas/eventos relevantes e personagens reais com seus papéis.",
+    "Geografia": "conteudo_didatico DEVE ter: dados geográficos reais e atuais, comparações entre regiões e impactos humanos/ambientais.",
+    "Artes": "conteudo_didatico DEVE ter: técnica artística com instruções práticas, 2 artistas de referência e contexto histórico.",
+    "Educação Física": "conteudo_didatico DEVE ter: regras oficiais, fundamentos técnicos com descrição dos movimentos e sequência didática.",
+  };
+  return mapa[disciplina] ?? "conteudo_didatico DEVE ter conteúdo específico e real desta disciplina com exemplos concretos.";
+}
+
+// ─── Helpers de banco de dados ────────────────────────────────────────────────
 async function incrementarGeracoes(): Promise<void> {
   try {
     const supabase = await createClient();
@@ -70,7 +133,7 @@ async function incrementarGeracoes(): Promise<void> {
       .update({ geracoes_este_mes: novoValor, geracoes_reset_em: agora.toISOString() })
       .eq("id", user.id);
   } catch {
-    // não bloqueia a geração se o contador falhar
+    // não bloqueia a geração
   }
 }
 
@@ -97,34 +160,20 @@ async function salvarAulaNoBanco(
       .select("id")
       .single();
 
-    if (error) { console.error("Erro ao salvar aula:", error); return null; }
+    if (error) { console.error("[AULA] Erro ao salvar:", error.message); return null; }
     return data.id;
   } catch {
     return null;
   }
 }
 
-function instrucaoPorDisciplina(disciplina: string): string {
-  const mapa: Record<string, string> = {
-    "Inglês": "O campo conteudo_didatico DEVE estar parcialmente em inglês: inclua vocabulário (mínimo 10 palavras EM INGLÊS com tradução em português), frases de exemplo completas em inglês, explicação da estrutura gramatical do tema e um mini-diálogo em inglês com tradução. Ex: 'Hello! My name is Ana. (Olá! Meu nome é Ana.)'",
-    "Matemática": "O campo conteudo_didatico DEVE ter: definição clara do conceito matemático, fórmula(s) com notação correta, pelo menos 3 exemplos resolvidos passo a passo com números reais, e uma dica de memorização. Ex: 'Área do triângulo = (base × altura) ÷ 2. Exemplo: base=6cm, altura=4cm → Área = (6×4)÷2 = 12cm²'",
-    "Física": "O campo conteudo_didatico DEVE ter: conceito físico explicado, fórmula com símbolos e unidades SI, exemplo de problema resolvido com valores numéricos reais mostrando cada passo, e conexão com o cotidiano.",
-    "Química": "O campo conteudo_didatico DEVE ter: conceito químico detalhado, fórmulas moleculares ou equações de reação balanceadas, nomes dos elementos e compostos envolvidos, e exemplos do cotidiano onde este processo ocorre.",
-    "Biologia": "O campo conteudo_didatico DEVE ter: terminologia científica correta, descrição detalhada do processo ou estrutura biológica, classificação científica quando aplicável, e dados/curiosidades científicas reais sobre o tema.",
-    "Ciências": "O campo conteudo_didatico DEVE ter: explicação científica clara do fenômeno, causas e efeitos comprovados, experimento simples que demonstre o conceito, e exemplos observáveis no cotidiano com dados reais.",
-    "Português": "O campo conteudo_didatico DEVE ter: regras gramaticais detalhadas com exemplos reais de frases corretas e incorretas, ou análise literária com trechos reais da obra/gênero trabalhado, incluindo dicas de uso e exceções.",
-    "História": "O campo conteudo_didatico DEVE ter: contexto histórico detalhado do período, datas e eventos relevantes em ordem cronológica, personagens históricos reais com seus papéis e motivações, causas e consequências históricas.",
-    "Geografia": "O campo conteudo_didatico DEVE ter: dados geográficos reais e atuais (localização, clima, relevo, população, PIB quando relevante), comparações entre regiões/países/biomas, e impactos humanos ou ambientais reais.",
-    "Artes": "O campo conteudo_didatico DEVE ter: técnica artística específica com instruções práticas passo a passo, contexto histórico do movimento ou estilo, pelo menos 3 artistas de referência com obras conhecidas e suas características.",
-    "Educação Física": "O campo conteudo_didatico DEVE ter: regras oficiais do esporte/modalidade, fundamentos técnicos com descrição dos movimentos corretos, sequência didática de ensino para iniciantes, variações e adaptações para diferentes habilidades.",
-  };
-  return mapa[disciplina] ?? "O campo conteudo_didatico DEVE ter o conteúdo real, específico e detalhado desta disciplina com exemplos concretos, definições precisas e informações que o aluno vai de fato aprender.";
-}
-
+// ─── Action principal ─────────────────────────────────────────────────────────
 export async function gerarAula(
   _prev: AulaGeradaState,
   formData: FormData
 ): Promise<AulaGeradaState> {
+  const inicio = Date.now();
+
   const tema = formData.get("tema")?.toString().trim();
   const serie = formData.get("serie")?.toString().trim();
   const duracao = formData.get("duracao")?.toString().trim();
@@ -136,77 +185,78 @@ export async function gerarAula(
     return { status: "error", message: "Preencha os campos obrigatórios." };
   }
 
+  console.log(`[AULA] Iniciando geração — tema="${tema}" serie="${serie}" disciplina="${disciplina}" duracao="${duracao}"`);
+
   const uso = await getUsoMensal();
   if (uso?.bloqueado) {
     return { status: "limit_reached", uso: { aulasNoMes: uso.aulasNoMes, limite: uso.limite } };
   }
 
-  const webhookUrl = process.env.N8N_WEBHOOK_GERAR_AULA;
-
-  if (webhookUrl) {
-    try {
-      const res = await fetch(webhookUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ tema, serie, duracao, disciplina, estilo, observacoes }),
-      });
-      if (res.ok) {
-        const aula: AulaCompleta = await res.json();
-        const meta = { tema, serie, disciplina, duracao };
-        const aulaId = await salvarAulaNoBanco(aula, meta);
-        await incrementarGeracoes();
-        return { status: "success", aula, aulaId: aulaId ?? undefined, meta };
-      }
-    } catch {
-      // fall through to Claude direct
-    }
+  const anthropicKey = process.env.ANTHROPIC_API_KEY;
+  if (!anthropicKey) {
+    console.warn("[AULA] ANTHROPIC_API_KEY não configurada — usando mock");
+    return gerarMock(tema, serie, disciplina, duracao);
   }
 
-  // Geração real com Claude quando n8n não está configurado
-  const anthropicKey = process.env.ANTHROPIC_API_KEY;
-  if (anthropicKey) {
-    try {
-      const prompt = `Crie um plano de aula completo para:
+  const nivel = nivelEducacional(serie);
+  const instrucaoNivel = instrucoesPorNivel(nivel, serie);
+  const instrucaoDisciplina = instrucaoPorDisciplina(disciplina);
+
+  const prompt = `Crie um plano de aula para professor brasileiro. Responda APENAS com JSON puro, sem markdown.
+
+DADOS:
 - Tema: ${tema}
 - Série: ${serie}
 - Disciplina: ${disciplina}
 - Duração: ${duracao}
-- Estilo: ${estilo || "dinâmico e interativo"}
+- Estilo pedagógico: ${estilo || "dinâmico e interativo"}
 ${observacoes ? `- Observações: ${observacoes}` : ""}
 
-REGRA OBRIGATÓRIA PARA ${disciplina.toUpperCase()}:
-${instrucaoPorDisciplina(disciplina)}
+${instrucaoNivel}
 
-Retorne APENAS JSON puro (sem markdown). Estrutura exata:
+REGRA DA DISCIPLINA — ${disciplina.toUpperCase()}:
+${instrucaoDisciplina}
+
+LIMITES OBRIGATÓRIOS DE TAMANHO (respeite para caber no tempo de geração):
+- conteudo_didatico: máximo 150 palavras — seja denso e específico
+- introducao.descricao: máximo 50 palavras
+- Cada desenvolvimento[].descricao: máximo 60 palavras
+- Cada atividade[].descricao: máximo 70 palavras
+- fechamento.descricao: máximo 40 palavras
+- Cada campo de avaliacao: máximo 40 palavras
+- adaptacoes.*: máximo 30 palavras cada
+- interdisciplinaridade, para_casa, contextualizacao: máximo 40 palavras cada
+
+JSON EXATO (preencha todos os campos):
 {
-  "titulo": "título criativo e específico para ${disciplina} — ${tema} — ${serie}",
+  "titulo": "título criativo e específico — ${disciplina}, ${tema}, ${serie}",
   "bncc": ["código BNCC real 1 para ${disciplina} no ${serie}", "código BNCC real 2"],
-  "conteudo_didatico": "conteúdo real da disciplina: conceitos, definições, exemplos concretos, dados reais. Siga a regra obrigatória acima. Seja específico e rico.",
+  "conteudo_didatico": "conteúdo real — siga a regra da disciplina acima",
   "objetivos": [
-    "verbo Bloom + aprendizagem específica sobre ${tema}",
-    "segundo objetivo com verbo diferente",
-    "terceiro objetivo — habilidade prática"
+    "verbo Bloom + aprendizagem específica 1",
+    "verbo Bloom + aprendizagem específica 2",
+    "verbo Bloom + habilidade prática 3"
   ],
-  "pergunta_norteadora": "pergunta instigante que conecta ${tema} à vida real do aluno",
-  "contextualizacao": "onde ${tema} aparece no cotidiano do aluno do ${serie} — exemplos concretos",
+  "pergunta_norteadora": "pergunta instigante conectando ${tema} à vida real do aluno",
+  "contextualizacao": "onde ${tema} aparece no cotidiano — 2 exemplos concretos",
   "introducao": {
     "duracao": "X min",
-    "descricao": "como iniciar a aula e despertar curiosidade sobre ${tema}",
-    "dica_professor": "dica prática para engajar a turma neste momento"
+    "descricao": "como iniciar e gerar curiosidade",
+    "dica_professor": "dica prática de engajamento"
   },
   "desenvolvimento": [
     {
-      "etapa": "1. Exploração do conteúdo",
+      "etapa": "1. Construção do conhecimento",
       "duracao": "X min",
-      "descricao": "como apresentar ${tema} — sequência didática, recursos, exemplos a usar",
-      "perguntas_mediacao": ["pergunta de verificação de compreensão", "pergunta que conecta ao cotidiano"],
-      "dica_professor": "dica para conduzir com segurança"
+      "descricao": "sequência para apresentar ${tema}",
+      "perguntas_mediacao": ["pergunta de verificação", "pergunta de conexão"],
+      "dica_professor": "dica para conduzir esta etapa"
     },
     {
       "etapa": "2. Prática e aprofundamento",
       "duracao": "X min",
-      "descricao": "como os alunos praticam e aprofundam o conhecimento sobre ${tema}",
-      "perguntas_mediacao": ["pergunta de aplicação", "pergunta de análise crítica"],
+      "descricao": "como os alunos praticam ${tema}",
+      "perguntas_mediacao": ["pergunta de aplicação", "pergunta de análise"],
       "dica_professor": "dica para lidar com dificuldades"
     }
   ],
@@ -215,199 +265,206 @@ Retorne APENAS JSON puro (sem markdown). Estrutura exata:
       "titulo": "nome da atividade individual",
       "tipo": "individual",
       "duracao": "X min",
-      "descricao": "enunciado real e completo: o que o aluno vai fazer sobre ${tema}",
+      "descricao": "enunciado real e completo do que o aluno fará",
       "objetivo_bloom": "nível Bloom aplicado",
-      "diferenciacao": "simplificação para dificuldade / desafio para avançados"
+      "diferenciacao": "apoio para dificuldade / desafio para avançados"
     },
     {
       "titulo": "nome da atividade em grupo",
       "tipo": "grupo",
       "duracao": "X min",
-      "descricao": "enunciado real: o que os grupos vão fazer, produzir ou investigar sobre ${tema}",
+      "descricao": "enunciado real do que os grupos farão ou produzirão",
       "objetivo_bloom": "nível Bloom — analisar/criar/avaliar",
-      "diferenciacao": "suporte para grupos com dificuldade / desafio extra para avançados"
+      "diferenciacao": "suporte para dificuldade / desafio extra"
     }
   ],
   "fechamento": {
     "duracao": "X min",
-    "descricao": "como encerrar retomando a pergunta norteadora e sistematizando o aprendizado",
-    "perguntas_reflexao": ["pergunta metacognitiva", "pergunta que conecta ${tema} à vida do aluno"]
+    "descricao": "como encerrar e sistematizar o aprendizado",
+    "perguntas_reflexao": ["pergunta metacognitiva", "pergunta de conexão à vida"]
   },
   "avaliacao": {
-    "formativa": "como avaliar a aprendizagem durante a aula",
-    "somativa": "proposta de avaliação formal com critérios claros",
-    "autoavaliacao": "ferramenta de autoavaliação do aluno sobre ${tema}"
+    "formativa": "como avaliar durante a aula",
+    "somativa": "proposta de avaliação formal",
+    "autoavaliacao": "frase ou checklist de autoavaliação do aluno"
   },
-  "materiais": ["material 1", "material 2", "ferramenta digital gratuita para ${disciplina} — ${tema}"],
+  "materiais": ["material 1", "material 2", "ferramenta digital gratuita"],
   "adaptacoes": {
-    "inclusao": "adaptações para alunos com dificuldades de aprendizagem ou inclusão",
-    "aceleracao": "desafios para alunos que dominam rapidamente",
-    "recursos_digitais": "2 ferramentas digitais gratuitas com instruções de uso"
+    "inclusao": "adaptações para inclusão e dificuldades",
+    "aceleracao": "desafios para alunos avançados",
+    "recursos_digitais": "2 ferramentas digitais gratuitas com instruções"
   },
-  "interdisciplinaridade": "conexões de ${tema} com outras 2 disciplinas — como explorar",
-  "para_casa": "tarefa significativa aplicando ${tema} em novo contexto"
+  "interdisciplinaridade": "conexões com outras 2 disciplinas",
+  "para_casa": "tarefa significativa aplicando ${tema}"
 }`;
 
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 55000);
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 55000);
 
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        signal: controller.signal,
-        headers: {
-          "x-api-key": anthropicKey,
-          "anthropic-version": "2023-06-01",
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "claude-haiku-4-5-20251001",
-          max_tokens: 4000,
-          system: "Você é um gerador de planos de aula. Responda EXCLUSIVAMENTE com JSON válido — sem texto antes, sem texto depois, sem markdown, sem ```json. Apenas o objeto JSON puro.",
-          messages: [{ role: "user", content: prompt }],
-        }),
-      });
-      clearTimeout(timeout);
+    console.log("[AULA] Chamando Claude API...");
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      signal: controller.signal,
+      headers: {
+        "x-api-key": anthropicKey,
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 4000,
+        system: "Você é um gerador de planos de aula para professores brasileiros. Responda EXCLUSIVAMENTE com JSON puro — sem markdown, sem texto antes ou depois, sem ```json. Apenas o objeto JSON.",
+        messages: [{ role: "user", content: prompt }],
+      }),
+    });
+    clearTimeout(timeoutId);
 
-      if (!res.ok) {
-        const errBody = await res.text().catch(() => "sem detalhes");
-        console.error(`Erro Claude API ${res.status}:`, errBody);
-        return { status: "error", message: `Erro na API de IA (${res.status}). Tente novamente.` };
-      }
+    const tempoAPI = Date.now() - inicio;
+    console.log(`[AULA] Claude respondeu em ${tempoAPI}ms — status ${res.status}`);
 
-      const data = await res.json();
-      const rawText: string = data?.content?.[0]?.text ?? "";
-      console.log("Resposta IA (primeiros 300 chars):", rawText.slice(0, 300));
+    if (!res.ok) {
+      const errBody = await res.text().catch(() => "sem detalhes");
+      console.error(`[AULA] Erro Claude API ${res.status}:`, errBody);
+      return { status: "error", message: `Erro na IA (${res.status}). Verifique a chave API na Vercel e tente novamente.` };
+    }
 
-      const jsonStart = rawText.indexOf("{");
-      const jsonEnd = rawText.lastIndexOf("}") + 1;
-      if (jsonStart === -1 || jsonEnd <= jsonStart) {
-        console.error("Sem JSON na resposta:", rawText.slice(0, 300));
-        return { status: "error", message: "A IA retornou um formato inesperado. Tente novamente." };
-      }
+    const data = await res.json();
+    const rawText: string = data?.content?.[0]?.text ?? "";
 
-      let aula: AulaCompleta;
-      try {
-        aula = JSON.parse(rawText.slice(jsonStart, jsonEnd));
-      } catch (parseErr) {
-        console.error("JSON inválido:", rawText.slice(jsonStart, jsonStart + 400));
-        return { status: "error", message: "A IA gerou um JSON inválido. Tente novamente." };
-      }
+    console.log(`[AULA] Resposta IA (${rawText.length} chars): ${rawText.slice(0, 200)}`);
 
-      const meta = { tema, serie, disciplina, duracao };
-      const aulaId = await salvarAulaNoBanco(aula, meta);
-      await incrementarGeracoes();
-      return { status: "success", aula, aulaId: aulaId ?? undefined, meta };
-    } catch (err) {
-      const isTimeout = err instanceof Error && err.name === "AbortError";
-      console.error("Erro geral ao chamar Claude:", err instanceof Error ? err.message : err);
+    // Extração segura com contagem de chaves balanceadas
+    const jsonStr = extrairJSON(rawText);
+
+    if (!jsonStr) {
+      const usageTokens = data?.usage?.output_tokens ?? "?";
+      console.error(`[AULA] JSON truncado — output_tokens=${usageTokens}. Início da resposta: ${rawText.slice(0, 300)}`);
       return {
         status: "error",
-        message: isTimeout
-          ? "A geração demorou mais que o esperado. Tente novamente."
-          : "Erro de conexão com a IA. Tente novamente em alguns segundos.",
+        message: "A IA não conseguiu gerar o plano completo desta vez. Tente novamente — normalmente funciona na segunda tentativa.",
       };
     }
-  }
 
-  // Mock de fallback
-  await new Promise((r) => setTimeout(r, 1500));
+    let aula: AulaCompleta;
+    try {
+      aula = JSON.parse(jsonStr);
+    } catch (parseErr) {
+      console.error("[AULA] JSON inválido após extração:", jsonStr.slice(0, 400));
+      return { status: "error", message: "A IA retornou um formato inesperado. Tente novamente." };
+    }
+
+    const meta = { tema, serie, disciplina, duracao };
+    const aulaId = await salvarAulaNoBanco(aula, meta);
+    await incrementarGeracoes();
+
+    const tempoTotal = Date.now() - inicio;
+    console.log(`[AULA] Sucesso! Aula gerada em ${tempoTotal}ms — id=${aulaId}`);
+
+    return { status: "success", aula, aulaId: aulaId ?? undefined, meta };
+
+  } catch (err) {
+    const isTimeout = err instanceof Error && err.name === "AbortError";
+    const tempoTotal = Date.now() - inicio;
+    console.error(`[AULA] Erro após ${tempoTotal}ms:`, err instanceof Error ? err.message : err);
+
+    return {
+      status: "error",
+      message: isTimeout
+        ? "A geração ultrapassou o tempo limite. Tente novamente ou use um tema mais curto."
+        : "Erro de conexão com a IA. Aguarde alguns segundos e tente novamente.",
+    };
+  }
+}
+
+// ─── Mock de fallback (quando não há chave API configurada) ───────────────────
+async function gerarMock(
+  tema: string,
+  serie: string,
+  disciplina: string,
+  duracao: string
+): Promise<AulaGeradaState> {
+  await new Promise((r) => setTimeout(r, 800));
 
   const mockMeta = { tema, serie, disciplina, duracao };
   const mockAula: AulaCompleta = {
-      titulo: `${tema}: Uma Jornada de Descoberta — ${serie}`,
-      bncc: [
-        `(EF0${serie.charAt(0)}MA01) Reconhecer e aplicar conceitos de ${tema} em situações do cotidiano`,
-        `(EF0${serie.charAt(0)}MA02) Desenvolver raciocínio lógico e pensamento crítico através de ${tema}`,
-      ],
-      conteudo_didatico: `${tema} é um conteúdo fundamental para o ${serie}. Nesta aula, os alunos vão compreender os principais conceitos relacionados ao tema, explorando suas características, exemplos práticos e relação com o cotidiano.`,
-      objetivos: [
-        `Analisar os conceitos fundamentais de ${tema}, estabelecendo conexões com situações reais`,
-        `Criar soluções para problemas práticos utilizando os conhecimentos de ${tema}`,
-        `Avaliar diferentes estratégias de resolução, justificando suas escolhas com argumentos`,
-      ],
-      pergunta_norteadora: `Como ${tema} está presente na nossa vida sem que percebamos, e o que mudaria se não existisse?`,
-      contextualizacao: `O tema "${tema}" está profundamente enraizado no cotidiano dos alunos, mesmo que eles não percebam. Ao conectar o conteúdo com situações reais — como compras no mercado, jogos, redes sociais e desafios do dia a dia — o professor cria pontes entre o conhecimento formal e a experiência vivida. Esta contextualização é essencial para que o aluno veja significado no que aprende e se motive a aprofundar o conhecimento.`,
-      introducao: {
-        duracao: "10 minutos",
-        descricao: `Inicie a aula com uma situação-problema provocadora relacionada a ${tema}. Apresente um cenário do cotidiano que pareça simples, mas que esconda a complexidade do conteúdo. Faça a pergunta norteadora para toda a turma e dê 2 minutos para que os alunos discutam em duplas suas hipóteses iniciais.`,
-        dica_professor: `Não revele a resposta ainda! O objetivo é criar tensão cognitiva saudável. Se os alunos ficarem em silêncio, reformule com: "Pensem no que vocês fazem todo dia que envolve isso...". Anote no quadro as hipóteses levantadas para retomar ao final da aula.`,
+    titulo: `${tema} — ${disciplina} para o ${serie}`,
+    bncc: [
+      `(EF${serie.charAt(0)}${serie.charAt(1) === "º" ? "0" : ""}${disciplina.substring(0, 2).toUpperCase()}01) Reconhecer e aplicar conceitos de ${tema}`,
+      `(EF${serie.charAt(0)}${serie.charAt(1) === "º" ? "0" : ""}${disciplina.substring(0, 2).toUpperCase()}02) Desenvolver habilidades relacionadas a ${tema}`,
+    ],
+    conteudo_didatico: `${tema} é um tema central em ${disciplina} para o ${serie}. Configure sua chave ANTHROPIC_API_KEY na Vercel para ativar a geração real com IA e obter conteúdo específico, rico e alinhado à BNCC.`,
+    objetivos: [
+      `Identificar os conceitos fundamentais de ${tema}`,
+      `Aplicar o conhecimento de ${tema} em situações práticas`,
+      `Analisar e relacionar ${tema} com o cotidiano`,
+    ],
+    pergunta_norteadora: `Como ${tema} está presente na nossa vida sem que percebamos?`,
+    contextualizacao: `O tema "${tema}" conecta-se ao cotidiano dos alunos do ${serie} de formas surpreendentes que o professor pode explorar para criar engajamento genuíno.`,
+    introducao: {
+      duracao: "10 min",
+      descricao: `Inicie com uma situação-problema relacionada a ${tema}. Lance a pergunta norteadora e registre as hipóteses dos alunos no quadro.`,
+      dica_professor: `Não corrija os erros iniciais — anote tudo. Você vai retomar ao final mostrando a evolução do pensamento.`,
+    },
+    desenvolvimento: [
+      {
+        etapa: "1. Exploração Conceitual",
+        duracao: "15 min",
+        descricao: `Apresente os conceitos centrais de ${tema} com exemplos progressivos. Intercale com perguntas para verificar compreensão.`,
+        perguntas_mediacao: [`O que vocês já sabiam sobre ${tema}?`, `Alguém consegue dar um exemplo diferente?`],
+        dica_professor: `Se a turma travar, peça a um aluno para explicar o que entendeu até agora com suas próprias palavras.`,
       },
-      desenvolvimento: [
-        {
-          etapa: "Exploração Conceitual",
-          duracao: "15 minutos",
-          descricao: `Apresente os conceitos centrais de ${tema} de forma progressiva, do mais simples ao mais complexo. Use exemplos concretos e visuais. Intercale a explicação com perguntas diretas para 2 ou 3 alunos, verificando a compreensão em tempo real. Utilize o quadro para sistematizar as ideias à medida que surgem.`,
-          perguntas_mediacao: [
-            `O que vocês já sabiam sobre ${tema} antes de hoje?`,
-            `Alguém consegue dar um exemplo disso na vida real que seja diferente do que eu apresentei?`,
-          ],
-          dica_professor: `Se perceber que a turma está perdida, pare e faça um "check de compreensão": peça para um aluno explicar com suas próprias palavras o que entendeu até agora. Isso revela lacunas e permite ajustar o ritmo.`,
-        },
-        {
-          etapa: "Prática Guiada",
-          duracao: "15 minutos",
-          descricao: `Resolva 2 ou 3 exemplos junto com a turma, pensando em voz alta e mostrando seu raciocínio. Na terceira questão, comece a resolução e peça para os alunos continuarem. Circule pela sala observando o trabalho individual e intervenha pontualmente onde houver dificuldade.`,
-          perguntas_mediacao: [
-            `Por que escolhemos este caminho e não o outro? Qual seria a consequência se fizéssemos diferente?`,
-            `Alguém resolveu de uma forma diferente da minha? Vamos ver se funciona também!`,
-          ],
-          dica_professor: `Valorize erros produtivos. Quando um aluno errar, diga "Interessante — deixa eu entender seu raciocínio" antes de corrigir. Isso mantém o engajamento e cria cultura de aprendizado seguro.`,
-        },
-        {
-          etapa: "Aprendizagem Colaborativa",
-          duracao: "10 minutos",
-          descricao: `Organize a turma em grupos de 3 a 4 alunos heterogêneos (misture diferentes níveis). Cada grupo recebe um desafio diferente relacionado a ${tema} para resolver e apresentar em 2 minutos para a turma. O professor medeia as apresentações, complementando e conectando as soluções dos grupos.`,
-          perguntas_mediacao: [
-            `O grupo de vocês chegou numa solução diferente. Como vocês pensaram para chegar aí?`,
-            `Alguém do outro grupo concorda ou discorda? Por quê?`,
-          ],
-          dica_professor: `Monitore os grupos, mas resista ao impulso de dar a resposta. Faça perguntas que orientem o raciocínio: "O que vocês já sabem que pode ajudar aqui?" e "Se dividissem o problema em partes menores, por onde começariam?"`,
-        },
-      ],
-      atividades: [
-        {
-          titulo: "Investigação Individual",
-          tipo: "individual",
-          duracao: "8 minutos",
-          descricao: `Cada aluno recebe (ou copia do quadro) uma situação-problema real sobre ${tema}. Deve resolver e JUSTIFICAR por escrito cada passo do raciocínio. A justificativa é obrigatória — não basta a resposta final. Critério de entrega: resolução completa com pelo menos 2 linhas de justificativa.`,
-          objetivo_bloom: "Aplicar e Analisar — o aluno usa o conhecimento em contexto novo e explica seu raciocínio",
-          diferenciacao: "Para alunos com dificuldade: forneça um roteiro com os primeiros passos. Para os avançados: peça que criem sua própria situação-problema usando o mesmo conceito.",
-        },
-        {
-          titulo: "Desafio em Grupo: Conectando com o Mundo",
-          tipo: "grupo",
-          duracao: "12 minutos",
-          descricao: `Grupos de 4 recebem um caso real (notícia, dado, situação social) que envolve ${tema}. Devem: (1) identificar onde o conceito aparece, (2) analisar o impacto, (3) propor uma solução ou intervenção usando o que aprenderam. Apresentam para a turma em 2 minutos, defendendo suas escolhas.`,
-          objetivo_bloom: "Criar e Avaliar — o mais alto nível da Taxonomia de Bloom",
-          diferenciacao: "Grupos com mais dificuldade recebem casos mais simples e com perguntas-guia. Grupos avançados recebem casos ambíguos que exigem maior análise crítica.",
-        },
-      ],
-      fechamento: {
-        duracao: "5 minutos",
-        descricao: `Retome a pergunta norteadora do início e pergunte se a turma mudou de opinião. Compare as hipóteses iniciais (anotadas no quadro) com o que aprenderam. Faça uma síntese coletiva de 3 pontos-chave. Lance o desafio para casa e conecte com o próximo conteúdo.`,
-        perguntas_reflexao: [
-          "Qual foi a coisa mais surpreendente que você aprendeu hoje?",
-          `Como você explicaria ${tema} para alguém da sua família que nunca estudou isso?`,
-        ],
+      {
+        etapa: "2. Prática Guiada",
+        duracao: "15 min",
+        descricao: `Resolva exemplos junto com a turma. Na última questão, comece e peça aos alunos que continuem. Circule pela sala.`,
+        perguntas_mediacao: [`Por que escolhemos este caminho?`, `Alguém resolveu de forma diferente?`],
+        dica_professor: `Valorize erros produtivos — eles revelam o raciocínio e criam oportunidades de aprendizado coletivo.`,
       },
-      avaliacao: {
-        formativa: `Durante a aula: observe a qualidade das hipóteses iniciais, monitore a participação nas discussões em grupo, verifique as justificativas nas atividades individuais. Use sinais visuais (polegar para cima/baixo) para checar compreensão antes de avançar de etapa.`,
-        somativa: `Proposta para próxima aula: teste com 5 questões — 2 de reconhecimento, 2 de aplicação e 1 de criação/análise crítica. Rubrica: compreensão conceitual (40%), aplicação prática (40%), justificativa e comunicação (20%).`,
-        autoavaliacao: `Pedir para o aluno completar: "Hoje eu aprendi... Ainda tenho dúvida sobre... Na próxima aula quero entender melhor..."`,
+    ],
+    atividades: [
+      {
+        titulo: "Investigação Individual",
+        tipo: "individual",
+        duracao: "8 min",
+        descricao: `Resolva uma situação-problema real sobre ${tema} e justifique cada passo do raciocínio por escrito.`,
+        objetivo_bloom: "Aplicar e Analisar",
+        diferenciacao: "Dificuldade: roteiro com primeiros passos. Avançados: crie sua própria situação-problema.",
       },
-      materiais: [
-        "Quadro branco e marcadores coloridos (use cores diferentes para destacar conceitos-chave)",
-        "Situações-problema impressas ou projetadas (uma por grupo para a atividade colaborativa)",
-        "Caderno e caneta para anotações individuais",
-        "Timer visível para controle do tempo das etapas (pode ser no celular projetado)",
+      {
+        titulo: "Desafio em Grupo",
+        tipo: "grupo",
+        duracao: "12 min",
+        descricao: `Grupos analisam um caso real envolvendo ${tema}, identificam o conceito, analisam o impacto e propõem solução.`,
+        objetivo_bloom: "Criar e Avaliar",
+        diferenciacao: "Grupos com dificuldade: casos mais simples com perguntas-guia. Avançados: casos ambíguos.",
+      },
+    ],
+    fechamento: {
+      duracao: "5 min",
+      descricao: `Retome a pergunta norteadora. Compare hipóteses iniciais com o aprendido. Faça síntese dos 3 pontos-chave.`,
+      perguntas_reflexao: [
+        "O que foi mais surpreendente hoje?",
+        `Como você explicaria ${tema} para sua família?`,
       ],
-      adaptacoes: {
-        inclusao: `Para alunos com dificuldades de leitura: use materiais com mais imagens e menos texto. Para TDAH: divida as atividades em etapas menores com checklist. Para alunos de inclusão: adapte o nível de complexidade mantendo os mesmos objetivos conceituais.`,
-        aceleracao: `Alunos que terminam rápido: criar variações do problema, pesquisar aplicações avançadas do tema, preparar uma explicação para ensinar um colega (técnica "ensine para aprender").`,
-        recursos_digitais: `Khan Academy (exercícios adaptivos gratuitos), Kahoot ou Quizizz (quiz gamificado para revisão), Google Jamboard ou Miro (colaboração visual), YouTube EDU (vídeos curtos de contextualização).`,
-      },
-      interdisciplinaridade: `${tema} se conecta naturalmente com: Língua Portuguesa (interpretação de enunciados, produção de justificativas escritas), Ciências (aplicações práticas e experimentais), História e Geografia (contexto social e histórico do desenvolvimento do conhecimento). Explore essas conexões para enriquecer a aula.`,
-      para_casa: `Missão investigativa: encontre 3 exemplos reais de ${tema} na sua casa, bairro ou rotina. Para cada exemplo: descreva onde encontrou, explique como o conceito aparece e conte para alguém da família o que aprendeu hoje. Registre no caderno para compartilhar na próxima aula.`,
+    },
+    avaliacao: {
+      formativa: `Observe participação, qualidade das hipóteses e justificativas escritas nas atividades.`,
+      somativa: `Teste com 5 questões: 2 de reconhecimento, 2 de aplicação, 1 de análise crítica.`,
+      autoavaliacao: `"Hoje aprendi... Ainda tenho dúvida sobre... Quero entender melhor..."`,
+    },
+    materiais: [
+      "Quadro branco e marcadores coloridos",
+      "Caderno e caneta para anotações",
+      "Kahoot ou Quizizz para revisão gamificada",
+    ],
+    adaptacoes: {
+      inclusao: `Materiais com imagens para dificuldades de leitura; checklist para TDAH; nível simplificado para inclusão.`,
+      aceleracao: `Criar variações do problema, pesquisar aplicações avançadas, preparar explicação para ensinar um colega.`,
+      recursos_digitais: `Khan Academy (exercícios adaptativos) e Canva Edu (produção visual) — ambos gratuitos.`,
+    },
+    interdisciplinaridade: `${tema} conecta-se com Língua Portuguesa (argumentação) e com pelo menos mais uma disciplina que o professor pode explorar.`,
+    para_casa: `Encontre 3 exemplos reais de ${tema} no seu cotidiano e registre no caderno para compartilhar na próxima aula.`,
   };
 
   const mockAulaId = await salvarAulaNoBanco(mockAula, mockMeta);
