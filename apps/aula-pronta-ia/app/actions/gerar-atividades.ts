@@ -19,6 +19,30 @@ export type AtividadesGeradas = {
   questoes: QuestaoAtividade[];
 };
 
+// Extração segura de JSON com contagem balanceada de chaves
+function extrairJSON(texto: string): string | null {
+  const inicio = texto.indexOf("{");
+  if (inicio === -1) return null;
+
+  let profundidade = 0;
+  let emString = false;
+  let escapado = false;
+
+  for (let i = inicio; i < texto.length; i++) {
+    const c = texto[i];
+    if (escapado) { escapado = false; continue; }
+    if (c === "\\" && emString) { escapado = true; continue; }
+    if (c === '"') { emString = !emString; continue; }
+    if (emString) continue;
+    if (c === "{") profundidade++;
+    else if (c === "}") {
+      profundidade--;
+      if (profundidade === 0) return texto.slice(inicio, i + 1);
+    }
+  }
+  return null;
+}
+
 export async function gerarAtividades(
   aulaId: string,
   tema: string,
@@ -26,51 +50,63 @@ export async function gerarAtividades(
   disciplina: string,
   conteudoResumo: string
 ): Promise<{ atividades?: AtividadesGeradas; error?: string }> {
+  const inicio = Date.now();
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
   if (!anthropicKey) return { error: "Chave da API não configurada." };
 
-  const isEducacaoInfantil = serie.toLowerCase().includes("infantil") || serie.includes("1º ano") || serie.includes("2º ano");
-  const isFundamental1 = serie.includes("3º ano") || serie.includes("4º ano") || serie.includes("5º ano");
+  console.log(`[ATIVIDADES] Iniciando — tema="${tema}" serie="${serie}" disciplina="${disciplina}"`);
 
-  const tiposPermitidos = isEducacaoInfantil
+  const isInfantil = serie.toLowerCase().includes("infantil") || serie.includes("1º ano") || serie.includes("2º ano");
+  const isFund1 = serie.includes("3º ano") || serie.includes("4º ano") || serie.includes("5º ano");
+
+  // Distribuição de tipos por nível
+  const distribuicao = isInfantil
+    ? `3 questões do tipo "desenho" e 3 do tipo "completar"`
+    : isFund1
+    ? `2 do tipo "multipla_escolha", 2 do tipo "completar", 1 do tipo "verdadeiro_falso", 1 do tipo "dissertativa"`
+    : `2 do tipo "multipla_escolha", 2 do tipo "dissertativa", 1 do tipo "verdadeiro_falso", 1 do tipo "completar"`;
+
+  const tiposPermitidos = isInfantil
     ? '"desenho", "completar", "verdadeiro_falso"'
-    : isFundamental1
+    : isFund1
     ? '"multipla_escolha", "completar", "verdadeiro_falso", "dissertativa"'
-    : '"multipla_escolha", "dissertativa", "verdadeiro_falso"';
+    : '"multipla_escolha", "dissertativa", "verdadeiro_falso", "completar"';
 
-  const prompt = `Você é um especialista em educação brasileira. Crie uma lista de atividades para alunos do(a) ${serie} sobre "${tema}" em ${disciplina}.
+  const prompt = `Você é especialista em educação brasileira. Crie 6 questões para alunos do(a) ${serie} sobre "${tema}" em ${disciplina}.
 
-${isEducacaoInfantil ? `IMPORTANTE: Esta é Educação Infantil. As atividades devem ser:
-- Para o tipo "desenho": descreva DETALHADAMENTE o que a criança deve desenhar (ex: "Desenhe um cachorro com 4 patas, orelhas grandes e rabo. Pinte de marrom."). O campo espaco_resposta_linhas deve ser 8 ou mais para dar espaço ao desenho.
-- Use linguagem simples, frases curtas
-- Priorize atividades lúdicas e concretas` : ""}
+${isInfantil ? `EDUCAÇÃO INFANTIL: linguagem muito simples, atividades lúdicas. Para "desenho": descreva DETALHADAMENTE o que desenhar. espaco_resposta_linhas deve ser 8+ para desenhos.` : ""}
 
-Retorne APENAS JSON válido (sem markdown):
+DISTRIBUIÇÃO OBRIGATÓRIA: ${distribuicao}.
+
+LIMITE DE TAMANHO: enunciados em no máximo 2 frases. Alternativas em no máximo 6 palavras cada. Gabaritos em 1 frase.
+
+Retorne APENAS JSON puro (sem markdown):
 {
   "titulo": "Atividades: ${tema} — ${serie}",
   "disciplina": "${disciplina}",
   "serie": "${serie}",
   "tema": "${tema}",
-  "instrucoes_professor": "orientações para o professor aplicar e corrigir estas atividades",
+  "instrucoes_professor": "orientações rápidas para aplicar e corrigir (máximo 2 frases)",
   "questoes": [
     {
       "numero": 1,
-      "enunciado": "texto da questão ou instrução da atividade",
-      "tipo": um dos tipos: ${tiposPermitidos},
-      "alternativas": ["A) opção 1", "B) opção 2", "C) opção 3", "D) opção 4"] (apenas se tipo for "multipla_escolha"),
-      "resposta_gabarito": "resposta correta completa para o professor",
-      "dica_professor": "como mediar se o aluno tiver dificuldade (opcional)",
-      "espaco_resposta_linhas": número de linhas em branco para o aluno responder (entre 2 e 10)
+      "enunciado": "enunciado da questão",
+      "tipo": um de: ${tiposPermitidos},
+      "alternativas": ["A) opção", "B) opção", "C) opção", "D) opção"] (SOMENTE se tipo for "multipla_escolha"),
+      "resposta_gabarito": "resposta correta para o professor",
+      "dica_professor": "dica se aluno tiver dificuldade",
+      "espaco_resposta_linhas": número entre 2 e 10
     }
   ]
 }
 
-Crie exatamente 3 questões CURTAS e adequadas para a faixa etária. Enunciados e respostas em no máximo 2 frases. Conteúdo da aula: ${conteudoResumo}`;
+Gere exatamente 6 questões numeradas de 1 a 6. Conteúdo da aula: ${conteudoResumo}`;
 
   try {
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 8000);
+    const timer = setTimeout(() => controller.abort(), 20000);
 
+    console.log("[ATIVIDADES] Chamando Claude API...");
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
@@ -80,23 +116,64 @@ Crie exatamente 3 questões CURTAS e adequadas para a faixa etária. Enunciados 
       },
       body: JSON.stringify({
         model: "claude-haiku-4-5-20251001",
-        max_tokens: 900,
+        max_tokens: 1800,
+        system: "Você gera atividades escolares. Responda APENAS com JSON puro, sem markdown, sem texto fora do JSON.",
         messages: [{ role: "user", content: prompt }],
       }),
       signal: controller.signal,
     });
-
     clearTimeout(timer);
 
-    if (!res.ok) return { error: "Erro ao chamar a IA. Tente novamente." };
+    const tempoAPI = Date.now() - inicio;
+    console.log(`[ATIVIDADES] Claude respondeu em ${tempoAPI}ms — status ${res.status}`);
+
+    if (!res.ok) {
+      const errText = await res.text().catch(() => "");
+      console.error(`[ATIVIDADES] Erro API ${res.status}:`, errText.slice(0, 200));
+      return { error: "Erro ao chamar a IA. Tente novamente." };
+    }
 
     const data = await res.json();
-    const text: string = data.content[0].text;
-    const jsonStart = text.indexOf("{");
-    const jsonEnd = text.lastIndexOf("}") + 1;
-    const atividades: AtividadesGeradas = JSON.parse(text.slice(jsonStart, jsonEnd));
+    const text: string = data?.content?.[0]?.text ?? "";
+    const outputTokens = data?.usage?.output_tokens ?? "?";
+
+    console.log(`[ATIVIDADES] Resposta: ${text.length} chars, ${outputTokens} tokens. Início: ${text.slice(0, 100)}`);
+
+    const jsonStr = extrairJSON(text);
+    if (!jsonStr) {
+      console.error(`[ATIVIDADES] JSON truncado — tokens usados: ${outputTokens}. Texto: ${text.slice(0, 300)}`);
+      return { error: "A IA não conseguiu gerar as atividades completas. Tente novamente." };
+    }
+
+    let atividades: AtividadesGeradas;
+    try {
+      atividades = JSON.parse(jsonStr);
+    } catch {
+      console.error("[ATIVIDADES] JSON inválido:", jsonStr.slice(0, 300));
+      return { error: "Erro no formato da resposta. Tente novamente." };
+    }
+
+    // Proteção: garante que questoes é array e aceita 4+ questões
+    if (!Array.isArray(atividades.questoes) || atividades.questoes.length < 4) {
+      console.warn(`[ATIVIDADES] Poucas questões geradas: ${atividades.questoes?.length ?? 0}`);
+      return { error: "A IA gerou poucas questões. Tente novamente." };
+    }
+
+    // Normaliza numeração caso venha errada
+    atividades.questoes = atividades.questoes.map((q, i) => ({ ...q, numero: i + 1 }));
+
+    const tempoTotal = Date.now() - inicio;
+    console.log(`[ATIVIDADES] Sucesso! ${atividades.questoes.length} questões geradas em ${tempoTotal}ms`);
+
     return { atividades };
-  } catch {
-    return { error: "Erro ao gerar atividades. Tente novamente." };
+  } catch (err) {
+    const isTimeout = err instanceof Error && err.name === "AbortError";
+    const tempoTotal = Date.now() - inicio;
+    console.error(`[ATIVIDADES] Erro após ${tempoTotal}ms:`, err instanceof Error ? err.message : err);
+    return {
+      error: isTimeout
+        ? "A geração demorou demais. Tente novamente."
+        : "Erro de conexão. Tente novamente.",
+    };
   }
 }
