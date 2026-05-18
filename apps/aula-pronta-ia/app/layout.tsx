@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Aula Pronta IA — Planejamento de aulas alinhado à BNCC em segundos",
   description: "Descreva sua aula e receba em segundos um plano completo com objetivos, atividades e avaliação — tudo alinhado à BNCC. Experimente grátis.",
   keywords: "planejamento de aulas, IA para professores, BNCC, plano de aula, inteligência artificial, educação brasileira",
+  other: {
+    "p:domain_verify": "50246d2d1f03073bdb3d6af3c1e14c4d",
+  },
 };
 
 export default function RootLayout({
