@@ -128,11 +128,14 @@ export default function PlanoClient({
     setLoadingPortal(true);
     try {
       const res = await fetch("/api/stripe-portal", { method: "POST" });
-      const { url, error } = await res.json();
-      if (error) throw new Error(error);
-      if (url) window.location.href = url;
-    } catch {
-      alert("Erro ao acessar portal. Tente novamente.");
+      const data = await res.json();
+      if (data.error) {
+        alert(`Erro: ${data.error}`);
+        return;
+      }
+      if (data.url) window.location.href = data.url;
+    } catch (err) {
+      alert(`Erro ao acessar portal: ${err instanceof Error ? err.message : "Tente novamente."}`);
     } finally {
       setLoadingPortal(false);
     }
