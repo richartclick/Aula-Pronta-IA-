@@ -31,13 +31,17 @@ export async function submitLead(
     console.error("Erro ao salvar lead:", err);
   }
 
-  // Dispara n8n para automações (boas-vindas + sequência de follow-up)
-  const webhookUrl = process.env.N8N_WEBHOOK_AULA_PRONTA_IA;
-  if (webhookUrl) {
-    fetch(webhookUrl, {
+  // Mensagem imediata de boas-vindas via WhatsApp (Zapi)
+  const zapiInstance = process.env.ZAPI_INSTANCE_ID;
+  const zapiToken = process.env.ZAPI_TOKEN;
+  const zapiClientToken = process.env.ZAPI_CLIENT_TOKEN;
+  if (zapiInstance && zapiToken && zapiClientToken && whatsapp) {
+    const telefone = "55" + whatsapp.replace(/\D/g, "");
+    const mensagemZapi = `Oi ${nome}! Aqui é a Ana da Aula Pronta IA 👋\nVi que você deixou seu contato e queria dar as boas-vindas!\nCrie sua conta grátis e gere sua primeira aula em segundos — tudo alinhado à BNCC.\n👉 aulapronta.ai`;
+    fetch(`https://api.z-api.io/instances/${zapiInstance}/token/${zapiToken}/send-text`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nome, email, whatsapp, plano, origem: "landing-page" }),
+      headers: { "Content-Type": "application/json", "Client-Token": zapiClientToken },
+      body: JSON.stringify({ phone: telefone, message: mensagemZapi }),
     }).catch(() => {});
   }
 
