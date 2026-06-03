@@ -56,6 +56,16 @@ export async function submitLead(
       });
       const zapiData = await zapiRes.json();
       console.log("[LEAD] Zapi response:", zapiRes.status, JSON.stringify(zapiData));
+
+      // Notificação interna para o número do negócio
+      const numeroNegocio = "5544997519693";
+      const notificacao = `🔔 Novo lead cadastrado!\n\nNome: ${nome}\nEmail: ${email}\nWhatsApp: ${whatsapp}\nPlano: ${plano}`;
+      await fetch(`https://api.z-api.io/instances/${zapiInstance}/token/${zapiToken}/send-text`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Client-Token": zapiClientToken },
+        body: JSON.stringify({ phone: numeroNegocio, message: notificacao }),
+      }).catch((err) => console.error("[LEAD] Erro notificação interna:", err));
+
     } catch (err) {
       console.error("[LEAD] Erro Zapi:", err instanceof Error ? err.message : err);
     }
