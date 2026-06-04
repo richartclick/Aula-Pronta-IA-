@@ -82,9 +82,7 @@ export default function HeroSection() {
             <div className="relative z-[1] w-full max-w-[310px] sm:max-w-[460px] rounded-2xl overflow-hidden shadow-2xl">
               <video
                 src="https://res.cloudinary.com/djtqzrhkf/video/upload/v1780591810/Apresenta%C3%A7%C3%A3o_Ana_-_Aula_Pronta_IA_1080p_caption_kugcnv.mp4"
-                autoPlay
-                muted
-                loop
+                controls
                 playsInline
                 preload="metadata"
                 className="w-full h-auto object-cover"
