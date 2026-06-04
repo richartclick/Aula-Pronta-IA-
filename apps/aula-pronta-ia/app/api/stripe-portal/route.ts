@@ -23,10 +23,15 @@ export async function POST(req: NextRequest) {
 
   const origin = req.headers.get("origin") ?? "https://aulaprontaia.vercel.app";
 
-  const session = await stripe.billingPortal.sessions.create({
-    customer: perfil.stripe_customer_id,
-    return_url: `${origin}/dashboard/plano`,
-  });
-
-  return NextResponse.json({ url: session.url });
+  try {
+    const session = await stripe.billingPortal.sessions.create({
+      customer: perfil.stripe_customer_id,
+      return_url: `${origin}/dashboard/plano`,
+    });
+    return NextResponse.json({ url: session.url });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : "Erro ao acessar o portal Stripe.";
+    console.error("[STRIPE-PORTAL]", msg);
+    return NextResponse.json({ error: msg }, { status: 500 });
+  }
 }
