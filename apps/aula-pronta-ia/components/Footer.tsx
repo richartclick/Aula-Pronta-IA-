@@ -64,7 +64,13 @@ export default function Footer() {
 
         <div className="border-t border-slate-200 pt-7 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12.5px] text-slate-400">
           <span>© {new Date().getFullYear()} Aula Pronta IA · Todos os direitos reservados</span>
-          <span>Feito no Brasil com café e IA</span>
+          <div className="flex items-center gap-4">
+            <a href="/privacidade" className="hover:text-blue-600 transition-colors">Política de Privacidade</a>
+            <span>·</span>
+            <a href="/termos" className="hover:text-blue-600 transition-colors">Termos de Uso</a>
+            <span>·</span>
+            <span>Feito no Brasil com café e IA</span>
+          </div>
         </div>
 
       </div>
