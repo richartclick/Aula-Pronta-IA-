@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 const marqueeItems = ["Educação Infantil", "Anos Iniciais", "Anos Finais", "Ensino Médio", "EJA", "Educação Especial"];
 
 export default function HeroSection() {
@@ -65,7 +63,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right: Visual */}
+          {/* Right: Video Ana */}
           <div className="relative flex items-center justify-center min-h-[320px] sm:min-h-[500px]">
             <div
               className="absolute inset-0 pointer-events-none"
@@ -81,8 +79,16 @@ export default function HeroSection() {
                 <p className="text-slate-500 text-[11.5px] mt-0.5">para gerar a aula</p>
               </div>
             </div>
-            <div className="relative z-[1] animate-float w-full max-w-[310px] sm:max-w-[460px]">
-              <Image src="/robo.png" alt="Assistente Aula Pronta IA" width={460} height={460} className="w-full h-auto object-contain drop-shadow-2xl" priority />
+            <div className="relative z-[1] w-full max-w-[310px] sm:max-w-[460px] rounded-2xl overflow-hidden shadow-2xl">
+              <video
+                src="/ana-apresentacao.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="w-full h-auto object-cover"
+              />
             </div>
             <div className="absolute bottom-8 right-0 z-10 bg-white rounded-2xl shadow-lg border border-slate-200 px-4 py-3 hidden sm:flex items-center gap-3" style={{ transform: 'rotate(3.5deg)' }}>
               <div className="w-8 h-8 bg-green-100 rounded-xl flex items-center justify-center text-sm shrink-0">★</div>
