@@ -33,17 +33,17 @@ export default function HeroSection() {
 
             <div className="flex flex-wrap gap-4 mb-10 justify-center lg:justify-start">
               <a
-                href="/registro"
+                href="/demo"
                 className="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-600 text-white font-semibold py-4 px-7 rounded-full text-[15px] transition-all hover:-translate-y-px"
                 style={{ boxShadow: '0 18px 40px -12px rgba(29,78,216,.45)' }}
               >
-                Criar minha primeira aula →
+                Gerar minha primeira aula grátis →
               </a>
               <a
-                href="#demo"
+                href="/registro"
                 className="inline-flex items-center gap-2 border border-slate-300 bg-white/60 text-slate-800 font-semibold py-4 px-7 rounded-full text-[15px] hover:bg-white hover:border-slate-900 transition-all"
               >
-                Ver demonstração
+                Criar conta grátis
               </a>
             </div>
 
