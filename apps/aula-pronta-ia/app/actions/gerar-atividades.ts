@@ -8,6 +8,7 @@ export type QuestaoAtividade = {
   resposta_gabarito: string;
   dica_professor?: string;
   espaco_resposta_linhas: number;
+  objeto_desenho?: string;
 };
 
 export type AtividadesGeradas = {
@@ -75,13 +76,12 @@ export async function gerarAtividades(
   const instrucaoInfantil = isInfantil ? `
 REGRAS OBRIGATÓRIAS PARA EDUCAÇÃO INFANTIL (crianças de 4 a 6 anos):
 - Enunciados com NO MÁXIMO 8 palavras simples — sem palavras difíceis
-- Para tipo "desenho": comece com "Desenhe e pinte..." seguido de objeto concreto + cor específica
-  Exemplos corretos: "Desenhe e pinte um sol amarelo com raios", "Desenhe e pinte um peixinho vermelho no mar"
-  NUNCA use enunciados abstratos ou longos para desenho
+- Para tipo "desenho": o PDF já vai imprimir um desenho para colorir. Escreva um enunciado curto como "Pinte o sol com cores bonitas!" ou "Pinte o peixinho de vermelho!"
+- Para tipo "desenho": campo "objeto_desenho" é OBRIGATÓRIO — escolha EXATAMENTE uma palavra da lista: sol, nuvem, flor, borboleta, peixe, cachorro, gato, casa, arvore, estrela, maca, coracao
 - Para tipo "completar": frases com lacuna única, palavra simples, ex: "O cachorro faz ___"
 - espaco_resposta_linhas DEVE ser 10 para todos os tipos (espaço grande para crianças)
-- instrucoes_professor: inclua SEMPRE como usar como colorir (ex: "Disponha lápis de cor e giz de cera")
-- resposta_gabarito: diga a cor ou objeto esperado, ex: "Sol amarelo com raios"
+- instrucoes_professor: inclua SEMPRE orientação sobre materiais de colorir (ex: "Distribua lápis de cor e giz de cera antes de entregar a folha")
+- resposta_gabarito: diga o que é esperado, ex: "Sol colorido" ou "au au"
 - NÃO use leitura complexa, cálculos, análise crítica ou questões dissertativas
 ` : "";
 
@@ -106,7 +106,8 @@ Retorne APENAS JSON puro (sem markdown):
       "alternativas": ["A) opção", "B) opção", "C) opção", "D) opção"] (SOMENTE se tipo for "multipla_escolha"),
       "resposta_gabarito": "resposta correta para o professor",
       "dica_professor": "dica se aluno tiver dificuldade",
-      "espaco_resposta_linhas": número entre 2 e 10
+      "espaco_resposta_linhas": número entre 2 e 10,
+      "objeto_desenho": "sol" (SOMENTE se tipo for "desenho" — uma palavra da lista: sol, nuvem, flor, borboleta, peixe, cachorro, gato, casa, arvore, estrela, maca, coracao)
     }
   ]
 }
