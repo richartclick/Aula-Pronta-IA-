@@ -8,6 +8,7 @@ export type QuestaoAtividade = {
   resposta_gabarito: string;
   dica_professor?: string;
   espaco_resposta_linhas: number;
+  objeto_desenho?: string;
 };
 
 export type AtividadesGeradas = {
@@ -56,29 +57,39 @@ export async function gerarAtividades(
 
   console.log(`[ATIVIDADES] Iniciando — tema="${tema}" serie="${serie}" disciplina="${disciplina}"`);
 
-  const isInfantil = serie.toLowerCase().includes("infantil") || serie.includes("1º ano") || serie.includes("2º ano");
-  const isFund1 = serie.includes("3º ano") || serie.includes("4º ano") || serie.includes("5º ano");
+  const isInfantil = serie.toLowerCase().includes("infantil");
+  const isFund1 = serie.includes("1º ano") || serie.includes("2º ano") || serie.includes("3º ano") || serie.includes("4º ano") || serie.includes("5º ano");
 
   // Distribuição de tipos por nível
   const distribuicao = isInfantil
-    ? `3 questões do tipo "desenho" e 3 do tipo "completar"`
+    ? `4 questões do tipo "desenho" e 2 do tipo "completar"`
     : isFund1
     ? `2 do tipo "multipla_escolha", 2 do tipo "completar", 1 do tipo "verdadeiro_falso", 1 do tipo "dissertativa"`
     : `2 do tipo "multipla_escolha", 2 do tipo "dissertativa", 1 do tipo "verdadeiro_falso", 1 do tipo "completar"`;
 
   const tiposPermitidos = isInfantil
-    ? '"desenho", "completar", "verdadeiro_falso"'
+    ? '"desenho", "completar"'
     : isFund1
     ? '"multipla_escolha", "completar", "verdadeiro_falso", "dissertativa"'
     : '"multipla_escolha", "dissertativa", "verdadeiro_falso", "completar"';
 
+  const instrucaoInfantil = isInfantil ? `
+REGRAS OBRIGATÓRIAS PARA EDUCAÇÃO INFANTIL (crianças de 4 a 6 anos):
+- Enunciados com NO MÁXIMO 8 palavras simples — sem palavras difíceis
+- Para tipo "desenho": o PDF já vai imprimir um desenho para colorir. Escreva um enunciado curto como "Pinte o sol com cores bonitas!" ou "Pinte o peixinho de vermelho!"
+- Para tipo "desenho": campo "objeto_desenho" é OBRIGATÓRIO — escolha EXATAMENTE uma palavra da lista: sol, nuvem, flor, borboleta, peixe, cachorro, gato, casa, arvore, estrela, maca, coracao
+- Para tipo "completar": frases com lacuna única, palavra simples, ex: "O cachorro faz ___"
+- espaco_resposta_linhas DEVE ser 10 para todos os tipos (espaço grande para crianças)
+- instrucoes_professor: inclua SEMPRE orientação sobre materiais de colorir (ex: "Distribua lápis de cor e giz de cera antes de entregar a folha")
+- resposta_gabarito: diga o que é esperado, ex: "Sol colorido" ou "au au"
+- NÃO use leitura complexa, cálculos, análise crítica ou questões dissertativas
+` : "";
+
   const prompt = `Você é especialista em educação brasileira. Crie 6 questões para alunos do(a) ${serie} sobre "${tema}" em ${disciplina}.
-
-${isInfantil ? `EDUCAÇÃO INFANTIL: linguagem muito simples, atividades lúdicas. Para "desenho": descreva DETALHADAMENTE o que desenhar. espaco_resposta_linhas deve ser 8+ para desenhos.` : ""}
-
+${instrucaoInfantil}
 DISTRIBUIÇÃO OBRIGATÓRIA: ${distribuicao}.
 
-LIMITE DE TAMANHO: enunciados em no máximo 2 frases. Alternativas em no máximo 6 palavras cada. Gabaritos em 1 frase.
+LIMITE DE TAMANHO: enunciados em no máximo 2 frases (8 palavras para Infantil). Alternativas em no máximo 6 palavras cada. Gabaritos em 1 frase.
 
 Retorne APENAS JSON puro (sem markdown):
 {
@@ -95,7 +106,8 @@ Retorne APENAS JSON puro (sem markdown):
       "alternativas": ["A) opção", "B) opção", "C) opção", "D) opção"] (SOMENTE se tipo for "multipla_escolha"),
       "resposta_gabarito": "resposta correta para o professor",
       "dica_professor": "dica se aluno tiver dificuldade",
-      "espaco_resposta_linhas": número entre 2 e 10
+      "espaco_resposta_linhas": número entre 2 e 10,
+      "objeto_desenho": "sol" (SOMENTE se tipo for "desenho" — uma palavra da lista: sol, nuvem, flor, borboleta, peixe, cachorro, gato, casa, arvore, estrela, maca, coracao)
     }
   ]
 }
