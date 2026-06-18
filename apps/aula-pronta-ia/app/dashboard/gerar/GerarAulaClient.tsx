@@ -21,6 +21,14 @@ const disciplinas = [
   "Educação Física", "Artes", "Inglês", "Biologia", "Física", "Química",
 ];
 
+const camposExperiencia = [
+  "O eu, o outro e o nós",
+  "Corpo, gestos e movimentos",
+  "Traços, sons, cores e formas",
+  "Escuta, fala, pensamento e imaginação",
+  "Espaços, tempos, quantidades, relações e transformações",
+];
+
 const duracoes = ["30 min", "45 min", "50 min", "1h", "1h30", "2h"];
 
 const estilos = [
@@ -33,7 +41,12 @@ const estilos = [
 export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
   const [state, action, isPending] = useActionState(gerarAula, initialState);
   const [estiloSel, setEstiloSel] = useState("dinamico");
+  const [serieSel, setSerieSel] = useState("");
   const router = useRouter();
+
+  const isInfantil = serieSel === "Educação Infantil";
+  const opcoesDisciplina = isInfantil ? camposExperiencia : disciplinas;
+  const labelDisciplina = isInfantil ? "Campo de Experiência (BNCC)" : "Disciplina";
 
   if (state.status === "success" && state.aula) {
     return (
@@ -162,6 +175,7 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
                   <select
                     name="serie"
                     required
+                    onChange={(e) => setSerieSel(e.target.value)}
                     className="w-full bg-white border-2 border-blue-200 rounded-xl px-4 py-3 lg:py-4 text-slate-900 focus:outline-none focus:border-blue-500 transition-colors text-sm lg:text-base"
                   >
                     <option value="">Selecione...</option>
@@ -171,18 +185,24 @@ export default function GerarAulaClient({ uso }: { uso: UsoMensal | null }) {
                   </select>
                 </div>
 
-                {/* Disciplina — roxo */}
+                {/* Disciplina / Campo de Experiência — roxo */}
                 <div className="bg-purple-50 border-2 border-purple-100 rounded-xl p-4 lg:p-6">
                   <label className="block text-purple-600 text-xs font-bold mb-2 lg:mb-4 uppercase tracking-wide">
-                    Disciplina <span className="text-red-400">*</span>
+                    {labelDisciplina} <span className="text-red-400">*</span>
                   </label>
+                  {isInfantil && (
+                    <p className="text-purple-500 text-xs mb-3 leading-relaxed">
+                      Campos de Experiência da BNCC para Educação Infantil
+                    </p>
+                  )}
                   <select
                     name="disciplina"
                     required
+                    key={isInfantil ? "infantil" : "regular"}
                     className="w-full bg-white border-2 border-purple-200 rounded-xl px-4 py-3 lg:py-4 text-slate-900 focus:outline-none focus:border-purple-500 transition-colors text-sm lg:text-base"
                   >
                     <option value="">Selecione...</option>
-                    {disciplinas.map((d) => (
+                    {opcoesDisciplina.map((d) => (
                       <option key={d} value={d}>{d}</option>
                     ))}
                   </select>
