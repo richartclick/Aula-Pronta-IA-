@@ -83,7 +83,7 @@ function nivelEducacional(serie: string): "infantil" | "fund1" | "fund2" | "medi
 
 function instrucoesPorNivel(nivel: ReturnType<typeof nivelEducacional>, serie: string): string {
   const map: Record<string, string> = {
-    infantil: `NÍVEL EDUCAÇÃO INFANTIL (4-6 anos): use linguagem MUITO simples, atividades lúdicas e de movimento, sem leitura/escrita, foco em exploração sensorial e brincadeiras dirigidas. Objetivos de 1 linha apenas.`,
+    infantil: `NÍVEL EDUCAÇÃO INFANTIL (4-6 anos): linguagem MUITO simples, atividades lúdicas e de movimento, SEM leitura ou escrita formal, foco em exploração sensorial e brincadeiras dirigidas. Objetivos com 1 linha apenas. Códigos BNCC no formato (EI03XX0X) — nunca use formato EF.`,
     fund1: `NÍVEL FUNDAMENTAL I (${serie}): linguagem acessível, exemplos do cotidiano da criança, misture atividades escritas simples com práticas concretas.`,
     fund2: `NÍVEL FUNDAMENTAL II (${serie}): linguagem mais formal, aprofundamento conceitual, atividades que exigem argumentação e pensamento crítico.`,
     medio: `NÍVEL ENSINO MÉDIO (${serie}): linguagem técnica e precisa, conecte com ENEM/vestibular, aprofundamento avançado, interdisciplinaridade obrigatória.`,
@@ -94,6 +94,7 @@ function instrucoesPorNivel(nivel: ReturnType<typeof nivelEducacional>, serie: s
 // ─── Instrução específica por disciplina ─────────────────────────────────────
 function instrucaoPorDisciplina(disciplina: string): string {
   const mapa: Record<string, string> = {
+    // Disciplinas do Fundamental / Médio
     "Inglês": "conteudo_didatico DEVE ter: min 8 palavras em inglês com tradução, 2 frases de exemplo em inglês e mini-diálogo.",
     "Matemática": "conteudo_didatico DEVE ter: definição do conceito, fórmula com notação correta e 2 exemplos resolvidos passo a passo.",
     "Física": "conteudo_didatico DEVE ter: conceito físico, fórmula com unidades SI e 1 exemplo resolvido com valores reais.",
@@ -105,6 +106,12 @@ function instrucaoPorDisciplina(disciplina: string): string {
     "Geografia": "conteudo_didatico DEVE ter: dados geográficos reais e atuais, comparações entre regiões e impactos humanos/ambientais.",
     "Artes": "conteudo_didatico DEVE ter: técnica artística com instruções práticas, 2 artistas de referência e contexto histórico.",
     "Educação Física": "conteudo_didatico DEVE ter: regras oficiais, fundamentos técnicos com descrição dos movimentos e sequência didática.",
+    // Campos de Experiência BNCC — Educação Infantil
+    "O eu, o outro e o nós": "conteudo_didatico DEVE ter: situação real do cotidiano com conflito social simples, emoção nomeada (alegria, tristeza, raiva) e regra de convivência clara. Linguagem para crianças de 4-6 anos. BNCC: códigos no formato EI03EO0X.",
+    "Corpo, gestos e movimentos": "conteudo_didatico DEVE ter: sequência de movimentos corporais descrita passo a passo (ex: pular, rolar, equilibrar, dançar), sugestão de música ou ritmo e adaptação para o espaço da sala de aula. BNCC: códigos no formato EI03CG0X.",
+    "Traços, sons, cores e formas": "conteudo_didatico DEVE ter: técnica artística com material concreto acessível (tinta, argila, colagem, papel), referência a um artista ou obra brasileira e instrução passo a passo para conduzir com crianças pequenas. BNCC: códigos no formato EI03TS0X.",
+    "Escuta, fala, pensamento e imaginação": "conteudo_didatico DEVE ter: história curta OU música com repetição e rima, 3 palavras novas com descrição do que representam e atividade 100% oral (SEM escrita). Foco em oralidade, narrativa e vocabulário. BNCC: códigos no formato EI03EF0X.",
+    "Espaços, tempos, quantidades, relações e transformações": "conteudo_didatico DEVE ter: conceito matemático ou científico explorado com material concreto (blocos, sementes, água, argila), sequência de exploração sensorial e pergunta investigativa para crianças descobrirem por si mesmas. BNCC: códigos no formato EI03ET0X.",
   };
   return mapa[disciplina] ?? "conteudo_didatico DEVE ter conteúdo específico e real desta disciplina com exemplos concretos.";
 }
