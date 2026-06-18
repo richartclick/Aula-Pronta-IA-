@@ -56,8 +56,8 @@ export async function gerarAtividades(
 
   console.log(`[ATIVIDADES] Iniciando — tema="${tema}" serie="${serie}" disciplina="${disciplina}"`);
 
-  const isInfantil = serie.toLowerCase().includes("infantil") || serie.includes("1º ano") || serie.includes("2º ano");
-  const isFund1 = serie.includes("3º ano") || serie.includes("4º ano") || serie.includes("5º ano");
+  const isInfantil = serie.toLowerCase().includes("infantil");
+  const isFund1 = serie.includes("1º ano") || serie.includes("2º ano") || serie.includes("3º ano") || serie.includes("4º ano") || serie.includes("5º ano");
 
   // Distribuição de tipos por nível
   const distribuicao = isInfantil
