@@ -219,24 +219,51 @@ function CoracaoSVG() {
   );
 }
 
-const DESENHO_SVGS: Record<string, () => JSX.Element> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const DESENHO_SVGS: Record<string, () => any> = {
   sol: SolSVG, nuvem: NuvemSVG, flor: FlorSVG, borboleta: BorboletaSVG,
   peixe: PeixeSVG, cachorro: CachorroSVG, gato: GatoSVG, casa: CasaSVG,
   arvore: ArvoreSVG, estrela: EstrelaSVG, maca: MacaSVG, coracao: CoracaoSVG,
 };
 
-function normalizarObjeto(raw?: string): string {
+function limpar(raw?: string): string {
   if (!raw) return "";
   return raw.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z]/g, "");
 }
 
-function DesenhoColorir({ objeto }: { objeto?: string }) {
-  const key = normalizarObjeto(objeto);
+// Fallback: detecta o objeto pelo texto do enunciado quando IA não retornou objeto_desenho
+function detectarPorEnunciado(enunciado: string): string {
+  const t = limpar(enunciado);
+  const pares: [string, string][] = [
+    ["sol", "sol"], ["nuvem", "nuvem"], ["flor", "flor"],
+    ["borboleta", "borboleta"], ["peixinho", "peixe"], ["peixe", "peixe"],
+    ["cachorro", "cachorro"], ["cao", "cachorro"],
+    ["gato", "gato"], ["casa", "casa"],
+    ["arvore", "arvore"], ["estrela", "estrela"],
+    ["coracao", "coracao"], ["maca", "maca"], ["fruta", "maca"],
+  ];
+  for (const [kw, obj] of pares) {
+    if (t.includes(kw)) return obj;
+  }
+  // Último recurso: primeira palavra que casar com a lista de objetos
+  for (const palavra of t.split(" ")) {
+    if (DESENHO_SVGS[palavra]) return palavra;
+  }
+  return "";
+}
+
+function DesenhoColorir({ objeto, enunciado }: { objeto?: string; enunciado?: string }) {
+  const key = limpar(objeto) || detectarPorEnunciado(enunciado || "");
   const DrawFn = DESENHO_SVGS[key];
   if (!DrawFn) {
+    // último fallback: usa sol se nada foi detectado (melhor que caixa vazia)
+    const FallbackFn = DESENHO_SVGS["sol"];
     return (
-      <View style={s.desenhoBoxInfantil}>
-        <Text style={s.desenhoTextInfantil}>Desenhe e pinte aqui!</Text>
+      <View style={{ alignItems: "center", marginTop: 8 }}>
+        <FallbackFn />
+        <Text style={{ fontSize: 8, color: "#db2777", marginTop: 4 }}>
+          Pinte com suas cores favoritas!
+        </Text>
       </View>
     );
   }
@@ -314,7 +341,7 @@ function AtividadesPDF({ atividades, modo }: { atividades: AtividadesGeradas; mo
 
                 {q.tipo === "desenho" && (
                   isInfantil ? (
-                    <DesenhoColorir objeto={q.objeto_desenho} />
+                    <DesenhoColorir objeto={q.objeto_desenho} enunciado={q.enunciado} />
                   ) : (
                     <View style={s.desenhoBox}>
                       <Text style={s.desenhoText}>Espaco para desenhar e colorir</Text>

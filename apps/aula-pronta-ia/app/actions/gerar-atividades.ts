@@ -107,7 +107,7 @@ Retorne APENAS JSON puro (sem markdown):
       "resposta_gabarito": "resposta correta para o professor",
       "dica_professor": "dica se aluno tiver dificuldade",
       "espaco_resposta_linhas": número entre 2 e 10,
-      "objeto_desenho": "sol" (SOMENTE se tipo for "desenho" — uma palavra da lista: sol, nuvem, flor, borboleta, peixe, cachorro, gato, casa, arvore, estrela, maca, coracao)
+      "objeto_desenho": "OBRIGATORIO quando tipo=desenho — escolha UMA palavra: sol, nuvem, flor, borboleta, peixe, cachorro, gato, casa, arvore, estrela, maca, coracao"
     }
   ]
 }
