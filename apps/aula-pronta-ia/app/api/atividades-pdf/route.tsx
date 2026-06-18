@@ -36,7 +36,11 @@ const s = StyleSheet.create({
   footerText: { fontSize: 7.5, color: "#94a3b8" },
   footerBrand: { fontSize: 7.5, color: "#2563eb", fontWeight: 700 },
   desenhoBox: { borderWidth: 1.5, borderColor: "#cbd5e1", borderRadius: 8, borderStyle: "dashed", marginTop: 6, height: 120, alignItems: "center", justifyContent: "center" },
+  desenhoBoxInfantil: { borderWidth: 2, borderColor: "#f9a8d4", borderRadius: 12, borderStyle: "dashed", marginTop: 8, height: 220, alignItems: "center", justifyContent: "center", backgroundColor: "#fdf2f8" },
   desenhoText: { fontSize: 8, color: "#94a3b8" },
+  desenhoTextInfantil: { fontSize: 9, color: "#db2777", textAlign: "center" },
+  enunciadoInfantil: { fontSize: 13, color: "#1e293b", lineHeight: 1.7, marginBottom: 10, fontWeight: 700 },
+  questaoNumInfantil: { backgroundColor: "#db2777", color: "#ffffff", fontSize: 10, fontWeight: 700, width: 24, height: 24, borderRadius: 12, textAlign: "center", paddingTop: 5 },
 });
 
 const e = (s: string) => (s ?? "").replace(/[^\u0000-\u00FF]/g, "").trim();
@@ -59,6 +63,7 @@ const tipoCor: Record<string, Record<string, string | number>> = {
 
 function AtividadesPDF({ atividades, modo }: { atividades: AtividadesGeradas; modo: "professor" | "aluno" }) {
   const isProf = modo === "professor";
+  const isInfantil = atividades.serie.toLowerCase().includes("infantil");
 
   return (
     <Document title={e(atividades.titulo)} author="Aula Pronta IA">
@@ -99,12 +104,13 @@ function AtividadesPDF({ atividades, modo }: { atividades: AtividadesGeradas; mo
           {atividades.questoes.map((q) => (
             <View key={q.numero} style={s.questaoCard}>
               <View style={s.questaoHeader}>
-                <Text style={isProf ? s.questaoNum : s.questaoNumAluno}>{q.numero}</Text>
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                <Text style={isInfantil ? s.questaoNumInfantil : isProf ? s.questaoNum : s.questaoNumAluno}>{q.numero}</Text>
                 {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 <Text style={[s.tipoTag, (tipoCor[q.tipo] ?? {}) as any]}>{tipoLabel[q.tipo] ?? q.tipo}</Text>
               </View>
               <View style={s.questaoBody}>
-                <Text style={s.enunciado}>{e(q.enunciado)}</Text>
+                <Text style={isInfantil ? s.enunciadoInfantil : s.enunciado}>{e(q.enunciado)}</Text>
 
                 {q.tipo === "multipla_escolha" && q.alternativas?.map((alt, i) => (
                   <Text key={i} style={s.alternativa}>{e(alt)}</Text>
@@ -118,9 +124,15 @@ function AtividadesPDF({ atividades, modo }: { atividades: AtividadesGeradas; mo
                 )}
 
                 {q.tipo === "desenho" && (
-                  <View style={s.desenhoBox}>
-                    <Text style={s.desenhoText}>Espaco para desenhar e colorir</Text>
-                  </View>
+                  isInfantil ? (
+                    <View style={s.desenhoBoxInfantil}>
+                      <Text style={s.desenhoTextInfantil}>Desenhe e pinte aqui!</Text>
+                    </View>
+                  ) : (
+                    <View style={s.desenhoBox}>
+                      <Text style={s.desenhoText}>Espaco para desenhar e colorir</Text>
+                    </View>
+                  )
                 )}
 
                 {(q.tipo === "dissertativa" || q.tipo === "completar") && (
