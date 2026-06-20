@@ -67,6 +67,7 @@ const SW = "2.5";
 const WF = "white";
 const SZ = { width: 190, height: 160 };
 const VB = "0 0 100 100";
+const SW_NUM = "10";
 
 function SolSVG() {
   return (
@@ -219,34 +220,219 @@ function CoracaoSVG() {
   );
 }
 
+// ── Figuras Geométricas — Sprint 3 ───────────────────────────────────────────
+
+function CirculoSVG() {
+  return (
+    <Svg {...SZ} viewBox={VB}>
+      <Circle cx={50} cy={50} r={38} fill={WF} stroke={INK} strokeWidth={SW} />
+    </Svg>
+  );
+}
+
+function QuadradoSVG() {
+  return (
+    <Svg {...SZ} viewBox={VB}>
+      <Rect x={12} y={12} width={76} height={76} fill={WF} stroke={INK} strokeWidth={SW} />
+    </Svg>
+  );
+}
+
+function TrianguloSVG() {
+  return (
+    <Svg {...SZ} viewBox={VB}>
+      <Polygon points="50,10 90,88 10,88" fill={WF} stroke={INK} strokeWidth={SW} />
+    </Svg>
+  );
+}
+
+function RetanguloSVG() {
+  return (
+    <Svg {...SZ} viewBox={VB}>
+      <Rect x={8} y={26} width={84} height={48} fill={WF} stroke={INK} strokeWidth={SW} />
+    </Svg>
+  );
+}
+
+function LosangoSVG() {
+  return (
+    <Svg {...SZ} viewBox={VB}>
+      <Polygon points="50,8 92,50 50,92 8,50" fill={WF} stroke={INK} strokeWidth={SW} />
+    </Svg>
+  );
+}
+
+function OvalSVG() {
+  return (
+    <Svg {...SZ} viewBox={VB}>
+      <Ellipse cx={50} cy={50} rx={42} ry={28} fill={WF} stroke={INK} strokeWidth={SW} />
+    </Svg>
+  );
+}
+
+function PentagonoSVG() {
+  return (
+    <Svg {...SZ} viewBox={VB}>
+      <Polygon points="50,10 88,38 74,82 26,82 12,38" fill={WF} stroke={INK} strokeWidth={SW} />
+    </Svg>
+  );
+}
+
+function HexagonoSVG() {
+  return (
+    <Svg {...SZ} viewBox={VB}>
+      <Polygon points="50,10 86,30 86,70 50,90 14,70 14,30" fill={WF} stroke={INK} strokeWidth={SW} />
+    </Svg>
+  );
+}
+
+// ── Números para colorir 1–10 — Sprint 3 ─────────────────────────────────────
+
+function Num1SVG() {
+  return (
+    <Svg {...SZ} viewBox={VB}>
+      <Line x1={35} y1={30} x2={50} y2={18} stroke={INK} strokeWidth={SW_NUM} strokeLinecap="round" />
+      <Line x1={50} y1={18} x2={50} y2={80} stroke={INK} strokeWidth={SW_NUM} strokeLinecap="round" />
+      <Line x1={28} y1={80} x2={72} y2={80} stroke={INK} strokeWidth={SW_NUM} strokeLinecap="round" />
+    </Svg>
+  );
+}
+
+function Num2SVG() {
+  return (
+    <Svg {...SZ} viewBox={VB}>
+      <Path d="M 26,40 C 24,14 76,12 74,40 C 72,54 40,64 24,80" fill="none" stroke={INK} strokeWidth={SW_NUM} strokeLinecap="round" />
+      <Line x1={24} y1={80} x2={76} y2={80} stroke={INK} strokeWidth={SW_NUM} strokeLinecap="round" />
+    </Svg>
+  );
+}
+
+function Num3SVG() {
+  return (
+    <Svg {...SZ} viewBox={VB}>
+      <Path d="M 22,22 C 72,10 80,36 50,50 C 80,64 72,90 22,78" fill="none" stroke={INK} strokeWidth={SW_NUM} strokeLinecap="round" />
+    </Svg>
+  );
+}
+
+function Num4SVG() {
+  return (
+    <Svg {...SZ} viewBox={VB}>
+      <Line x1={24} y1={18} x2={18} y2={62} stroke={INK} strokeWidth={SW_NUM} strokeLinecap="round" />
+      <Line x1={18} y1={62} x2={74} y2={62} stroke={INK} strokeWidth={SW_NUM} strokeLinecap="round" />
+      <Line x1={62} y1={16} x2={62} y2={82} stroke={INK} strokeWidth={SW_NUM} strokeLinecap="round" />
+    </Svg>
+  );
+}
+
+function Num5SVG() {
+  return (
+    <Svg {...SZ} viewBox={VB}>
+      <Line x1={70} y1={18} x2={26} y2={18} stroke={INK} strokeWidth={SW_NUM} strokeLinecap="round" />
+      <Line x1={26} y1={18} x2={22} y2={48} stroke={INK} strokeWidth={SW_NUM} strokeLinecap="round" />
+      <Line x1={22} y1={48} x2={60} y2={46} stroke={INK} strokeWidth={SW_NUM} strokeLinecap="round" />
+      <Path d="M 60,46 C 82,46 82,84 58,84 C 36,84 20,72 22,60" fill="none" stroke={INK} strokeWidth={SW_NUM} strokeLinecap="round" />
+    </Svg>
+  );
+}
+
+function Num6SVG() {
+  return (
+    <Svg {...SZ} viewBox={VB}>
+      <Path d="M 68,16 C 36,8 12,32 16,60" fill="none" stroke={INK} strokeWidth={SW_NUM} strokeLinecap="round" />
+      <Circle cx={50} cy={68} r={24} fill="none" stroke={INK} strokeWidth={SW_NUM} />
+    </Svg>
+  );
+}
+
+function Num7SVG() {
+  return (
+    <Svg {...SZ} viewBox={VB}>
+      <Line x1={20} y1={20} x2={78} y2={20} stroke={INK} strokeWidth={SW_NUM} strokeLinecap="round" />
+      <Line x1={78} y1={20} x2={40} y2={82} stroke={INK} strokeWidth={SW_NUM} strokeLinecap="round" />
+    </Svg>
+  );
+}
+
+function Num8SVG() {
+  return (
+    <Svg {...SZ} viewBox={VB}>
+      <Circle cx={50} cy={32} r={20} fill="none" stroke={INK} strokeWidth={SW_NUM} />
+      <Circle cx={50} cy={66} r={24} fill="none" stroke={INK} strokeWidth={SW_NUM} />
+    </Svg>
+  );
+}
+
+function Num9SVG() {
+  return (
+    <Svg {...SZ} viewBox={VB}>
+      <Circle cx={50} cy={36} r={24} fill="none" stroke={INK} strokeWidth={SW_NUM} />
+      <Path d="M 74,36 C 76,58 68,82 50,82" fill="none" stroke={INK} strokeWidth={SW_NUM} strokeLinecap="round" />
+    </Svg>
+  );
+}
+
+function Num10SVG() {
+  return (
+    <Svg {...SZ} viewBox={VB}>
+      {/* Dígito 1 */}
+      <Line x1={21} y1={32} x2={32} y2={18} stroke={INK} strokeWidth="8" strokeLinecap="round" />
+      <Line x1={32} y1={18} x2={32} y2={82} stroke={INK} strokeWidth="8" strokeLinecap="round" />
+      <Line x1={18} y1={82} x2={46} y2={82} stroke={INK} strokeWidth="8" strokeLinecap="round" />
+      {/* Dígito 0 */}
+      <Ellipse cx={74} cy={50} rx={22} ry={32} fill="none" stroke={INK} strokeWidth="8" />
+    </Svg>
+  );
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const DESENHO_SVGS: Record<string, () => any> = {
+  // Natureza / animais
   sol: SolSVG, nuvem: NuvemSVG, flor: FlorSVG, borboleta: BorboletaSVG,
   peixe: PeixeSVG, cachorro: CachorroSVG, gato: GatoSVG, casa: CasaSVG,
   arvore: ArvoreSVG, estrela: EstrelaSVG, maca: MacaSVG, coracao: CoracaoSVG,
+  // Figuras geométricas
+  circulo: CirculoSVG, quadrado: QuadradoSVG, triangulo: TrianguloSVG,
+  retangulo: RetanguloSVG, losango: LosangoSVG, oval: OvalSVG,
+  pentagono: PentagonoSVG, hexagono: HexagonoSVG,
+  // Números 1–10
+  numero1: Num1SVG, numero2: Num2SVG, numero3: Num3SVG, numero4: Num4SVG,
+  numero5: Num5SVG, numero6: Num6SVG, numero7: Num7SVG, numero8: Num8SVG,
+  numero9: Num9SVG, numero10: Num10SVG,
 };
 
 function limpar(raw?: string): string {
   if (!raw) return "";
-  return raw.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z]/g, "");
+  return raw.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]/g, "");
 }
 
 // Fallback: detecta o objeto pelo texto do enunciado quando IA não retornou objeto_desenho
 function detectarPorEnunciado(enunciado: string): string {
   const t = limpar(enunciado);
   const pares: [string, string][] = [
+    // Natureza / animais
     ["sol", "sol"], ["nuvem", "nuvem"], ["flor", "flor"],
     ["borboleta", "borboleta"], ["peixinho", "peixe"], ["peixe", "peixe"],
     ["cachorro", "cachorro"], ["cao", "cachorro"],
     ["gato", "gato"], ["casa", "casa"],
     ["arvore", "arvore"], ["estrela", "estrela"],
     ["coracao", "coracao"], ["maca", "maca"], ["fruta", "maca"],
+    // Figuras geométricas
+    ["circulo", "circulo"], ["bola", "circulo"], ["redondo", "circulo"],
+    ["quadrado", "quadrado"], ["triangulo", "triangulo"],
+    ["retangulo", "retangulo"], ["losango", "losango"], ["diamante", "losango"],
+    ["oval", "oval"], ["pentagono", "pentagono"], ["hexagono", "hexagono"],
+    // Números — numero10 ANTES de numero1 para evitar falso match
+    ["numero10", "numero10"], ["dez", "numero10"],
+    ["numero1", "numero1"], ["numero2", "numero2"], ["numero3", "numero3"],
+    ["numero4", "numero4"], ["numero5", "numero5"], ["numero6", "numero6"],
+    ["numero7", "numero7"], ["numero8", "numero8"], ["numero9", "numero9"],
   ];
   for (const [kw, obj] of pares) {
     if (t.includes(kw)) return obj;
   }
-  // Último recurso: primeira palavra que casar com a lista de objetos
-  for (const palavra of t.split(" ")) {
+  // Último recurso: token que case com a lista de objetos
+  for (const palavra of t.split(/[^a-z0-9]+/)) {
     if (DESENHO_SVGS[palavra]) return palavra;
   }
   return "";

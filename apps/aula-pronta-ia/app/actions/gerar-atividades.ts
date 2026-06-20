@@ -77,7 +77,10 @@ export async function gerarAtividades(
 REGRAS OBRIGATÓRIAS PARA EDUCAÇÃO INFANTIL (crianças de 4 a 6 anos):
 - Enunciados com NO MÁXIMO 8 palavras simples — sem palavras difíceis
 - Para tipo "desenho": o PDF já vai imprimir um desenho para colorir. Escreva um enunciado curto como "Pinte o sol com cores bonitas!" ou "Pinte o peixinho de vermelho!"
-- Para tipo "desenho": campo "objeto_desenho" é OBRIGATÓRIO — escolha EXATAMENTE uma palavra da lista: sol, nuvem, flor, borboleta, peixe, cachorro, gato, casa, arvore, estrela, maca, coracao
+- Para tipo "desenho": campo "objeto_desenho" é OBRIGATÓRIO — escolha EXATAMENTE uma opção da lista abaixo:
+  * Natureza/animais: sol, nuvem, flor, borboleta, peixe, cachorro, gato, casa, arvore, estrela, maca, coracao
+  * Figuras geométricas: circulo, quadrado, triangulo, retangulo, losango, oval, pentagono, hexagono
+  * Números: numero1, numero2, numero3, numero4, numero5, numero6, numero7, numero8, numero9, numero10
 - Para tipo "completar": frases com lacuna única, palavra simples, ex: "O cachorro faz ___"
 - espaco_resposta_linhas DEVE ser 10 para todos os tipos (espaço grande para crianças)
 - instrucoes_professor: inclua SEMPRE orientação sobre materiais de colorir (ex: "Distribua lápis de cor e giz de cera antes de entregar a folha")
@@ -107,7 +110,7 @@ Retorne APENAS JSON puro (sem markdown):
       "resposta_gabarito": "resposta correta para o professor",
       "dica_professor": "dica se aluno tiver dificuldade",
       "espaco_resposta_linhas": número entre 2 e 10,
-      "objeto_desenho": "OBRIGATORIO quando tipo=desenho — escolha UMA palavra: sol, nuvem, flor, borboleta, peixe, cachorro, gato, casa, arvore, estrela, maca, coracao"
+      "objeto_desenho": "OBRIGATORIO quando tipo=desenho — escolha UMA: sol, nuvem, flor, borboleta, peixe, cachorro, gato, casa, arvore, estrela, maca, coracao, circulo, quadrado, triangulo, retangulo, losango, oval, pentagono, hexagono, numero1, numero2, numero3, numero4, numero5, numero6, numero7, numero8, numero9, numero10"
     }
   ]
 }
