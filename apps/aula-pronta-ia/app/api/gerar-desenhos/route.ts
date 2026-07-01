@@ -19,61 +19,55 @@ export async function POST(req: NextRequest) {
 
   const prompt = `${PROMPT_BASE} ${promptEn ?? ""}. ${complexidade ?? ""}`.trim();
 
-  try {
-    const imagens: string[] = [];
-
-    // Gera as imagens em sequência com pausa entre cada uma (respeita rate limit do plano gratuito)
-    for (let i = 0; i < quantidade; i++) {
-      if (i > 0) await new Promise((r) => setTimeout(r, 2000));
-
-      try {
-        const res = await fetch("https://api.ideogram.ai/generate", {
-          method: "POST",
-          headers: {
-            "Api-Key": ideogramKey,
-            "Content-Type": "application/json",
+  const gerarUma = async (): Promise<string | null> => {
+    try {
+      const res = await fetch("https://api.ideogram.ai/generate", {
+        method: "POST",
+        headers: {
+          "Api-Key": ideogramKey,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          image_request: {
+            prompt,
+            negative_prompt: NEGATIVE_PROMPT,
+            model: "V_2",
+            magic_prompt_option: "OFF",
+            style_type: "DESIGN",
+            aspect_ratio: "ASPECT_1_1",
           },
-          body: JSON.stringify({
-            image_request: {
-              prompt,
-              negative_prompt: NEGATIVE_PROMPT,
-              model: "V_2",
-              magic_prompt_option: "OFF",
-              style_type: "DESIGN",
-              aspect_ratio: "ASPECT_1_1",
-            },
-          }),
-        });
+        }),
+      });
 
-        if (!res.ok) {
-          const err = await res.text().catch(() => "");
-          console.error(`[DESENHOS] Ideogram erro ${res.status} (imagem ${i + 1}):`, err.slice(0, 200));
-          // Se já gerou algumas, retorna o que tem em vez de falhar tudo
-          if (imagens.length > 0) break;
-          return NextResponse.json({ error: "Erro ao gerar desenhos. Verifique a chave Ideogram." }, { status: 500 });
-        }
-
-        const data = await res.json();
-        const url: string | undefined = data?.data?.[0]?.url;
-        if (url) imagens.push(url);
-
-        console.log(`[DESENHOS] Imagem ${i + 1}/${quantidade} gerada.`);
-      } catch (errItem) {
-        console.error(`[DESENHOS] Falha na imagem ${i + 1}:`, errItem);
-        // Continua para a próxima se já tem alguma
-        if (imagens.length === 0 && i === quantidade - 1) {
-          throw errItem;
-        }
+      if (!res.ok) {
+        console.error(`[DESENHOS] Ideogram ${res.status}:`, await res.text().catch(() => ""));
+        return null;
       }
+
+      const data = await res.json();
+      return data?.data?.[0]?.url ?? null;
+    } catch (err) {
+      console.error("[DESENHOS] Falha numa imagem:", err);
+      return null;
     }
+  };
+
+  try {
+    // Gera todas em paralelo — muito mais rápido que sequencial
+    const resultados = await Promise.all(
+      Array.from({ length: quantidade }, () => gerarUma())
+    );
+
+    const imagens = resultados.filter((url): url is string => !!url);
 
     if (imagens.length === 0) {
       return NextResponse.json({ error: "Nenhuma imagem foi gerada. Tente novamente." }, { status: 500 });
     }
 
+    console.log(`[DESENHOS] ${imagens.length}/${quantidade} imagens geradas.`);
     return NextResponse.json({ imagens });
   } catch (err) {
-    console.error("[DESENHOS] Erro:", err);
+    console.error("[DESENHOS] Erro geral:", err);
     return NextResponse.json({ error: "Erro de conexão com o Ideogram. Tente novamente." }, { status: 500 });
   }
 }
