@@ -7,6 +7,7 @@ import Image from "next/image";
 const navItems = [
   { href: "/dashboard", icon: "🏠", label: "Início" },
   { href: "/dashboard/gerar", icon: "⚡", label: "Gerar Aula", highlight: true },
+  { href: "/dashboard/desenhos", icon: "🎨", label: "Desenhos para Colorir", highlight: true },
   { href: "/dashboard/minhas-aulas", icon: "📚", label: "Minhas Aulas" },
   { href: "/dashboard/favoritos", icon: "⭐", label: "Favoritos" },
 ];
@@ -107,8 +108,8 @@ export default function DashboardSidebar() {
         {[
           { href: "/dashboard", icon: "🏠", label: "Início" },
           { href: "/dashboard/gerar", icon: "⚡", label: "Gerar" },
+          { href: "/dashboard/desenhos", icon: "🎨", label: "Colorir" },
           { href: "/dashboard/minhas-aulas", icon: "📚", label: "Aulas" },
-          { href: "/dashboard/plano", icon: "💎", label: "Plano" },
           { href: "/dashboard/perfil", icon: "👤", label: "Perfil" },
         ].map((item) => {
           const active = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href));
