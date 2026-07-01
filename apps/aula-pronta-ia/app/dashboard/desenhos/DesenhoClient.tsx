@@ -77,6 +77,7 @@ export default function DesenhoClient() {
           imagens,
           titulo: `${categoriaAtual?.label} — ${subcategoria}`,
           faixaEtaria: faixaAtual?.label ?? "",
+          bncc: categoriaAtual?.bncc,
         }),
       });
       if (!res.ok) throw new Error();

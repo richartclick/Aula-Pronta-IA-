@@ -11,6 +11,7 @@ export type Categoria = {
   gradiente: string;
   corBorda: string;
   corTexto: string;
+  bncc?: string;
   subcategorias: Subcategoria[];
 };
 
@@ -22,6 +23,7 @@ export const CATEGORIAS: Categoria[] = [
     gradiente: "from-amber-400 to-orange-500",
     corBorda: "border-amber-400",
     corTexto: "text-amber-700",
+    bncc: "EI03EO — O eu, o outro e o nós",
     subcategorias: [
       { label: "Domésticos", emoji: "🏠", promptEn: "cute domestic pet, friendly dog or cat or rabbit, sitting and smiling" },
       { label: "Silvestres", emoji: "🌿", promptEn: "wild animal, cute lion or elephant or giraffe or zebra in nature" },
@@ -39,6 +41,7 @@ export const CATEGORIAS: Categoria[] = [
     gradiente: "from-green-400 to-emerald-500",
     corBorda: "border-green-400",
     corTexto: "text-green-700",
+    bncc: "EI03ET — Espaços, tempos, quantidades, relações e transformações",
     subcategorias: [
       { label: "Árvores", emoji: "🌳", promptEn: "cute tree, oak or apple tree with fruit or palm tree or pine tree with big leaves" },
       { label: "Flores", emoji: "🌸", promptEn: "cute flower, sunflower or rose or daisy or tulip with stem and leaves" },
@@ -54,6 +57,7 @@ export const CATEGORIAS: Categoria[] = [
     gradiente: "from-blue-400 to-indigo-500",
     corBorda: "border-blue-400",
     corTexto: "text-blue-700",
+    bncc: "EI03CG — Corpo, gestos e movimentos",
     subcategorias: [
       { label: "Profissões", emoji: "👨‍⚕️", promptEn: "cute cartoon child in uniform, doctor or teacher or firefighter or chef or police officer" },
       { label: "Transportes", emoji: "🚌", promptEn: "cute cartoon vehicle with face, school bus or car or airplane or boat or bicycle" },
@@ -68,6 +72,7 @@ export const CATEGORIAS: Categoria[] = [
     gradiente: "from-red-400 to-pink-500",
     corBorda: "border-red-400",
     corTexto: "text-red-700",
+    bncc: "EI03EF — Escuta, fala, pensamento e imaginação",
     subcategorias: [
       { label: "Natal", emoji: "🎅", promptEn: "Christmas scene, cute Santa Claus or decorated Christmas tree or reindeer or snowman with presents" },
       { label: "Páscoa", emoji: "🐰", promptEn: "Easter scene, cute Easter bunny with basket of colorful eggs or baby chick among flowers" },
@@ -84,6 +89,7 @@ export const CATEGORIAS: Categoria[] = [
     gradiente: "from-purple-400 to-violet-500",
     corBorda: "border-purple-400",
     corTexto: "text-purple-700",
+    bncc: "EI03TS — Traços, sons, cores e formas",
     subcategorias: [
       { label: "Alfabeto", emoji: "🔤", promptEn: "single large alphabet block letter from A to Z, bubble letter style with cute decorations" },
       { label: "Vogais", emoji: "📝", promptEn: "vowel letter A E I O U, large decorative bubble letter with cute face or decorations" },

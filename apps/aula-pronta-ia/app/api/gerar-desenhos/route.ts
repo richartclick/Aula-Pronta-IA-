@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 export const maxDuration = 120;
 
 const PROMPT_BASE =
-  "Coloring book illustration for children. Black thick outlines. Clean simple lines. No shading. No color fill. Pure white background. Large areas to color. Extremely friendly and cute cartoon character. Educational cartoon style. Professional quality for printing. A4 page. Single centered composition.";
+  "Coloring book illustration for Brazilian children. Black thick outlines only. Clean simple lines. No shading. No color fill. Pure white background. Large areas to color. Extremely friendly and cute cartoon character. Educational cartoon style. Professional quality for printing. A4 page. Single centered composition. No text, no words, no labels, no letters inside the image.";
 
 const NEGATIVE_PROMPT =
-  "realistic, photograph, thin lines, excessive detail, busy background, cut objects, watermark, text inside image, blurry, dark, shadows, colored fill, gradient, adult content";
+  "realistic, photograph, thin lines, excessive detail, busy background, cut objects, watermark, any text, any words, any letters, any labels, english text, portuguese text, numbers as text, blurry, dark, shadows, colored fill, gradient, adult content";
 
 export async function POST(req: NextRequest) {
   const { promptEn, complexidade, quantidade } = await req.json();

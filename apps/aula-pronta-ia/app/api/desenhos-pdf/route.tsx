@@ -67,10 +67,12 @@ function DesenhosPDF({
   imagens,
   titulo,
   faixaEtaria,
+  bncc,
 }: {
   imagens: string[];
   titulo: string;
   faixaEtaria: string;
+  bncc?: string;
 }) {
   return (
     <Document title={titulo} author="Aula Pronta IA">
@@ -102,6 +104,15 @@ function DesenhosPDF({
               render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`}
             />
           </View>
+
+          {/* BNCC */}
+          {bncc && (
+            <View style={{ position: "absolute", bottom: 32, left: 28, right: 28 }}>
+              <Text style={{ fontSize: 6.5, color: "#94a3b8", textAlign: "center" }}>
+                BNCC: {bncc}
+              </Text>
+            </View>
+          )}
         </Page>
       ))}
     </Document>
@@ -114,14 +125,15 @@ export async function POST(req: NextRequest) {
       imagens,
       titulo,
       faixaEtaria,
-    }: { imagens: string[]; titulo: string; faixaEtaria: string } = await req.json();
+      bncc,
+    }: { imagens: string[]; titulo: string; faixaEtaria: string; bncc?: string } = await req.json();
 
     if (!Array.isArray(imagens) || imagens.length === 0) {
       return NextResponse.json({ error: "Nenhuma imagem recebida." }, { status: 400 });
     }
 
     const buffer = await renderToBuffer(
-      <DesenhosPDF imagens={imagens} titulo={titulo} faixaEtaria={faixaEtaria} />
+      <DesenhosPDF imagens={imagens} titulo={titulo} faixaEtaria={faixaEtaria} bncc={bncc} />
     );
 
     const uint8 = new Uint8Array(buffer);
