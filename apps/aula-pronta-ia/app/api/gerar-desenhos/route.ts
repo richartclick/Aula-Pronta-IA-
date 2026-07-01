@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export const maxDuration = 60;
+export const maxDuration = 120;
 
 const PROMPT_BASE =
   "Coloring book illustration for children. Black thick outlines. Clean simple lines. No shading. No color fill. Pure white background. Large areas to color. Extremely friendly and cute cartoon character. Educational cartoon style. Professional quality for printing. A4 page. Single centered composition.";
@@ -22,38 +22,49 @@ export async function POST(req: NextRequest) {
   try {
     const imagens: string[] = [];
 
-    // Gera as imagens em sequência para respeitar rate limits
+    // Gera as imagens em sequência com pausa entre cada uma (respeita rate limit do plano gratuito)
     for (let i = 0; i < quantidade; i++) {
-      const res = await fetch("https://api.ideogram.ai/generate", {
-        method: "POST",
-        headers: {
-          "Api-Key": ideogramKey,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          image_request: {
-            prompt,
-            negative_prompt: NEGATIVE_PROMPT,
-            model: "V_2",
-            magic_prompt_option: "OFF",
-            style_type: "DESIGN",
-            aspect_ratio: "ASPECT_1_1",
-          },
-        }),
-      });
+      if (i > 0) await new Promise((r) => setTimeout(r, 2000));
 
-      if (!res.ok) {
-        const err = await res.text().catch(() => "");
-        console.error(`[DESENHOS] Ideogram erro ${res.status}:`, err.slice(0, 200));
-        if (imagens.length === 0) {
+      try {
+        const res = await fetch("https://api.ideogram.ai/generate", {
+          method: "POST",
+          headers: {
+            "Api-Key": ideogramKey,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            image_request: {
+              prompt,
+              negative_prompt: NEGATIVE_PROMPT,
+              model: "V_2",
+              magic_prompt_option: "OFF",
+              style_type: "DESIGN",
+              aspect_ratio: "ASPECT_1_1",
+            },
+          }),
+        });
+
+        if (!res.ok) {
+          const err = await res.text().catch(() => "");
+          console.error(`[DESENHOS] Ideogram erro ${res.status} (imagem ${i + 1}):`, err.slice(0, 200));
+          // Se já gerou algumas, retorna o que tem em vez de falhar tudo
+          if (imagens.length > 0) break;
           return NextResponse.json({ error: "Erro ao gerar desenhos. Verifique a chave Ideogram." }, { status: 500 });
         }
-        break;
-      }
 
-      const data = await res.json();
-      const url: string | undefined = data?.data?.[0]?.url;
-      if (url) imagens.push(url);
+        const data = await res.json();
+        const url: string | undefined = data?.data?.[0]?.url;
+        if (url) imagens.push(url);
+
+        console.log(`[DESENHOS] Imagem ${i + 1}/${quantidade} gerada.`);
+      } catch (errItem) {
+        console.error(`[DESENHOS] Falha na imagem ${i + 1}:`, errItem);
+        // Continua para a próxima se já tem alguma
+        if (imagens.length === 0 && i === quantidade - 1) {
+          throw errItem;
+        }
+      }
     }
 
     if (imagens.length === 0) {
