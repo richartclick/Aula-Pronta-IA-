@@ -9,6 +9,7 @@ const navItems = [
   { href: "/dashboard/gerar", icon: "⚡", label: "Gerar Aula", highlight: true },
   { href: "/dashboard/desenhos", icon: "🎨", label: "Desenhos para Colorir", highlight: true },
   { href: "/dashboard/caligrafia", icon: "✏️", label: "Caligrafia", highlight: true },
+  { href: "/dashboard/ligue-pontos", icon: "🔢", label: "Ligue os Pontos", highlight: true },
   { href: "/dashboard/minhas-aulas", icon: "📚", label: "Minhas Aulas" },
   { href: "/dashboard/favoritos", icon: "⭐", label: "Favoritos" },
 ];
