@@ -11,6 +11,7 @@ const navItems = [
   { href: "/dashboard/caligrafia", icon: "✏️", label: "Caligrafia", highlight: true },
   { href: "/dashboard/ligue-pontos", icon: "🔢", label: "Ligue os Pontos", highlight: true },
   { href: "/dashboard/palavras-cruzadas", icon: "🔤", label: "Palavras Cruzadas", highlight: true },
+  { href: "/dashboard/labirinto", icon: "🌀", label: "Labirinto", highlight: true },
   { href: "/dashboard/minhas-aulas", icon: "📚", label: "Minhas Aulas" },
   { href: "/dashboard/favoritos", icon: "⭐", label: "Favoritos" },
 ];
