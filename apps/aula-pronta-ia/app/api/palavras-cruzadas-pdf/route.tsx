@@ -12,6 +12,9 @@ import {
 } from "@react-pdf/renderer";
 import type { GridData, PalavraColocada } from "@/lib/palavras-cruzadas/gerador";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const SvgText = Text as any;
+
 export const maxDuration = 60;
 
 const CELL = 28; // pt por célula
@@ -109,15 +112,13 @@ function GridSVG({
               <Rect x={x} y={y} width={CELL} height={CELL} fill="white" stroke="#94a3b8" strokeWidth={0.5} />
               {/* Número no canto superior esquerdo */}
               {num !== undefined && (
-                // @ts-ignore
-                <Text x={x + 2} y={y + 7} fontSize={6} fill="#64748b" fontFamily="Helvetica">
+                <SvgText x={x + 2} y={y + 7} fontSize={6} fill="#64748b" fontFamily="Helvetica">
                   {String(num)}
-                </Text>
+                </SvgText>
               )}
               {/* Letra (somente no gabarito) */}
               {gabarito && cell?.letra && (
-                // @ts-ignore
-                <Text
+                <SvgText
                   x={x + CELL / 2}
                   y={y + CELL * 0.68}
                   textAnchor="middle"
@@ -126,7 +127,7 @@ function GridSVG({
                   fontFamily="Helvetica-Bold"
                 >
                   {cell.letra}
-                </Text>
+                </SvgText>
               )}
             </G>
           );

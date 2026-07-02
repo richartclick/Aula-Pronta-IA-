@@ -12,6 +12,9 @@ import {
 } from "@react-pdf/renderer";
 import { FIGURAS, type Ponto } from "@/lib/ligue-pontos/figuras";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const SvgText = Text as any;
+
 export const maxDuration = 60;
 
 const s = StyleSheet.create({
@@ -97,8 +100,7 @@ function PontoSVG({ pontos }: { pontos: Ponto[] }) {
               strokeWidth={2}
             />
             {/* Número dentro do círculo */}
-            {/* @ts-ignore */}
-            <Text
+            <SvgText
               x={x}
               y={y + fs * 0.38}
               textAnchor="middle"
@@ -107,7 +109,7 @@ function PontoSVG({ pontos }: { pontos: Ponto[] }) {
               fontFamily="Helvetica-Bold"
             >
               {String(n)}
-            </Text>
+            </SvgText>
           </G>
         );
       })}

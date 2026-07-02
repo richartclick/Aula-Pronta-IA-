@@ -14,6 +14,9 @@ import {
 } from "@react-pdf/renderer";
 import { DIFICULDADES, type LabirintoData } from "@/lib/labirinto/gerador";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const SvgText = Text as any;
+
 export const maxDuration = 60;
 
 const s = StyleSheet.create({
@@ -130,8 +133,7 @@ function LabirintoSVG({
       )}
 
       {/* Label ENTRADA */}
-      {/* @ts-ignore */}
-      <Text
+      <SvgText
         x={MH + 0 * tc + tc / 2}
         y={MV_TOP - 4}
         textAnchor="middle"
@@ -140,11 +142,10 @@ function LabirintoSVG({
         fontFamily="Helvetica-Bold"
       >
         ENTRADA
-      </Text>
+      </SvgText>
 
       {/* Seta entrada */}
-      {/* @ts-ignore */}
-      <Text
+      <SvgText
         x={MH + 0 * tc + tc / 2}
         y={MV_TOP - 12}
         textAnchor="middle"
@@ -152,11 +153,10 @@ function LabirintoSVG({
         fill="#16a34a"
       >
         ▼
-      </Text>
+      </SvgText>
 
       {/* Label SAÍDA */}
-      {/* @ts-ignore */}
-      <Text
+      <SvgText
         x={MH + (colunas - 1) * tc + tc / 2}
         y={MV_TOP + linhas * tc + 12}
         textAnchor="middle"
@@ -165,11 +165,10 @@ function LabirintoSVG({
         fontFamily="Helvetica-Bold"
       >
         SAÍDA
-      </Text>
+      </SvgText>
 
       {/* Seta saída */}
-      {/* @ts-ignore */}
-      <Text
+      <SvgText
         x={MH + (colunas - 1) * tc + tc / 2}
         y={MV_TOP + linhas * tc + MV_BOT - 1}
         textAnchor="middle"
@@ -177,7 +176,7 @@ function LabirintoSVG({
         fill="#dc2626"
       >
         ▼
-      </Text>
+      </SvgText>
     </Svg>
   );
 }

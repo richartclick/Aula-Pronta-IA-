@@ -113,7 +113,8 @@ function ListaPistas({ colocadas }: { colocadas: PalavraColocada[] }) {
 export default function PalavrasCruzadasClient() {
   const [tema, setTema] = useState<string | null>(null);
   const [faixaEtaria, setFaixaEtaria] = useState<string | null>(null);
-  const [estado, setEstado] = useState<"idle" | "gerando" | "pronto" | "baixando">("idle");
+  const [estado, setEstado] = useState<"idle" | "gerando" | "pronto">("idle");
+  const [baixando, setBaixando] = useState(false);
   const [resultado, setResultado] = useState<ResultadoAPI | null>(null);
   const [erro, setErro] = useState<string | null>(null);
 
@@ -144,7 +145,7 @@ export default function PalavrasCruzadasClient() {
 
   async function handleBaixarPDF() {
     if (!resultado) return;
-    setEstado("baixando");
+    setBaixando(true);
     try {
       const res = await fetch("/api/palavras-cruzadas-pdf", {
         method: "POST",
@@ -154,7 +155,6 @@ export default function PalavrasCruzadasClient() {
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         setErro((data as { error?: string }).error ?? "Erro ao gerar PDF.");
-        setEstado("pronto");
         return;
       }
       const blob = await res.blob();
@@ -167,7 +167,7 @@ export default function PalavrasCruzadasClient() {
     } catch {
       setErro("Erro de conexão. Tente novamente.");
     } finally {
-      setEstado("pronto");
+      setBaixando(false);
     }
   }
 
@@ -317,21 +317,21 @@ export default function PalavrasCruzadasClient() {
           <div className="flex gap-3">
             <button
               onClick={handleGerar}
-              disabled={estado === "baixando"}
+              disabled={baixando}
               className="flex-1 py-3 rounded-2xl font-semibold text-indigo-700 border-2 border-indigo-200 bg-indigo-50 hover:bg-indigo-100 transition-all text-sm"
             >
               🔄 Gerar novamente
             </button>
             <button
               onClick={handleBaixarPDF}
-              disabled={estado === "baixando"}
+              disabled={baixando}
               className={`flex-1 py-3 rounded-2xl font-bold text-white transition-all ${
-                estado === "baixando"
+                baixando
                   ? "bg-slate-200 text-slate-400 cursor-not-allowed"
                   : `bg-gradient-to-r ${temaAtual?.cor ?? "from-indigo-500 to-purple-600"} hover:opacity-90 shadow-lg`
               }`}
             >
-              {estado === "baixando" ? "Gerando PDF…" : "⬇ Baixar PDF + Gabarito"}
+              {baixando ? "Gerando PDF…" : "⬇ Baixar PDF + Gabarito"}
             </button>
           </div>
 
