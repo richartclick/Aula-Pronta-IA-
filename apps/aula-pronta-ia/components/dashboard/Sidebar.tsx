@@ -12,6 +12,7 @@ const ATIVIDADES_PATHS = [
   "/dashboard/ligue-pontos",
   "/dashboard/palavras-cruzadas",
   "/dashboard/labirinto",
+  "/dashboard/caca-palavras",
 ];
 
 const navItems = [

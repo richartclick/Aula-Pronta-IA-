@@ -51,6 +51,16 @@ const MODULOS = [
     sombra: "shadow-violet-200",
     badge: "Grátis",
   },
+  {
+    href: "/dashboard/caca-palavras",
+    emoji: "🔍",
+    label: "Caça-palavras",
+    desc: "A IA escolhe palavras por tema e monta a grade — 3 dificuldades, com gabarito",
+    bncc: "EI03TS · EF01LP07",
+    cor: "from-green-400 to-emerald-500",
+    sombra: "shadow-green-200",
+    badge: "IA",
+  },
 ];
 
 export default function AtividadesPage() {
@@ -99,7 +109,7 @@ export default function AtividadesPage() {
           <span className="text-4xl mb-3">✨</span>
           <h3 className="font-bold text-slate-400 mb-1">Mais chegando</h3>
           <p className="text-slate-300 text-xs leading-relaxed">
-            Caça-palavras, pontilhados,<br />sequências numéricas e mais
+            Pontilhados, sequências<br />numéricas e mais
           </p>
         </div>
       </div>
@@ -107,8 +117,8 @@ export default function AtividadesPage() {
       {/* Estatísticas rápidas */}
       <div className="grid grid-cols-3 gap-3">
         {[
-          { label: "Ferramentas", valor: "5" },
-          { label: "Com IA", valor: "2" },
+          { label: "Ferramentas", valor: "6" },
+          { label: "Com IA", valor: "3" },
           { label: "Gratuitas", valor: "3" },
         ].map((stat) => (
           <div key={stat.label} className="bg-white border border-slate-100 rounded-2xl p-4 text-center shadow-sm">
