@@ -4,30 +4,44 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 
+// Caminhos que pertencem ao hub de Atividades
+const ATIVIDADES_PATHS = [
+  "/dashboard/atividades",
+  "/dashboard/desenhos",
+  "/dashboard/caligrafia",
+  "/dashboard/ligue-pontos",
+  "/dashboard/palavras-cruzadas",
+  "/dashboard/labirinto",
+];
+
 const navItems = [
-  { href: "/dashboard", icon: "🏠", label: "Início" },
-  { href: "/dashboard/gerar", icon: "⚡", label: "Gerar Aula", highlight: true },
-  { href: "/dashboard/desenhos", icon: "🎨", label: "Desenhos para Colorir", highlight: true },
-  { href: "/dashboard/caligrafia", icon: "✏️", label: "Caligrafia", highlight: true },
-  { href: "/dashboard/ligue-pontos", icon: "🔢", label: "Ligue os Pontos", highlight: true },
-  { href: "/dashboard/palavras-cruzadas", icon: "🔤", label: "Palavras Cruzadas", highlight: true },
-  { href: "/dashboard/labirinto", icon: "🌀", label: "Labirinto", highlight: true },
+  { href: "/dashboard",            icon: "🏠", label: "Início" },
+  { href: "/dashboard/gerar",      icon: "⚡", label: "Gerar Aula",  highlight: true },
+  { href: "/dashboard/atividades", icon: "🎯", label: "Atividades",  highlight: true },
   { href: "/dashboard/minhas-aulas", icon: "📚", label: "Minhas Aulas" },
-  { href: "/dashboard/favoritos", icon: "⭐", label: "Favoritos" },
+  { href: "/dashboard/favoritos",  icon: "⭐", label: "Favoritos" },
 ];
 
 const bottomItems = [
-  { href: "/dashboard/plano", icon: "💎", label: "Meu Plano" },
-  { href: "/dashboard/ajuda", icon: "❓", label: "Ajuda" },
+  { href: "/dashboard/plano",  icon: "💎", label: "Meu Plano" },
+  { href: "/dashboard/ajuda",  icon: "❓", label: "Ajuda" },
   { href: "/dashboard/perfil", icon: "👤", label: "Perfil" },
 ];
+
+function isActive(pathname: string, href: string): boolean {
+  if (href === "/dashboard") return pathname === "/dashboard";
+  if (href === "/dashboard/atividades") {
+    return ATIVIDADES_PATHS.some((p) => pathname.startsWith(p));
+  }
+  return pathname.startsWith(href);
+}
 
 export default function DashboardSidebar() {
   const pathname = usePathname();
 
   return (
     <>
-      {/* Desktop sidebar */}
+      {/* ── Desktop sidebar ─────────────────────────────── */}
       <aside className="hidden lg:flex flex-col w-64 bg-white border-r border-slate-100 shadow-sm min-h-screen">
         {/* Logo */}
         <div className="p-5 border-b border-slate-100 flex items-center justify-center">
@@ -45,7 +59,7 @@ export default function DashboardSidebar() {
         <nav className="flex-1 p-5 space-y-1.5">
           <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider px-3 mb-3">Menu</p>
           {navItems.map((item) => {
-            const active = pathname === item.href;
+            const active = isActive(pathname, item.href);
             return (
               <Link
                 key={item.href}
@@ -63,7 +77,9 @@ export default function DashboardSidebar() {
                 <span className="text-lg">{item.icon}</span>
                 {item.label}
                 {item.highlight && !active && (
-                  <span className="ml-auto text-xs bg-blue-600 text-white px-2 py-0.5 rounded-full">Novo</span>
+                  <span className="ml-auto text-xs bg-blue-600 text-white px-2 py-0.5 rounded-full">
+                    Novo
+                  </span>
                 )}
               </Link>
             );
@@ -72,13 +88,19 @@ export default function DashboardSidebar() {
 
         {/* Robô decorativo */}
         <div className="flex justify-center px-4 pb-2">
-          <Image src="/robo.png" alt="Assistente IA" width={160} height={160} className="object-contain drop-shadow-sm" />
+          <Image
+            src="/robo.png"
+            alt="Assistente IA"
+            width={160}
+            height={160}
+            className="object-contain drop-shadow-sm"
+          />
         </div>
 
         {/* Bottom nav */}
         <div className="p-5 border-t border-slate-100 space-y-1.5">
           {bottomItems.map((item) => {
-            const active = pathname === item.href;
+            const active = isActive(pathname, item.href);
             return (
               <Link
                 key={item.href}
@@ -107,17 +129,19 @@ export default function DashboardSidebar() {
         </div>
       </aside>
 
-      {/* Mobile bottom bar */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-100 flex justify-around pt-2 px-2" style={{ paddingBottom: 'max(8px, env(safe-area-inset-bottom))' }}>
+      {/* ── Mobile bottom bar ───────────────────────────── */}
+      <nav
+        className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-100 flex justify-around pt-2 px-2"
+        style={{ paddingBottom: "max(8px, env(safe-area-inset-bottom))" }}
+      >
         {[
-          { href: "/dashboard", icon: "🏠", label: "Início" },
-          { href: "/dashboard/gerar", icon: "⚡", label: "Gerar" },
-          { href: "/dashboard/desenhos", icon: "🎨", label: "Colorir" },
-          { href: "/dashboard/caligrafia", icon: "✏️", label: "Caligrafia" },
+          { href: "/dashboard",            icon: "🏠", label: "Início" },
+          { href: "/dashboard/gerar",      icon: "⚡", label: "Gerar" },
+          { href: "/dashboard/atividades", icon: "🎯", label: "Atividades" },
           { href: "/dashboard/minhas-aulas", icon: "📚", label: "Aulas" },
-          { href: "/dashboard/perfil", icon: "👤", label: "Perfil" },
+          { href: "/dashboard/perfil",     icon: "👤", label: "Perfil" },
         ].map((item) => {
-          const active = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href));
+          const active = isActive(pathname, item.href);
           return (
             <Link
               key={item.href}
