@@ -131,6 +131,16 @@ const MODULOS = [
     sombra: "shadow-violet-200",
     badge: "Grátis",
   },
+  {
+    href: "/dashboard/cruzadinha-silabica",
+    emoji: "🔡",
+    label: "Cruzadinha Silábica",
+    desc: "A IA escolhe palavras e divide em sílabas — aluno preenche lacunas com banco de sílabas embaralhado",
+    bncc: "EI03TS · EF01LP07 · EF02LP04",
+    cor: "from-indigo-400 to-violet-500",
+    sombra: "shadow-indigo-200",
+    badge: "IA",
+  },
 ];
 
 export default function AtividadesPage() {
@@ -187,8 +197,8 @@ export default function AtividadesPage() {
       {/* Estatísticas rápidas */}
       <div className="grid grid-cols-3 gap-3">
         {[
-          { label: "Ferramentas", valor: "13" },
-          { label: "Com IA", valor: "4" },
+          { label: "Ferramentas", valor: "14" },
+          { label: "Com IA", valor: "5" },
           { label: "Gratuitas", valor: "9" },
         ].map((stat) => (
           <div key={stat.label} className="bg-white border border-slate-100 rounded-2xl p-4 text-center shadow-sm">
