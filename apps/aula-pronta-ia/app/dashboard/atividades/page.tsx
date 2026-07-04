@@ -81,6 +81,16 @@ const MODULOS = [
     sombra: "shadow-sky-200",
     badge: "Grátis",
   },
+  {
+    href: "/dashboard/sudoku",
+    emoji: "🔢",
+    label: "Sudoku",
+    desc: "Puzzles verificados matematicamente — solução única garantida, 3 tamanhos, gabarito incluído",
+    bncc: "EI03ET · EF01MA02",
+    cor: "from-indigo-400 to-blue-600",
+    sombra: "shadow-indigo-200",
+    badge: "Grátis",
+  },
 ];
 
 export default function AtividadesPage() {
@@ -137,9 +147,9 @@ export default function AtividadesPage() {
       {/* Estatísticas rápidas */}
       <div className="grid grid-cols-3 gap-3">
         {[
-          { label: "Ferramentas", valor: "8" },
+          { label: "Ferramentas", valor: "9" },
           { label: "Com IA", valor: "3" },
-          { label: "Gratuitas", valor: "5" },
+          { label: "Gratuitas", valor: "6" },
         ].map((stat) => (
           <div key={stat.label} className="bg-white border border-slate-100 rounded-2xl p-4 text-center shadow-sm">
             <p className="text-2xl font-black text-slate-800">{stat.valor}</p>

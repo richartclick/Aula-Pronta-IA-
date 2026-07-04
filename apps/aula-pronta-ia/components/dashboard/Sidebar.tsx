@@ -15,6 +15,7 @@ const ATIVIDADES_PATHS = [
   "/dashboard/caca-palavras",
   "/dashboard/sequencias",
   "/dashboard/pontilhados",
+  "/dashboard/sudoku",
 ];
 
 const navItems = [
