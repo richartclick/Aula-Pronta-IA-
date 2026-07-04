@@ -13,6 +13,7 @@ const ATIVIDADES_PATHS = [
   "/dashboard/palavras-cruzadas",
   "/dashboard/labirinto",
   "/dashboard/caca-palavras",
+  "/dashboard/sequencias",
 ];
 
 const navItems = [

@@ -61,6 +61,16 @@ const MODULOS = [
     sombra: "shadow-green-200",
     badge: "IA",
   },
+  {
+    href: "/dashboard/sequencias",
+    emoji: "🔢",
+    label: "Sequências Numéricas",
+    desc: "Complete os números que faltam — 4 faixas etárias, com gabarito, geração instantânea",
+    bncc: "EI03ET · EF01MA02",
+    cor: "from-violet-400 to-purple-500",
+    sombra: "shadow-violet-200",
+    badge: "Grátis",
+  },
 ];
 
 export default function AtividadesPage() {
@@ -109,7 +119,7 @@ export default function AtividadesPage() {
           <span className="text-4xl mb-3">✨</span>
           <h3 className="font-bold text-slate-400 mb-1">Mais chegando</h3>
           <p className="text-slate-300 text-xs leading-relaxed">
-            Pontilhados, sequências<br />numéricas e mais
+            Pontilhados e muito mais
           </p>
         </div>
       </div>
@@ -117,9 +127,9 @@ export default function AtividadesPage() {
       {/* Estatísticas rápidas */}
       <div className="grid grid-cols-3 gap-3">
         {[
-          { label: "Ferramentas", valor: "6" },
+          { label: "Ferramentas", valor: "7" },
           { label: "Com IA", valor: "3" },
-          { label: "Gratuitas", valor: "3" },
+          { label: "Gratuitas", valor: "4" },
         ].map((stat) => (
           <div key={stat.label} className="bg-white border border-slate-100 rounded-2xl p-4 text-center shadow-sm">
             <p className="text-2xl font-black text-slate-800">{stat.valor}</p>
