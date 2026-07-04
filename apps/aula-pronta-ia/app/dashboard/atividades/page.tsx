@@ -141,6 +141,16 @@ const MODULOS = [
     sombra: "shadow-indigo-200",
     badge: "IA",
   },
+  {
+    href: "/dashboard/problemas",
+    emoji: "🧮",
+    label: "Problemas Matemáticos",
+    desc: "A IA cria situações-problema por tema e ano — PDF com espaços Dados, Operação e Resposta prontos",
+    bncc: "EF01MA10 · EF02MA06 · EF03MA07",
+    cor: "from-blue-500 to-indigo-600",
+    sombra: "shadow-blue-200",
+    badge: "IA",
+  },
 ];
 
 export default function AtividadesPage() {
@@ -197,8 +207,8 @@ export default function AtividadesPage() {
       {/* Estatísticas rápidas */}
       <div className="grid grid-cols-3 gap-3">
         {[
-          { label: "Ferramentas", valor: "14" },
-          { label: "Com IA", valor: "5" },
+          { label: "Ferramentas", valor: "15" },
+          { label: "Com IA", valor: "6" },
           { label: "Gratuitas", valor: "9" },
         ].map((stat) => (
           <div key={stat.label} className="bg-white border border-slate-100 rounded-2xl p-4 text-center shadow-sm">
