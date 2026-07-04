@@ -18,6 +18,7 @@ const ATIVIDADES_PATHS = [
   "/dashboard/sudoku",
   "/dashboard/tabuada",
   "/dashboard/forca",
+  "/dashboard/bingo",
 ];
 
 const navItems = [

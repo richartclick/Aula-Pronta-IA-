@@ -111,6 +111,16 @@ const MODULOS = [
     sombra: "shadow-rose-200",
     badge: "IA",
   },
+  {
+    href: "/dashboard/bingo",
+    emoji: "🎱",
+    label: "Bingo Pedagógico",
+    desc: "Gere 30 cartelas únicas para a turma inteira + folha de chamadas do professor, instantaneamente",
+    bncc: "EF01MA02 · EF02MA04",
+    cor: "from-blue-400 to-indigo-600",
+    sombra: "shadow-blue-200",
+    badge: "Grátis",
+  },
 ];
 
 export default function AtividadesPage() {
@@ -167,9 +177,9 @@ export default function AtividadesPage() {
       {/* Estatísticas rápidas */}
       <div className="grid grid-cols-3 gap-3">
         {[
-          { label: "Ferramentas", valor: "11" },
+          { label: "Ferramentas", valor: "12" },
           { label: "Com IA", valor: "4" },
-          { label: "Gratuitas", valor: "7" },
+          { label: "Gratuitas", valor: "8" },
         ].map((stat) => (
           <div key={stat.label} className="bg-white border border-slate-100 rounded-2xl p-4 text-center shadow-sm">
             <p className="text-2xl font-black text-slate-800">{stat.valor}</p>
