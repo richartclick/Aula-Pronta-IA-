@@ -19,6 +19,7 @@ const ATIVIDADES_PATHS = [
   "/dashboard/tabuada",
   "/dashboard/forca",
   "/dashboard/bingo",
+  "/dashboard/quadrado-magico",
 ];
 
 const navItems = [

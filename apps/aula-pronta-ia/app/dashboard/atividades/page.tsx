@@ -121,6 +121,16 @@ const MODULOS = [
     sombra: "shadow-blue-200",
     badge: "Grátis",
   },
+  {
+    href: "/dashboard/quadrado-magico",
+    emoji: "🔮",
+    label: "Quadrado Mágico",
+    desc: "Puzzles 3×3, 4×4 e 5×5 verificados — toda linha, coluna e diagonal somam o mesmo valor, 3 dificuldades",
+    bncc: "EF02MA06 · EF03MA04",
+    cor: "from-violet-500 to-purple-600",
+    sombra: "shadow-violet-200",
+    badge: "Grátis",
+  },
 ];
 
 export default function AtividadesPage() {
@@ -177,9 +187,9 @@ export default function AtividadesPage() {
       {/* Estatísticas rápidas */}
       <div className="grid grid-cols-3 gap-3">
         {[
-          { label: "Ferramentas", valor: "12" },
+          { label: "Ferramentas", valor: "13" },
           { label: "Com IA", valor: "4" },
-          { label: "Gratuitas", valor: "8" },
+          { label: "Gratuitas", valor: "9" },
         ].map((stat) => (
           <div key={stat.label} className="bg-white border border-slate-100 rounded-2xl p-4 text-center shadow-sm">
             <p className="text-2xl font-black text-slate-800">{stat.valor}</p>
