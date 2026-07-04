@@ -122,7 +122,7 @@ export default function BingoClient() {
               id: "tabuada" as BingoTipo,
               emoji: "✖️",
               label: "Bingo da Tabuada",
-              desc: "A professora chama "3 × 7" — o aluno procura 21 na cartela",
+              desc: 'A professora chama "3 × 7" — o aluno procura 21 na cartela',
               sub: "Ideal para 1º ao 5º ano · Fixação de tabuada",
             },
             {
