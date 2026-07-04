@@ -91,6 +91,26 @@ const MODULOS = [
     sombra: "shadow-indigo-200",
     badge: "Grátis",
   },
+  {
+    href: "/dashboard/tabuada",
+    emoji: "✖️",
+    label: "Tabuada com Desafio",
+    desc: "Multiplicação com lacunas variadas — resultado, fator ou misto, 30 desafios por folha",
+    bncc: "EF02MA04 · EF03MA01",
+    cor: "from-orange-400 to-rose-500",
+    sombra: "shadow-orange-200",
+    badge: "Grátis",
+  },
+  {
+    href: "/dashboard/forca",
+    emoji: "🎯",
+    label: "Forca Temático",
+    desc: "A IA escolhe palavra por tema e faixa etária — forca, alfabeto e dica já impressos no PDF",
+    bncc: "EF01LP07 · EF02LP04",
+    cor: "from-rose-400 to-pink-500",
+    sombra: "shadow-rose-200",
+    badge: "IA",
+  },
 ];
 
 export default function AtividadesPage() {
@@ -147,9 +167,9 @@ export default function AtividadesPage() {
       {/* Estatísticas rápidas */}
       <div className="grid grid-cols-3 gap-3">
         {[
-          { label: "Ferramentas", valor: "9" },
-          { label: "Com IA", valor: "3" },
-          { label: "Gratuitas", valor: "6" },
+          { label: "Ferramentas", valor: "11" },
+          { label: "Com IA", valor: "4" },
+          { label: "Gratuitas", valor: "7" },
         ].map((stat) => (
           <div key={stat.label} className="bg-white border border-slate-100 rounded-2xl p-4 text-center shadow-sm">
             <p className="text-2xl font-black text-slate-800">{stat.valor}</p>
