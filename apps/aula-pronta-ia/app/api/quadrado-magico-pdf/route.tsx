@@ -53,7 +53,7 @@ function MagicoGrid({
   const grade = gabarito ? puzzle.solucao.map((r) => r.map((v) => v as number | null)) : puzzle.grade;
 
   return (
-    <View>
+    <View style={{ width: n * cs, alignSelf: "center" }}>
       {grade.map((row, ri) => (
         <View key={ri} style={{ flexDirection: "row" }}>
           {row.map((cell, ci) => {
@@ -130,7 +130,6 @@ function PuzzleCard({
         borderWidth: 1,
         borderColor: "#e2e8f0",
         borderRadius: 8,
-        overflow: "hidden",
         flex: 1,
       }}
     >
@@ -179,7 +178,7 @@ function PuzzleCard({
       </View>
 
       {/* Conteúdo */}
-      <View style={{ padding: 10, alignItems: "center" }}>
+      <View style={{ padding: 10 }}>
         {/* Instrução */}
         {!gabarito && (
           <Text
@@ -188,7 +187,8 @@ function PuzzleCard({
               color: "#64748b",
               textAlign: "center",
               marginBottom: 8,
-              maxWidth: gridPx + 20,
+              width: gridPx + 20,
+              alignSelf: "center",
             }}
           >
             Preencha as casas em branco para que toda linha, coluna e diagonal some{" "}
@@ -210,7 +210,8 @@ function PuzzleCard({
               flexWrap: "wrap",
               justifyContent: "center",
               gap: 4,
-              maxWidth: gridPx + 20,
+              width: gridPx + 20,
+              alignSelf: "center",
               backgroundColor: "#f1f5f9",
               borderRadius: 6,
               padding: 6,
