@@ -130,6 +130,7 @@ function PuzzleCard({
         borderWidth: 1,
         borderColor: "#e2e8f0",
         borderRadius: 8,
+        overflow: "hidden",
         flex: 1,
       }}
     >
