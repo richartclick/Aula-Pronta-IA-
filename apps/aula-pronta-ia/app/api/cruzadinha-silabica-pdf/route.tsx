@@ -28,7 +28,7 @@ interface AIWord {
 }
 
 function extrairJSON(text: string): AIWord[] {
-  const match = text.match(/\[[\s\S]*?\]/);
+  const match = text.match(/\[[\s\S]*\]/);
   if (!match) throw new Error("JSON não encontrado");
   const parsed = JSON.parse(match[0]);
   if (!Array.isArray(parsed)) throw new Error("Resposta inválida");
