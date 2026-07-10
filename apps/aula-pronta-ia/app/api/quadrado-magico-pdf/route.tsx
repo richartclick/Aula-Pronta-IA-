@@ -131,7 +131,6 @@ function PuzzleCard({
         borderColor: "#e2e8f0",
         borderRadius: 8,
         overflow: "hidden",
-        flex: 1,
       }}
     >
       {/* Header */}
