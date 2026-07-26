@@ -79,20 +79,15 @@ export default function HeroSection() {
                 <p className="text-slate-500 text-[11.5px] mt-0.5">para gerar a aula</p>
               </div>
             </div>
-            <div className="relative z-[1] w-full max-w-[310px] sm:max-w-[460px] rounded-2xl overflow-hidden shadow-2xl">
-              <video
-                src="https://res.cloudinary.com/djtqzrhkf/video/upload/v1780591810/Apresenta%C3%A7%C3%A3o_Ana_-_Aula_Pronta_IA_1080p_caption_kugcnv.mp4"
-                controls
-                playsInline
-                preload="metadata"
-                className="w-full h-auto object-cover"
-              />
-            </div>
-            <div className="absolute bottom-8 right-0 z-10 bg-white rounded-2xl shadow-lg border border-slate-200 px-4 py-3 hidden sm:flex items-center gap-3" style={{ transform: 'rotate(3.5deg)' }}>
-              <div className="w-8 h-8 bg-green-100 rounded-xl flex items-center justify-center text-sm shrink-0">★</div>
-              <div>
-                <p className="font-bold text-slate-900 text-sm leading-none">4,9 / 5</p>
-                <p className="text-slate-500 text-[11.5px] mt-0.5">+5.000 professores</p>
+            {/* ESPAÇO RESERVADO PARA VÍDEO — substituir pelo vídeo final quando estiver pronto */}
+            <div className="relative z-[1] w-full max-w-[310px] sm:max-w-[460px] rounded-2xl overflow-hidden shadow-2xl aspect-video flex items-center justify-center"
+              style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #1d4ed8 100%)' }}
+            >
+              <div className="flex flex-col items-center gap-3 text-white/70">
+                <div className="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="white" opacity="0.8"><polygon points="5 3 19 12 5 21 5 3" /></svg>
+                </div>
+                <span className="text-sm font-medium tracking-wide">Vídeo em breve</span>
               </div>
             </div>
           </div>
