@@ -368,9 +368,22 @@ export default function DemoClient() {
             <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-7 text-white text-center">
               <p className="text-2xl mb-2">🚀</p>
               <h2 className="font-black text-xl mb-1">Gostou? Acesse os outros 14 módulos</h2>
-              <p className="text-slate-300 text-sm mb-5">
-                Caça-palavras, Bingo, Sudoku, Labirinto, Caligrafia, Forca e muito mais — 5 atividades por mês grátis.
+              <p className="text-slate-300 text-sm mb-4">
+                Caça-palavras, Bingo, Sudoku, Labirinto, Caligrafia, Forca e muito mais.
               </p>
+
+              {/* Badges de público */}
+              <div className="flex flex-wrap justify-center gap-2 mb-4">
+                <span className="bg-white/10 border border-white/20 text-white text-xs font-semibold px-3 py-1.5 rounded-full">🍎 Ed. Infantil</span>
+                <span className="bg-white/10 border border-white/20 text-white text-xs font-semibold px-3 py-1.5 rounded-full">📚 Anos Iniciais</span>
+                <span className="bg-white/10 border border-white/20 text-white text-xs font-semibold px-3 py-1.5 rounded-full">🎓 Anos Finais</span>
+              </div>
+              <div className="flex flex-wrap justify-center gap-2 mb-6">
+                <span className="bg-purple-500/30 border border-purple-400/40 text-purple-200 text-xs font-semibold px-3 py-1.5 rounded-full">♾ Autismo (TEA)</span>
+                <span className="bg-purple-500/30 border border-purple-400/40 text-purple-200 text-xs font-semibold px-3 py-1.5 rounded-full">⚡ TDAH</span>
+                <span className="bg-purple-500/30 border border-purple-400/40 text-purple-200 text-xs font-semibold px-3 py-1.5 rounded-full">🌟 Educação Inclusiva</span>
+              </div>
+
               <Link
                 href="/registro"
                 className="inline-block bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-black py-4 px-8 rounded-2xl text-base hover:opacity-90 transition-opacity shadow-lg shadow-indigo-900"
