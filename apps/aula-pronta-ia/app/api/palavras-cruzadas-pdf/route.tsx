@@ -17,7 +17,7 @@ const SvgText = Text as any;
 
 export const maxDuration = 60;
 
-const CELL = 28; // pt por célula
+// CELL é calculado dinamicamente em CruzadaDoc conforme o tamanho da grade
 
 const s = StyleSheet.create({
   page: {
@@ -66,19 +66,23 @@ function GridSVG({
   colocadas,
   limites,
   gabarito,
+  cell,
 }: {
   grid: GridData["grid"];
   colocadas: PalavraColocada[];
   limites: GridData["limites"];
   gabarito: boolean;
+  cell: number;
 }) {
   const { minLinha, maxLinha, minCol, maxCol } = limites;
   const rows = maxLinha - minLinha + 1;
   const cols = maxCol - minCol + 1;
-  const W = cols * CELL;
-  const H = rows * CELL;
+  const W = cols * cell;
+  const H = rows * cell;
 
-  // Mapa de número por posição
+  const numFz = Math.round(cell * 0.20);
+  const letraFz = Math.round(cell * 0.48);
+
   const numMap = new Map<string, number>();
   for (const w of colocadas) {
     numMap.set(`${w.linha},${w.coluna}`, w.numero);
@@ -95,38 +99,36 @@ function GridSVG({
         Array.from({ length: cols }, (_, ci) => {
           const gridR = ri + minLinha;
           const gridC = ci + minCol;
-          const cell = grid[gridR]?.[gridC];
-          const ativa = cell?.letra !== null;
-          const x = ci * CELL;
-          const y = ri * CELL;
+          const cellData = grid[gridR]?.[gridC];
+          const ativa = cellData?.letra !== null;
+          const x = ci * cell;
+          const y = ri * cell;
           const num = numMap.get(`${gridR},${gridC}`);
 
           if (!ativa) {
             return (
-              <Rect key={`${ri}-${ci}`} x={x} y={y} width={CELL} height={CELL} fill="#1e293b" />
+              <Rect key={`${ri}-${ci}`} x={x} y={y} width={cell} height={cell} fill="#1e293b" />
             );
           }
 
           return (
             <G key={`${ri}-${ci}`}>
-              <Rect x={x} y={y} width={CELL} height={CELL} fill="white" stroke="#94a3b8" strokeWidth={0.5} />
-              {/* Número no canto superior esquerdo */}
+              <Rect x={x} y={y} width={cell} height={cell} fill="white" stroke="#94a3b8" strokeWidth={0.5} />
               {num !== undefined && (
-                <SvgText x={x + 2} y={y + 7} fontSize={6} fill="#64748b" fontFamily="Helvetica">
+                <SvgText x={x + 2} y={y + numFz + 1} fontSize={numFz} fill="#64748b" fontFamily="Helvetica">
                   {String(num)}
                 </SvgText>
               )}
-              {/* Letra (somente no gabarito) */}
-              {gabarito && cell?.letra && (
+              {gabarito && cellData?.letra && (
                 <SvgText
-                  x={x + CELL / 2}
-                  y={y + CELL * 0.68}
+                  x={x + cell / 2}
+                  y={y + cell * 0.68}
                   textAnchor="middle"
-                  fontSize={13}
+                  fontSize={letraFz}
                   fill="#1e293b"
                   fontFamily="Helvetica-Bold"
                 >
-                  {cell.letra}
+                  {cellData.letra}
                 </SvgText>
               )}
             </G>
@@ -174,6 +176,21 @@ function Pistas({
 function CruzadaDoc({ dados }: { dados: GridData & { temaLabel: string } }) {
   const { grid, colocadas, limites, temaLabel, faixaEtaria } = dados;
 
+  // Calcula o tamanho de célula para ocupar quase toda a folha A4
+  const { minLinha, maxLinha, minCol, maxCol } = limites;
+  const rows = maxLinha - minLinha + 1;
+  const cols = maxCol - minCol + 1;
+
+  // A4 = 595pt. Padding horizontal 28×2 = 56 → área útil = 539pt
+  const availW = 539;
+  // Altura útil: 842 - 20(top) - 38(bottom) = 784pt
+  // Reserva: cabeçalho (~45pt) + título+subtítulo (~35pt) + pistas (~70pt) + margens (~20pt) = ~170pt
+  const availH = 784 - 170;
+
+  const cellFromW = Math.floor(availW / cols);
+  const cellFromH = Math.floor(availH / rows);
+  const dynCell = Math.min(cellFromW, cellFromH, 56); // máx 56pt por célula
+
   return (
     <Document title={`Palavras Cruzadas — ${temaLabel}`} author="Aula Pronta IA">
       {/* Página do aluno */}
@@ -193,7 +210,7 @@ function CruzadaDoc({ dados }: { dados: GridData & { temaLabel: string } }) {
         <Text style={s.subtitulo}>Complete o jogo usando as pistas abaixo · {faixaEtaria} anos</Text>
 
         <View style={s.gridArea}>
-          <GridSVG grid={grid} colocadas={colocadas} limites={limites} gabarito={false} />
+          <GridSVG grid={grid} colocadas={colocadas} limites={limites} gabarito={false} cell={dynCell} />
         </View>
 
         <Pistas colocadas={colocadas} />
@@ -210,7 +227,7 @@ function CruzadaDoc({ dados }: { dados: GridData & { temaLabel: string } }) {
         <Text style={s.gabarTitle}>Gabarito — {temaLabel}</Text>
 
         <View style={s.gridArea}>
-          <GridSVG grid={grid} colocadas={colocadas} limites={limites} gabarito={true} />
+          <GridSVG grid={grid} colocadas={colocadas} limites={limites} gabarito={true} cell={dynCell} />
         </View>
 
         <Pistas colocadas={colocadas} />
