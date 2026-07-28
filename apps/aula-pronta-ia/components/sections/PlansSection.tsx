@@ -1,3 +1,21 @@
+const atividadesGratis = [
+  { emoji: "🔤", label: "Palavras Cruzadas" },
+  { emoji: "🔍", label: "Caça-palavras" },
+  { emoji: "🎱", label: "Bingo" },
+  { emoji: "🔢", label: "Sudoku" },
+  { emoji: "🌀", label: "Labirinto" },
+  { emoji: "✏️", label: "Caligrafia" },
+  { emoji: "🎯", label: "Forca" },
+  { emoji: "🎨", label: "Desenhos" },
+  { emoji: "🧩", label: "Cruzadinha" },
+  { emoji: "⬛", label: "Pontilhados" },
+  { emoji: "➕", label: "Tabuada" },
+  { emoji: "🔗", label: "Ligue Pontos" },
+  { emoji: "📐", label: "Sequências" },
+  { emoji: "🟩", label: "Quad. Mágico" },
+  { emoji: "📋", label: "Aula Pronta" },
+];
+
 const CheckIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" className="shrink-0 mt-[3px]"><polyline points="20 6 9 17 4 12" /></svg>
 );
@@ -26,21 +44,42 @@ export default function PlansSection() {
         <div className="grid sm:grid-cols-3 gap-[18px] items-start">
 
           {/* Grátis */}
-          <div className="bg-white rounded-[20px] border-2 border-purple-100 p-9 flex flex-col hover:border-purple-300 hover:shadow-lg transition-all">
-            <h3 className="text-[13px] font-bold tracking-[.14em] uppercase text-purple-400 mb-1.5">Grátis</h3>
-            <p className="text-slate-500 text-sm mb-6 leading-[1.5]">Para experimentar a ferramenta no seu ritmo.</p>
-            <div className="flex items-start gap-1.5 mb-7">
+          <div className="bg-white rounded-[20px] border-2 border-orange-200 p-7 flex flex-col hover:border-orange-400 hover:shadow-lg transition-all">
+            <h3 className="text-[13px] font-bold tracking-[.14em] uppercase text-orange-500 mb-1">Grátis</h3>
+            <p className="text-slate-500 text-sm mb-4 leading-[1.5]">Para experimentar sem precisar de cartão.</p>
+            <div className="flex items-start gap-1.5 mb-5">
               <span className="text-[24px] font-fraunces mt-2 text-slate-400" style={{ fontStyle: 'italic' }}>R$</span>
               <span className="font-fraunces text-slate-900 leading-none" style={{ fontSize: '68px', fontWeight: 380, fontVariationSettings: '"opsz" 144, "SOFT" 60' }}>0</span>
               <span className="text-slate-400 text-sm self-end mb-2 font-medium">/ mês</span>
             </div>
-            <ul className="space-y-3 mb-8 flex-1">
-              {["5 atividades por mês", "PDF com gabarito", "Alinhamento BNCC", "Suporte por email"].map((f) => (
-                <li key={f} className="flex items-start gap-2.5 text-sm text-green-600"><CheckIcon /><span className="text-slate-700">{f}</span></li>
-              ))}
-            </ul>
-            <a href="/registro" className="block text-center border-2 border-purple-200 text-purple-700 font-semibold py-3.5 rounded-[14px] text-sm hover:bg-purple-50 hover:border-purple-500 transition-all">
-              Criar conta grátis
+
+            {/* Atividades disponíveis */}
+            <div className="mb-5">
+              <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">
+                5 atividades/mês — escolha entre:
+              </p>
+              <div className="grid grid-cols-3 gap-1.5">
+                {atividadesGratis.map((a) => (
+                  <div
+                    key={a.label}
+                    className="rounded-[10px] p-2 flex flex-col items-center gap-1 border border-orange-100 hover:border-orange-300 transition-all"
+                    style={{ background: '#FFF7ED' }}
+                  >
+                    <span className="text-xl">{a.emoji}</span>
+                    <span className="text-slate-600 text-[9px] font-semibold text-center leading-tight">{a.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-400 text-center mb-5">PDF com gabarito · Alinhado à BNCC</p>
+
+            <a
+              href="/demo"
+              className="block text-center text-white font-bold py-3.5 rounded-[14px] text-sm transition-all hover:-translate-y-px shadow-lg"
+              style={{ background: 'linear-gradient(135deg,#F97316,#EC4899)', boxShadow: '0 10px 24px -6px rgba(249,115,22,.45)' }}
+            >
+              Experimentar grátis →
             </a>
           </div>
 
