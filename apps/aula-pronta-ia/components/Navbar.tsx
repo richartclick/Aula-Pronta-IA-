@@ -63,10 +63,11 @@ export default function Navbar() {
             Entrar
           </a>
           <a
-            href="/registro"
-            className="inline-flex items-center gap-1.5 bg-green-500 hover:bg-green-400 text-white px-7 py-3 rounded-full text-[15px] font-bold transition-colors duration-150 shadow-sm shadow-green-200"
+            href="/demo"
+            className="inline-flex items-center gap-1.5 text-white px-7 py-3 rounded-full text-[15px] font-bold transition-all duration-150 hover:-translate-y-px"
+            style={{ background: 'linear-gradient(135deg,#F97316,#EC4899)', boxShadow: '0 8px 20px -6px rgba(249,115,22,.45)' }}
           >
-            Começar grátis
+            Gerar atividade grátis
           </a>
         </div>
 
