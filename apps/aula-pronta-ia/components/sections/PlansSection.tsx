@@ -53,14 +53,18 @@ export default function PlansSection() {
               className="absolute -top-3 right-6 bg-amber-400 text-slate-900 text-[10.5px] font-black px-4 py-1.5 rounded-full uppercase tracking-[.08em]"
               style={{ boxShadow: '0 8px 20px -6px rgba(251,191,36,.65)' }}
             >
-              Mais popular
+              🔥 Preço de Fundadora
             </span>
             <h3 className="text-[13px] font-bold tracking-[.14em] uppercase text-purple-200 mb-1.5">Básico</h3>
-            <p className="text-white/80 text-sm mb-6 leading-[1.6]">Para quem planeja toda semana e quer mais atividades disponíveis.</p>
-            <div className="flex items-start gap-1.5 mb-7">
+            <p className="text-white/80 text-sm mb-4 leading-[1.6]">Para quem planeja toda semana e quer mais atividades disponíveis.</p>
+            <div className="flex items-start gap-1.5 mb-1">
               <span className="text-[24px] font-fraunces mt-2 text-white/70" style={{ fontStyle: 'italic' }}>R$</span>
-              <span className="font-fraunces text-white leading-none" style={{ fontSize: '68px', fontWeight: 380, fontVariationSettings: '"opsz" 144, "SOFT" 60' }}>29</span>
+              <span className="font-fraunces text-white leading-none" style={{ fontSize: '68px', fontWeight: 380, fontVariationSettings: '"opsz" 144, "SOFT" 60' }}>9</span>
               <span className="text-white/70 text-sm self-end mb-2 font-medium">,90 / mês</span>
+            </div>
+            <div className="flex items-center gap-2 mb-6">
+              <span className="text-white/50 text-sm line-through">R$17,90</span>
+              <span className="bg-white/20 text-white text-xs font-bold px-2 py-0.5 rounded-full">por 90 dias</span>
             </div>
             <ul className="space-y-3 mb-8 flex-1">
               {["70 atividades por mês", "PDF com gabarito", "Aula Pronta completa", "Histórico completo", "Suporte prioritário"].map((f) => (
@@ -84,7 +88,7 @@ export default function PlansSection() {
             <p className="text-slate-500 text-sm mb-6 leading-[1.5]">Para coordenadores e quem ensina muito.</p>
             <div className="flex items-start gap-1.5 mb-7">
               <span className="text-[24px] font-fraunces mt-2 text-slate-400" style={{ fontStyle: 'italic' }}>R$</span>
-              <span className="font-fraunces text-slate-900 leading-none" style={{ fontSize: '68px', fontWeight: 380, fontVariationSettings: '"opsz" 144, "SOFT" 60' }}>39</span>
+              <span className="font-fraunces text-slate-900 leading-none" style={{ fontSize: '68px', fontWeight: 380, fontVariationSettings: '"opsz" 144, "SOFT" 60' }}>24</span>
               <span className="text-slate-400 text-sm self-end mb-2 font-medium">,90 / mês</span>
             </div>
             <ul className="space-y-3 mb-8 flex-1">
