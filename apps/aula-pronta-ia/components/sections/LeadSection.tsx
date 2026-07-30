@@ -58,14 +58,6 @@ export default function LeadSection() {
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-slate-700 font-semibold text-sm mb-1.5">Seu melhor email</label>
-                <input
-                  id="email" name="email" type="email" required placeholder="maria@email.com"
-                  className="w-full border-2 border-slate-200 rounded-xl px-4 py-3.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-pink-400 transition-colors bg-slate-50 focus:bg-white"
-                />
-              </div>
-
-              <div>
                 <label htmlFor="whatsapp" className="block text-slate-700 font-semibold text-sm mb-1.5">WhatsApp (com DDD)</label>
                 <input
                   id="whatsapp" name="whatsapp" type="tel" required placeholder="(11) 99999-9999"

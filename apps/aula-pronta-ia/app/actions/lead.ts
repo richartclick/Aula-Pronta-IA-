@@ -12,23 +12,22 @@ export async function submitLead(
   formData: FormData
 ): Promise<LeadFormState> {
   const nome = formData.get("nome")?.toString().trim();
-  const email = formData.get("email")?.toString().trim();
   const whatsapp = formData.get("whatsapp")?.toString().trim();
   const plano = formData.get("plano")?.toString() || "gratuito";
 
-  if (!nome || !email || !whatsapp) {
-    return { success: false, message: "Por favor, preencha todos os campos." };
+  if (!nome || !whatsapp) {
+    return { success: false, message: "Por favor, preencha nome e WhatsApp." };
   }
 
-  // Salva no Supabase (upsert por email — evita duplicatas)
+  // Salva no Supabase (upsert por whatsapp — evita duplicatas)
   try {
     const supabase = await createClient();
     const { error: dbError } = await supabase.from("leads").upsert(
-      { nome, email, whatsapp, plano_interesse: plano, origem: "landing-page", status: "novo" },
-      { onConflict: "email" }
+      { nome, whatsapp, plano_interesse: plano, origem: "landing-page", status: "novo" },
+      { onConflict: "whatsapp" }
     );
     if (dbError) console.error("[LEAD] Erro Supabase:", dbError.message);
-    else console.log("[LEAD] Salvo no Supabase:", email);
+    else console.log("[LEAD] Salvo no Supabase:", whatsapp);
   } catch (err) {
     console.error("[LEAD] Erro ao salvar lead:", err);
   }
@@ -59,7 +58,7 @@ export async function submitLead(
 
       // Notificação interna para o número do negócio
       const numeroNegocio = "5544997519693";
-      const notificacao = `🔔 Novo lead cadastrado!\n\nNome: ${nome}\nEmail: ${email}\nWhatsApp: ${whatsapp}\nPlano: ${plano}`;
+      const notificacao = `🔔 Novo lead cadastrado!\n\nNome: ${nome}\nWhatsApp: ${whatsapp}\nPlano: ${plano}`;
       await fetch(`https://api.z-api.io/instances/${zapiInstance}/token/${zapiToken}/send-text`, {
         method: "POST",
         headers: { "Content-Type": "application/json", "Client-Token": zapiClientToken },
